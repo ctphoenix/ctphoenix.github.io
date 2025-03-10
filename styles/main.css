@@ -321,7 +321,7 @@ footer.site-footer .footer-item:last-child {
 }
 
 /* Mobile specific styles */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 767px) {
   .content-container {
     padding: 0 0.6em;
   }
@@ -395,6 +395,29 @@ footer.site-footer .footer-item:last-child {
   .folder-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 15px;
+  }
+}
+
+/* Tablet styles */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .content-container {
+    padding: 0 0.8em;
+  }
+  
+  h1 {
+    font-size: 1.6em;
+  }
+  
+  h2 {
+    font-size: 1.3em;
+  }
+  
+  .profile-section {
+    gap: 1.5em;
+  }
+  
+  .profile-image {
+    flex: 0 0 180px;
   }
 }
 
