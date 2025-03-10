@@ -1,0 +1,106 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\setlength\parindent{0pt}
+% \usepackage{nopageno}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{comment}
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\title{Softmaxit}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+I propose a modification of softmax as an output activation function. This is because the softmax activation function exponentiates what should be log odds of probabilities.
+
+\section{Softmax Review}
+For classification neural networks, you have to choose how to transform the final layer outputs $\{z_i\}_k$ into probabilities $\{p_i\}_k$ for $k$ total classes. Softmax is the standard choice:
+
+\begin{equation}
+p_i^{\text{softmax}}:=\frac{e^{z_i}}{\sum_{j=1}^ke^{z_j}}
+\end{equation}
+
+I know of three defenses for this choice. The first two:
+\begin{itemize}
+\item[]\textbf{Benefit 1}: This function sums to 1, making it a probability space.
+\item[]\textbf{Benefit 2}: It's differentiable, and its derivative for the cross-entropy loss function is far from zero when errors are large.
+\end{itemize}
+
+Notice that any differentiable function $f:\mathbb{R}\rightarrow\mathbb{R}^+$ in place of exponentiation would do a similar job. \textbf{Benefit 3a} is given in Goodfellow \textit{et al}'s deep learning book, Page 179: 
+
+\begin{quote}
+``If we begin with the assumption that the unnormalized log probabilities are linear in $z$ and (target) $y$, we can exponentiate to obtain the unnormalized probabilities. We then normalize to see that this yields a Bernoulli distribution controlled by a sigmoidal transformation of z.''
+\end{quote}
+
+From there they construct logistic and softmax output activations for multinomial distributions. In similar style to their development, I will derive a new output activation function.
+
+\section{Softmaxit}
+\subsection{Introduction}
+My key assumption is that the log \textit{odds} of belonging to a class is linear in $z$, rather than the log \textit{probability}. This will result in a new activation function, \textit{softmaxit}. My derivation will follow soon, but I want to list the benefits of this approach beforehand. In addition to Benefits 1 and 2 still holding:
+
+\begin{itemize}
+\item[]\textbf{Benefit 3b}: This choice also yields a multinomial distribution controlled by a (new) transformation of z.
+\item[]\textbf{Benefit 4}: Log odds may take on any real value, just as $z$ does in general. This is contrast to log probabilities, which must be non-positive.
+\item[]\textbf{Benefit 5}: It's directly analogous to logistic regression. Notice that it would be similarly inelegant to regress on log probabilities instead of log odds, for the same reason.
+\item[]\textbf{Benefit 6}: (minor, stylistic point) the conventional use of calling $z$ a ``logit'' would now be appropriate and exact.
+\end{itemize}
+
+\subsection{Derivation}
+Define the log odds (\textit{i.e.}, logit) function as:
+\begin{align}
+\sigma^{-1}(p)=\frac{\text{log}(p)}{\text{log}(1-p)}
+\end{align}
+
+That is the inverse of the logistic sigmoid (\textit{i.e.}, expit) function:
+\begin{align}
+\sigma(z) := \frac{e^z}{1+e^z}
+\end{align}
+
+We'll start with the unnormalized log odds of belonging to a specific class $i\in \{1,...,k\}$, and normalize after the fact. If the log odds is linear in $z_i$, then:
+
+\begin{align}
+\sigma^{-1}(\tilde{p}_i) :&= z_i \\
+\Rightarrow\tilde{p}_i &= \sigma(z)_i \\
+p_i^{\text{softmaxit}} :&= \frac{\tilde{p}_i}{\sum_{j=1}^k \tilde{p}_j} \\
+&= \frac{e^{z_i}}{(1+e^{z_i})} \bigg/ \sum_{l=1}^k\frac{e^{z_l}}{(1+e^{-z_l})}
+\end{align}
+
+The name is made to reflect that it is like softmax, but the exp has been replaced by expit.
+
+\subsection{Backprop}
+
+The proper use of softmaxit is during both training and inference.\footnote{Using softmaxit during inference on models trained with softmax might yield better accuracy, but I'm not sure there are good reasons why, and it's anyway an empirical question.} This means we start with a cost function and do the chain rule for the params in the classification head. I'll pick the cross-entropy cost function, as that's the maximum likelihood choice for multinomial distributions:
+
+\begin{align}
+C&:=-\sum_{j=1}^ky_j\cdot \text{log}(p_j)
+\end{align}
+
+Here, $y_i$ is the multinomial label. The derivative is then:
+\begin{align}
+\frac{\partial C}{\partial z_i} &= -\sum_{j=1}^k \frac{y_j}{p_j}\frac{\partial p_j}{\partial z_i}
+\end{align}
+
+I'll solve the remaining partial derivative in parts:
+
+\begin{align}
+\frac{\partial p_j}{\partial z_i} &= \frac{\partial p_j}{\partial \tilde{p}_i}\frac{\partial \tilde{p}_i}{\partial z_i} \\
+\frac{\partial p_j}{\partial \tilde{p}_i} &=\frac{\sum_l\tilde{p}_l\cdot 1_{i=j} - \tilde{p}_j}{\left(\sum_l\tilde{p}_l\right)^2} \\
+&= p_j\left(\frac{1_{i=j}}{\tilde{p}_j}-\frac{1}{\sum_l\tilde{p}_l}\right) \\
+\frac{\partial \tilde{p}_i}{\partial z_i} &= \tilde{p}_i(1-\tilde{p}_i)
+\end{align}
+
+Upon combining these terms, the final backprop for the ``logit'' params takes a simple form:
+\begin{align}
+\frac{\partial C}{\partial z_i} &= -\tilde{p}_i(1-\tilde{p}_i)\sum_{j=1}^k y_j\left(\frac{1_{i=j}}{\tilde{p}_j}-\frac{1}{\sum_l\tilde{p}_l}\right) \\
+&= \boxed{(1-\tilde{p}_i)(p_i-y_i)}
+\end{align}
+
+This is similar to the softmax gradients of $p_i-y_i$, but weighted against large pseudo-probabilities $\tilde{p}_i$. Such large pseudo-probabilities may lead to saturation, so using the unweighted gradients might also be fine for training.
+
+\end{document}
