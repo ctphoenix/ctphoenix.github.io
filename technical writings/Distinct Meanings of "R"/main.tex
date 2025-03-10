@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\setlength\parindent{0pt}
+\usepackage{nopageno}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\title{Two Distinct ``R''s}
+\author{}
+\date{}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\begin{document}
+
+\maketitle
+
+Let $\mathbf{y}$ be a true outcome vector and $\widehat{\mathbf{y}}$ be a vector of predictions of $\mathbf{y}$. Define the (centered) sum of products $\text{SP}(\mathbf{z}, \mathbf{w}) := (\mathbf{z}-\overline{\mathbf{z}})^\top(\mathbf{w}-\overline{\mathbf{w}})$, and define the curried function $\text{SP}(\mathbf{z}) := \text{SP}(\mathbf{z}, \mathbf{z})$.
+
+\ \\
+
+Consider two estimands. First, the \emph{coefficient of determination}\footnote{The second equality in (\ref{eqn:coef}) follows if the estimator is unbiased: $\mathbb{E}(\widehat{y}) = \mathbb{E}(y)$}:
+
+\begin{align}
+    R^2 := 1 - \frac{\text{SP}(\mathbf{y}-\widehat{\mathbf{y}})}{\text{SP}(\mathbf{y})} = \frac{\text{SP}(\widehat{\mathbf{y}})}{\text{SP}(\mathbf{y})} \label{eqn:coef}
+\end{align}
+
+Second, the \emph{Pearson correlation} between outcomes and prediction:
+
+\begin{align}
+    \widehat{\rho} := \frac{\text{SP}(\mathbf{y},\  \widehat{\mathbf{y}})}{\sqrt{\text{SP}(\mathbf{y})\text{SP}(\widehat{\mathbf{y}})}}
+\end{align}
+
+
+To summarize, $\widehat{\rho}$ uses both quantities from $R^2$, in addition to a third term that does not strongly depend on the other two\footnote{The condition for equality is $\text{SP}(\mathbf{y},\  \widehat{\mathbf{y}}) = \text{SP}^{3/2}(\widehat{\mathbf{y}})\text{SP}^{-1/2}(\mathbf{y})$. \\This does not seem guaranteed, even approximately.}. So the two estimands are logically separable.
+
+\end{document}

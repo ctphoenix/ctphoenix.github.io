@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Staples - Brief Intro to Likelihood Theory</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        color: #333;
+      }
+      h1, h2, h3 {
+        color: #333;
+      }
+      h1 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin-top: 40px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+      }
+      a {
+        color: #0366d6;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .back-link {
+        margin-top: 30px;
+        display: block;
+      }
+      .breadcrumbs {
+        margin-bottom: 20px;
+        font-size: 0.9em;
+      }
+      .math-content {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 20px 0;
+        line-height: 1.8;
+      }
+      .figure {
+        text-align: center;
+        margin: 20px 0;
+      }
+      .figure img {
+        max-width: 70%;
+        height: auto;
+      }
+      .figure-caption {
+        font-style: italic;
+        margin-top: 10px;
+        color: #666;
+      }
+      .itemize {
+        margin-left: 20px;
+      }
+      .itemize li {
+        margin-bottom: 10px;
+      }
+      .footnote {
+        font-size: 0.9em;
+        color: #666;
+        margin-top: 5px;
+      }
+      .section-title {
+        margin-top: 30px;
+        font-weight: bold;
+        font-size: 1.5em;
+      }
+      .centered {
+        text-align: center;
+        margin: 20px 0;
+        font-weight: bold;
+      }
+    </style>
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a> &gt; <a href="technical-writings.html">Technical Writings</a> &gt; Brief Intro to Likelihood Theory
+    </div>
+    
+    <h1>A Brief Introduction to Likelihood Theory</h1>
+    
+    <div class="math-content">
+      <p>In class, we take estimators for granted. For example, for a distribution with mean \(\mu\), we estimate it using \(\overline{\mathbf{x}}:=\sum_i x_i/n\). But why exactly <em>that</em> equation? This is a small supplement if you'd like a really good answer to that.</p>
+
+      <div class="section-title">Probability and Likelihood</div>
+
+      <p>We tend to talk about probability, \(\mathbb{P}(\mathbf{X}|\boldsymbol{\theta})\), for data \(\mathbf{X}\) and parameters \(\boldsymbol{\theta}\)<sup>1</sup>. For example, \(\mathbf{X}\) could be an array of numbers and \(\boldsymbol{\theta}\) might be mean and standard deviation, \(\{\mu, \sigma\}\). The basic way to estimate \(\boldsymbol{\theta}\) would be to look at a related function, the <em>likelihood</em>, which is the probability of the parameters given the data: \(\mathcal{L}(\boldsymbol{\theta}|\mathbf{X}) \propto \mathbb{P}(\boldsymbol{\theta}|\mathbf{X})\) (more on this in a bit). After all, this is the situation we find ourselves in in real life: given that I have this data \(\mathbf{X}\), what are the most likely guesses of the statistics I'm interested in \(\boldsymbol{\theta}\)? We will simply take the maximum of this function. This is called...</p>
+      
+      <div class="centered">✨<strong><em>Maximum Likelihood Estimation</em></strong>✨</div>
+
+      <p>If the likelihood is smooth and convex (like a dirt mound or something), then the maximum corresponds to the unique point where there is no slope. Furthermore, we can get a sense of how "maximumy" that point is by looking at the best-fitting parabola centered at the best guess for the maximum. The technical terms for these is the <em>score</em> and the <em>information</em>, respectively, and will be calculated by taking the first and second derivatives of the likelihood. Here's a general picture of what we're looking to find, and the other things we'll calculate for a single parameter:</p>
+
+      <div class="figure">
+        <img src="technical-writings-images/likelihood_plot.png" alt="Conceptual visualization of likelihood, score, and information">
+        <div class="figure-caption">Conceptual visualization of likelihood, score, and information</div>
+      </div>
+
+      <div class="footnote">
+        <p><sup>1</sup> Going forward I'm going to bold things that are either vectors or matrices, and otherwise everything else is a single number.</p>
+      </div>
+    </div>
+    
+    <a href="technical-writings.html" class="back-link">← Back to Technical Writings</a>
+  </body>
+</html> 

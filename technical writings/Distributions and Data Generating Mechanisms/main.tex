@@ -1,0 +1,193 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[parfill]{parskip}
+\parskip = 1.5\baselineskip
+\title{Distributions}
+\date{}
+\begin{document}
+
+\maketitle
+\vspace{-1cm}
+
+When we say a random variable \(X\) has some distribution, that means we have specified
+a function that tells us how likely each outcome is. This function must sum (or integrate) to 1 over all possible values.
+
+We can view this function as having two parts:
+\[
+\text{Distribution} = \underbrace{\text{Kernel}}_{\text{interesting functional form depending on } x}
+\times
+\underbrace{\text{normalizing constant}}_{\text{ensures total probability is } 1}.
+\]
+The \emph{kernel} is simply the piece of the function that depends on the variable \(x\). 
+If this kernel integrates / sums to a finite number, we can divide the kernel by this number to multiply by the appropriate constant so that the total area (or sum) is 1.
+So any function whose integral is finite \emph{can} be turned into a probability distribution by dividing by that integral.
+
+In the examples below, we will sometimes write
+\(\displaystyle p(x) \propto f(x)\)
+to indicate ``\(p(x)\) is proportional to \(f(x)\), and the rest of the constant is chosen to make things sum or integrate to 1.''
+
+We will start with the simplest distributions and then build up to slightly more complex ones, showing how certain distributions arise naturally from data generating mechanisms. 
+We will also highlight how some distributions are related to each other (for instance, how summing certain random variables leads to another known distribution).
+
+\section*{1. Bernoulli Distribution}
+
+\subsubsection*{Kernel}
+The Bernoulli distribution takes values \(x \in \{0, 1\}\).
+We can write its pmf (probability mass function) as:
+\[
+p(x) = p^x (1-p)^{1-x}, 
+\]
+where \(0 < p < 1\). 
+
+This particular distribution doesn't have an normalizing constant: because \(x\) is either 0 or 1, we can see that this function is either \(p\) (when \(x=1\)) or \(1-p\) (when \(x=0\)), and \(p(0) + p(1) = 1\).
+
+\subsubsection*{Intuitive Explanation}
+A Bernoulli random variable represents a single trial with two possible outcomes (often called ``success'' and ``failure''), with probability \(p\) of success. 
+You might think of tossing a possibly biased coin. 
+The pmf reflects that if \(X=1\) (success), we get factor \(p\), and if \(X=0\) (failure), we get factor \((1-p)\).
+
+\section*{2. Binomial Distribution}
+
+\subsubsection*{Kernel}
+A Binomial random variable \(X \in \{0,1,\ldots,n\}\) can be viewed as the sum of \(n\) independent Bernoulli(\(p\)) trials. 
+Its pmf is:
+\[
+p(x) = \binom{n}{x}\, p^x (1-p)^{n-x}, 
+\quad x = 0,1,\ldots,n.
+\]
+If we strip out the binomial coefficient (and ignore that it depends on \(x\)), the kernel is 
+\[
+\text{Kernel} \;=\; p^x (1-p)^{n-x}.
+\]
+The factor \(\binom{n}{x}\) is also part of the pmf, but you can think of it as arising from the need to count all ways to arrange the \(x\) successes among \(n\) trials. The overall normalizing constant ensures the pmf sums to 1 over \(x=0\) to \(n\).
+
+\subsubsection*{Intuitive Explanation}
+If we flip a (possibly biased) coin \(n\) times, the Binomial(\(n,p\)) distribution describes the number of heads. 
+The form \(p^x (1-p)^{n-x}\) is the kernel from the Bernoulli story, but raised to reflect \(x\) successes and \(n-x\) failures, times a combinatorial factor counting how many distinct ways those outcomes can appear.
+
+\section*{3. Geometric Distribution}
+
+\subsubsection*{Kernel}
+For the Geometric distribution (in one convention) \(X \in \{1,2,3,\ldots\}\) is the trial index of the \emph{first} success in a sequence of Bernoulli(\(p\)) trials. Its pmf is:
+\[
+p(x) = (1-p)^{x-1} p, \quad x = 1,2,3,\ldots
+\]
+The kernel (up to a constant) is:
+\[
+\text{Kernel} \;=\; (1-p)^{x-1}.
+\]
+
+\subsubsection*{Intuitive Explanation}
+We keep flipping a coin (with success probability \(p\)) until the first success. 
+The chance that the first success is on the \(x\)-th flip requires that the first \((x-1)\) flips were failures (each with probability \((1-p)\)), and then the \(x\)-th is a success (with probability \(p\)).
+Summing over all \(x\) from 1 to \(\infty\) and requiring this sum to be 1 leads to the pmf having the factor \(p\) in front (the normalizing constant in that sense).
+
+\section*{4. Negative Binomial Distribution}
+
+\subsubsection*{Kernel}
+A Negative Binomial random variable \(X\) can be seen as the number of \emph{failures} before the \(r\)-th success (or the trial of the \(r\)-th success, depending on convention). 
+One standard pmf form is:
+\[
+p(x) = \binom{x + r - 1}{x} (1-p)^x\, p^r, 
+\quad x = 0,1,2,\ldots
+\]
+The kernel is similar to the geometric, but the choose function out front ensures all the ways you can succeed $r$ times up to $x$.
+
+\subsubsection*{Intuitive Explanation}
+This is the generalization of the geometric story to the case where we continue flipping a coin and count the number of failures before we have accumulated \(r\) successes. 
+Hence, its kernel has the same \((1-p)^{x}\) flavor, but reflects waiting for multiple successes.
+
+\section*{5. Poisson Distribution}
+
+\subsubsection*{Kernel}
+The Poisson distribution takes values \(x \in \{0,1,2,\ldots\}\) with pmf
+\[
+p(x) = \frac{\lambda^x}{x!}\, e^{-\lambda}.
+\]
+The kernel, up to a constant, is
+\[
+\text{Kernel} \;=\; \frac{\lambda^x}{x!}.
+\]
+
+\subsubsection*{Intuitive Explanation}
+The Poisson often describes the number of events (say, fish sightings in a river) that occur within a fixed time interval, given that each instant has a fixed ``instantaneous probability'' (sometimes called a hazard rate) of an event. If events happen independently at a constant average rate \(\lambda\), then the count in one unit of time follows a Poisson(\(\lambda\)) distribution. 
+
+It also has a nice property: 
+\emph{the sum of two independent Poisson random variables, with rates \(\lambda_1\) and \(\lambda_2\), is Poisson with rate \(\lambda_1 + \lambda_2\).}
+This makes sense if you imagine two independent ``streams'' of events. 
+Combining them simply creates one Poisson process with a higher total rate \(\lambda_1 + \lambda_2\).
+
+\section*{6. Exponential Distribution}
+
+\subsubsection*{Kernel}
+Moving to continuous distributions, let \(X \ge 0\). 
+Then an Exponential(\(\lambda\)) random variable has pdf
+\[
+f(x) = \lambda\, e^{-\lambda x}, \quad x \ge 0.
+\]
+The kernel is
+\[
+\text{Kernel} \;=\; e^{-\lambda x}.
+\]
+
+\subsubsection*{Intuitive Explanation}
+Imagine events happening one by one in a Poisson process with rate \(\lambda\). 
+The waiting time until the \emph{first event} is Exponential(\(\lambda\)). 
+In other words, there's a fixed instantaneous hazard rate \(\lambda\) at any moment. 
+
+This distribution is a continuous analog to the geometric distribution: the probability of seeing the first event in a tiny interval is \(\lambda \times \text{(length of interval)}\), and no memory is retained if it doesn't happen. 
+When you integrate the kernel \(e^{-\lambda x}\) from \(0\) to \(\infty\), you get \(1/\lambda\), so the factor \(\lambda\) out in front is the normalizing constant.
+
+\section*{7. Gamma Distribution}
+
+\subsubsection*{Kernel}
+A Gamma(\(\alpha, \lambda\)) random variable (for \(\alpha > 0\) and \(\lambda>0\)) has pdf
+\[
+f(x) = \frac{\lambda^\alpha}{\Gamma(\alpha)}\, x^{\alpha - 1} e^{-\lambda x}, \quad x \ge 0.
+\]
+If we ignore the multiplicative constants, the kernel is:
+\[
+\text{Kernel} \;=\; x^{\alpha - 1} e^{-\lambda x}.
+\]
+
+\subsubsection*{Intuitive Explanation}
+Like how the Negative Binomial distribution arises from waiting for \(r\) successes with a certain geometric structure, the Gamma distribution describes the waiting time until the \(\alpha\)-th event in a Poisson process, \emph{when \(\alpha\) is a positive integer}. 
+That is, the sum of \(\alpha\) independent Exponential(\(\lambda\)) random variables is Gamma(\(\alpha,\lambda\)). 
+
+When \(\alpha\) is not necessarily an integer, we can still view the Gamma as the \emph{continuous generalization} of that same idea. 
+The factor \(x^{\alpha-1}\) in the kernel arises naturally from the process of summing multiple exponential waiting times (the ``shape'' \(\alpha\) is effectively how many exponentials you're summing).
+
+\section*{8. Normal (Gaussian) Distribution}
+
+\subsubsection*{Kernel}
+The Normal distribution with mean \(\mu\) and variance \(\sigma^2\) has pdf
+\[
+f(x) = \frac{1}{\sqrt{2\pi}\sigma}\,\exp\!\biggl(-\frac{(x-\mu)^2}{2\sigma^2}\biggr).
+\]
+Up to a constant, the kernel is
+\[
+\text{Kernel} \;=\; \exp\!\Bigl(-\frac{(x-\mu)^2}{2\sigma^2}\Bigr).
+\]
+
+Don't let that form scare you: it's the exponential of a downward quadratic, with two parameters that govern the mean and width.
+
+\subsubsection*{Intuitive Explanation}
+The Normal(\(\mu,\sigma^2\)) distribution commonly arises as a sum of many small independent effects (by the Central Limit Theorem). 
+For example, if you sum up a large number of independent random variables with finite mean and variance, in many cases the distribution of that sum (properly scaled) approaches a Normal distribution. 
+Its exponential form in the kernel reflects how, in the continuum, we are effectively capturing the ``bell-shape'' that results from averaging many small random contributions.
+
+\pagebreak
+\section*{Summary of Connections}
+\begin{itemize}
+\item \emph{Bernoulli} is a single yes/no trial. 
+\item \emph{Binomial} is the sum of \(n\) Bernoulli trials. 
+\item \emph{Geometric} is the count of trials until the first success. 
+\item \emph{Negative Binomial} is the general count of failures (or trials) until the \(r\)-th success. 
+\item \emph{Poisson} arises from a ``constant hazard'' count process, and sums neatly with other Poissons. 
+\item \emph{Exponential} is the waiting time for the first event in a Poisson process. 
+\item \emph{Gamma} is the waiting time for the \(\alpha\)-th event (sum of exponentials). 
+\item \emph{Normal} arises as the continuous limit of many small additive effects (the central limit theorem).
+\end{itemize}
+
+\end{document}
