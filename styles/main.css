@@ -355,7 +355,7 @@ footer.site-footer .footer-item:last-child {
   }
   
   .profile-image {
-    flex: 0 0 80px;
+    flex: 0 0 60px;
     margin-bottom: 0;
     position: absolute;
     right: 0;
@@ -364,7 +364,7 @@ footer.site-footer .footer-item:last-child {
   
   .profile-content {
     flex: 1;
-    padding-right: 90px; /* Make room for the image */
+    padding-right: 70px;
   }
   
   .profile-content h1 {
