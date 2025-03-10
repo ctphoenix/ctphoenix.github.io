@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Staples - Power Calculation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        color: #333;
+      }
+      h1, h2, h3 {
+        color: #333;
+      }
+      h1 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin-top: 40px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+      }
+      a {
+        color: #0366d6;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .back-link {
+        margin-top: 30px;
+        display: block;
+      }
+      .breadcrumbs {
+        margin-bottom: 20px;
+        font-size: 0.9em;
+      }
+      .math-content {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 20px 0;
+        line-height: 1.8;
+      }
+      .figure {
+        text-align: center;
+        margin: 20px 0;
+      }
+      .figure img {
+        max-width: 70%;
+        height: auto;
+      }
+      .figure-caption {
+        font-style: italic;
+        margin-top: 10px;
+        color: #666;
+      }
+      .itemize {
+        margin-left: 20px;
+      }
+      .itemize li {
+        margin-bottom: 10px;
+      }
+    </style>
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a> &gt; <a href="technical-writings.html">Technical Writings</a> &gt; Power Calculation
+    </div>
+    
+    <h1>Derivation of the Power Equation</h1>
+    
+    <div class="math-content">
+      <p>By the central limit theorem,</p>
+      \begin{align}
+      \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}}  \sim Z\ \big|\ \text{H}_0 \\
+      \frac{\bar{x} - \mu_A}{\sigma/\sqrt{n}}  \sim Z\ \big|\ \text{H}_A
+      \end{align}
+
+      <p>where \(Z\) is distributed standard normal. Rearranging:</p>
+
+      \begin{align}
+      \bar{x} &\sim \frac{\sigma}{\sqrt{n}}Z + \mu_0\ \big|\ \text{H}_0 \\
+      \bar{x} &\sim \frac{\sigma}{\sqrt{n}}Z + \mu_A\ \big|\ \text{H}_A
+      \end{align}
+
+      <p>Without loss of generality, let \(\mu_A > \mu_0\). The situation looks like this:</p>
+
+      <div class="figure">
+        <img src="technical-writings-images/normals.png" alt="Normal distributions under null and alternative hypotheses">
+        <div class="figure-caption">The shaded regions are where the null is rejected under the two hypotheses.</div>
+      </div>
+
+      <p>We want to find the \(x\)-value where the yellow line is. Let's call it \(Z_c\). We want \(Z_c\) to satisfy the two properties:</p>
+
+      \begin{align}
+      \mathbb{P}(\bar{x} < Z_c \big|\ \text{H}_0) &= 1 - \alpha\\
+      \mathbb{P}(\bar{x} < Z_c \big|\ \text{H}_A) &= \beta
+      \end{align}
+
+      <p>These are met respectively when the following two equations hold:</p>
+
+      \begin{align}
+      Z_c &= \mu_0 + \frac{\sigma}{\sqrt{n}}Z_{1 - \alpha} \\
+      Z_c &= \mu_A + \frac{\sigma}{\sqrt{n}}Z_{\beta} = \mu_A - \frac{\sigma}{\sqrt{n}}Z_{1 - \beta}
+      \end{align}
+
+      <p>Because both are equal to \(Z_c\), we can drop it and set the two right-hand side expressions as equal:</p>
+
+      \begin{align}
+      \mu_0 + \frac{\sigma}{\sqrt{n}}Z_{1 - \alpha} = \mu_A - \frac{\sigma}{\sqrt{n}}Z_{1 - \beta}
+      \end{align}
+
+      <p>Solving for \(n\), we have:</p>
+
+      \begin{align}
+      \mu_A - \mu_0 &= \frac{\sigma}{\sqrt{n}}\big[Z_{1 - \alpha} + Z_{1 - \beta}\big] \\
+      \Rightarrow\quad n &= \left[\frac{\sigma(Z_{1 - \alpha} + Z_{1 - \beta})}{\mu_A - \mu_0}\right]^2
+      \end{align}
+
+      <p>The different flavors of power calculation come from:</p>
+
+      <ul class="itemize">
+        <li>two-sided tests (just substitute \(Z_{1-\alpha/2}\) in place of \(Z_{1-\alpha}\))</li>
+        <li>hypothesis testing using a more complicated statistic, like \(\bar{x}_1-\bar{x}_2\)</li>
+        <li>using a different finite-sample approximation for the distribution of \(\bar{x}\).</li>
+      </ul>
+    </div>
+    
+    <a href="technical-writings.html" class="back-link">← Back to Technical Writings</a>
+  </body>
+</html> 

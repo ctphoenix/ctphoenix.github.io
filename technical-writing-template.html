@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Staples - [TITLE]</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        color: #333;
+      }
+      h1, h2, h3 {
+        color: #333;
+      }
+      h1 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin-top: 40px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+      }
+      a {
+        color: #0366d6;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .back-link {
+        margin-top: 30px;
+        display: block;
+      }
+      .breadcrumbs {
+        margin-bottom: 20px;
+        font-size: 0.9em;
+      }
+      .math-content {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 20px 0;
+        line-height: 1.8;
+      }
+      .figure {
+        text-align: center;
+        margin: 20px 0;
+      }
+      .figure img {
+        max-width: 70%;
+        height: auto;
+      }
+      .figure-caption {
+        font-style: italic;
+        margin-top: 10px;
+        color: #666;
+      }
+      .itemize {
+        margin-left: 20px;
+      }
+      .itemize li {
+        margin-bottom: 10px;
+      }
+    </style>
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a> &gt; <a href="technical-writings.html">Technical Writings</a> &gt; [TITLE]
+    </div>
+    
+    <h1>[TITLE]</h1>
+    
+    <div class="math-content">
+      <!-- LaTeX content goes here -->
+      <p>Your LaTeX content will be rendered here using MathJax.</p>
+      
+      <!-- Example of inline math: -->
+      <p>Inline math example: \(E = mc^2\)</p>
+      
+      <!-- Example of display math: -->
+      \begin{align}
+      f(x) &= x^2\\
+      g(x) &= \frac{1}{x}\\
+      F(x) &= \int^a_b \frac{1}{3}x^3
+      \end{align}
+      
+      <!-- Example of an image: -->
+      <div class="figure">
+        <img src="path-to-your-image.png" alt="Description of the image">
+        <div class="figure-caption">Caption for the image.</div>
+      </div>
+      
+      <!-- Example of a list: -->
+      <ul class="itemize">
+        <li>First item</li>
+        <li>Second item</li>
+        <li>Third item</li>
+      </ul>
+    </div>
+    
+    <a href="technical-writings.html" class="back-link">← Back to Technical Writings</a>
+  </body>
+</html> 
