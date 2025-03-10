@@ -77,6 +77,9 @@ header.site-header .brand {
   font-weight: bold;
   margin-right: 1em;
   font-family: var(--header-font);
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 header.site-header .subtitle {
@@ -123,6 +126,49 @@ main {
   text-align: justify;
 }
 
+/* Profile section with headshot */
+.profile-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 2em 0;
+  gap: 2em;
+}
+
+.profile-image {
+  flex: 0 0 200px;
+}
+
+.profile-content {
+  flex: 1;
+}
+
+.headshot {
+  width: 100%;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Writings list */
+.writings-list {
+  margin: 2em 0;
+}
+
+.writing-item {
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.writing-item:last-child {
+  border-bottom: none;
+}
+
+.writing-item h3 {
+  margin: 0;
+}
+
+/* Math content */
 .math-content {
   background-color: var(--background-light);
   padding: 20px;
@@ -250,6 +296,16 @@ footer.site-footer .footer-item:last-child {
 
 /* Responsive design */
 @media screen and (max-width: 600px) {
+  .profile-section {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-image {
+    flex: 0 0 150px;
+    margin-bottom: 1em;
+  }
+  
   .folder-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
