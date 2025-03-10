@@ -19,6 +19,8 @@
 
 \section*{The Problem with Small Samples}
 
+The CLT guarantees that the sample proportion $\hat{p}$ is asymptotically normal, but the confidence interval is not guaranteed to be between $[0, 1]$, and is generally not efficient. This post demonstrates how the Delta Method can yield a much better confidence interval, and the calculation required to do so is very simple.
+
 Under the Central Limit Theorem, $\hat{p} \sim \text{N}(0, \frac{p(1-p)}{n})$ as $n\rightarrow\infty$. We can use this to give a confidence interval for p: $$\widehat{\text{CI}(p)}=\hat{p} \pm q_\alpha\sqrt{\frac{p(1-p)}{n}}$$ where $\alpha$ is the false positive rate and $q_\alpha:=\int_{x=1-\alpha/2}^\infty \mathbb{P}(N(0, 1) = x)$. But for small $n$, this won't be exact because $p\in [0, 1]$, but $\widehat{\text{CI}(p)}$ could be outside $[0, 1]$. Generally, for small $n$, we don't have any guarantee that $100\cdot(1-\alpha)\%$ of the confidence intervals will contain $p$.
 
 \section*{New Method}
