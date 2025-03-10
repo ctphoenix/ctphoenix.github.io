@@ -188,55 +188,55 @@
             <p>We're getting slightly ahead of ourselves, but let's do a more athletic example, multivariate linear regression. If you don't follow all of the derivation in this example it's not a problem at all, but if you did decide to brush up on your linear algebra and calculus, you should be able to follow it. Here's the model in this case:</p>
 
             \begin{equation}
-            \mathbf{y} = \mathbf{X}\bm{\beta} + \bm{\epsilon}
+            \mathbf{y} = \mathbf{X}{\beta} + {\epsilon}
             \end{equation}
 
             <p>Where:</p>
             <ul class="itemize">
               <li>\(\mathbf{y}\) is the outcome (an \(n \times 1\) vector)</li>
               <li>\(\mathbf{X}\) is our data (an \(n \times p\) matrix of predictors)</li>
-              <li>\(\bm{\beta}\) is our fitted coefficients (a \(p \times 1\) vector)</li>
-              <li>\(\bm{\epsilon}\) are the errors (an \(n \times 1\) vector)</li>
+              <li>\({\beta}\) is our fitted coefficients (a \(p \times 1\) vector)</li>
+              <li>\({\epsilon}\) are the errors (an \(n \times 1\) vector)</li>
             </ul>
 
             <p>If the errors are independent (the scope of this course) and normally distributed (an assumption of linear regression anyways), the likelihood function is:</p>
 
             \begin{equation}
-            \mathcal{L}(\bm{\beta}, \sigma^2|\mathbf{y},\mathbf{X}) = (2\pi\sigma^2)^{-n/2} \exp\left(-\frac{1}{2\sigma^2}(\mathbf{y} - \mathbf{X}\bm{\beta})^T(\mathbf{y} - \mathbf{X}\bm{\beta})\right)
+            \mathcal{L}({\beta}, \sigma^2|\mathbf{y},\mathbf{X}) = (2\pi\sigma^2)^{-n/2} \exp\left(-\frac{1}{2\sigma^2}(\mathbf{y} - \mathbf{X}{\beta})^T(\mathbf{y} - \mathbf{X}{\beta})\right)
             \end{equation}
 
             <p>Maximizing this directly would be horrible, but as typical it's better after taking the log:</p>
 
             \begin{equation}
-            \ell(\bm{\beta}, \sigma^2|\mathbf{y},\mathbf{X}) = -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}(\mathbf{y} - \mathbf{X}\bm{\beta})^T(\mathbf{y} - \mathbf{X}\bm{\beta})
+            \ell({\beta}, \sigma^2|\mathbf{y},\mathbf{X}) = -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}(\mathbf{y} - \mathbf{X}{\beta})^T(\mathbf{y} - \mathbf{X}{\beta})
             \end{equation}
 
-            <p>To find the maximum likelihood estimate of \(\bm{\beta}\), we differentiate the log-likelihood with respect to \(\bm{\beta}\) (the score)<sup>5</sup>:</p>
+            <p>To find the maximum likelihood estimate of \({\beta}\), we differentiate the log-likelihood with respect to \({\beta}\) (the score)<sup>5</sup>:</p>
 
             \begin{equation}
-            \mathcal{S}(\boldsymbol{\beta}) = \frac{\partial \ell}{\partial \bm{\beta}} = \frac{1}{\sigma^2}\mathbf{X}^T(\mathbf{y} - \mathbf{X}\bm{\beta})
+            \mathcal{S}(\boldsymbol{\beta}) = \frac{\partial \ell}{\partial {\beta}} = \frac{1}{\sigma^2}\mathbf{X}^T(\mathbf{y} - \mathbf{X}{\beta})
             \end{equation}
 
-            <p>Setting this to zero and solving for \(\bm{\beta}\):</p>
+            <p>Setting this to zero and solving for \({\beta}\):</p>
 
             \begin{equation}
-            \mathbf{X}^T\mathbf{X}\bm{\beta} = \mathbf{X}^T\mathbf{y}
+            \mathbf{X}^T\mathbf{X}{\beta} = \mathbf{X}^T\mathbf{y}
             \end{equation}
 
             \begin{equation}
-            \Rightarrow \boxed{\hat{\bm{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}}
+            \Rightarrow \boxed{\hat{{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}}
             \end{equation}
 
-            <p>This is the closed-form solution for the maximum likelihood estimates in multivariate linear regression! You can see that all it takes to compute them in practice is to do a matrix multiplication, take an inverse, then two more matrix multiplications. Deceptively simple at the end of it all. Let's go on and derive the information, taking the negative expectated value of the second derivative of the log-likelihood with respect to \(\bm{\beta}\):</p>
+            <p>This is the closed-form solution for the maximum likelihood estimates in multivariate linear regression! You can see that all it takes to compute them in practice is to do a matrix multiplication, take an inverse, then two more matrix multiplications. Deceptively simple at the end of it all. Let's go on and derive the information, taking the negative expectated value of the second derivative of the log-likelihood with respect to \({\beta}\):</p>
 
             \begin{equation}
-            \mathcal{I}(\bm{\beta}) = -\mathbb{E}\left[\frac{\partial^2 \ell}{\partial \bm{\beta} \ \partial\bm{\beta}^T}\right] = \frac{1}{\sigma^2}\mathbf{X}^T\mathbf{X}
+            \mathcal{I}({\beta}) = -\mathbb{E}\left[\frac{\partial^2 \ell}{\partial {\beta} \ \partial{\beta}^T}\right] = \frac{1}{\sigma^2}\mathbf{X}^T\mathbf{X}
             \end{equation}
 
             <p>Taking the inverse, the covariance matrix is:</p>
 
             \begin{equation}
-            Var(\hat{\bm{\beta}}) = \sigma^2(\mathbf{X}^T\mathbf{X})^{-1}
+            Var(\hat{{\beta}}) = \sigma^2(\mathbf{X}^T\mathbf{X})^{-1}
             \end{equation}
 
             <p>You can then use these to form confidence intervals, do hypothesis testing, whatever you'd like. That's it! That's literally everything you need to know to do maximum likelihood estimation yourself!</p>
