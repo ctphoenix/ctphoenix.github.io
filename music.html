@@ -10,11 +10,22 @@
         line-height: 1.6;
         margin: 0;
         padding: 20px;
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
-      }
-      h1, h2 {
         color: #333;
+      }
+      h1, h2, h3 {
+        color: #333;
+      }
+      h1 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin-top: 40px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
       }
       a {
         color: #0366d6;
@@ -23,40 +34,304 @@
       a:hover {
         text-decoration: underline;
       }
-      .audio-container {
+      .audio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
         margin: 20px 0;
+      }
+      .audio-container {
         padding: 15px;
         border: 1px solid #eee;
         border-radius: 5px;
         background-color: #f9f9f9;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .audio-container:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      }
+      .audio-container h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+      }
+      .audio-container p {
+        margin-top: 10px;
+        font-size: 0.9em;
+      }
+      .download-link {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 15px;
+        background-color: #0366d6;
+        color: white;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+      .download-link:hover {
+        background-color: #0255b3;
+        text-decoration: none;
+      }
+      .note {
+        font-style: italic;
+        color: #666;
+        font-size: 0.9em;
       }
       .back-link {
         margin-top: 30px;
         display: block;
       }
+      .category-description {
+        margin-bottom: 20px;
+      }
+      audio {
+        width: 100%;
+      }
+      .nav-container {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        padding: 10px 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        z-index: 100;
+      }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        padding-bottom: 5px;
+      }
+      .nav-link {
+        white-space: nowrap;
+        padding: 5px 10px;
+        border-radius: 4px;
+      }
+      .nav-link:hover {
+        background-color: #f0f0f0;
+      }
     </style>
   </head>
   <body>
-    <h1>My Music</h1>
+    <h1>Patrick Staples - Music Collection</h1>
     
-    <p>Welcome to my music page. Here you can listen to some of my audio work.</p>
-    
-    <div class="audio-container">
-      <h2>Remember (Night Drive Remix)</h2>
-      <audio controls>
-        <source src="audio/Remember (Night Drive Remix).mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-      <p>A remix with night drive vibes.</p>
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="#mp3-section" class="nav-link">MP3 Tracks</a>
+        <a href="#m4a-section" class="nav-link">M4A Tracks</a>
+        <a href="index.html" class="nav-link">← Back to Home</a>
+      </div>
     </div>
     
-    <div class="audio-container">
-      <h2>La Chasse</h2>
-      <audio controls>
-        <source src="audio/La Chasse.wav" type="audio/wav">
-        Your browser does not support the audio element.
-      </audio>
-      <p>An original composition.</p>
+    <p>Welcome to my music page. Here you can listen to my original compositions and audio work.</p>
+    
+    <h2 id="mp3-section">MP3 Tracks</h2>
+    <p class="category-description">A collection of my compositions in MP3 format.</p>
+    
+    <div class="audio-grid">
+      <div class="audio-container">
+        <h3>Remember (Night Drive Remix)</h3>
+        <audio controls>
+          <source src="audio/Remember (Night Drive Remix).mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A remix with night drive vibes.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Remember</h3>
+        <audio controls>
+          <source src="audio/Remember.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <p>The original version of Remember.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>La Chasse</h3>
+        <audio controls>
+          <source src="audio/La Chasse.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <p>An original composition.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>We Will Meet Again</h3>
+        <audio controls>
+          <source src="audio/We Will Meet Again.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A hopeful composition about reunion.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>2nd Movement (Piano)</h3>
+        <audio controls>
+          <source src="audio/2nd Movement (Piano).mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A piano movement from a larger composition.</p>
+      </div>
+    </div>
+    
+    <h2 id="m4a-section">M4A Tracks</h2>
+    <p class="category-description">A collection of my compositions in M4A format.</p>
+    
+    <div class="audio-grid">
+      <div class="audio-container">
+        <h3>Wandering</h3>
+        <audio controls>
+          <source src="audio/Wandering.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A musical journey of exploration.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>The Promotion</h3>
+        <audio controls>
+          <source src="audio/The Promotion.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A celebratory piece for new beginnings.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>The Belfry</h3>
+        <audio controls>
+          <source src="audio/The Belfry.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>Inspired by the sounds of church bells.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Eager Flight</h3>
+        <audio controls>
+          <source src="audio/Eager Flight.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A composition about taking off and soaring.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Lavender</h3>
+        <audio controls>
+          <source src="audio/Lavender.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A calming piece inspired by lavender fields.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Forest Spirits</h3>
+        <audio controls>
+          <source src="audio/Forest Spirits.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>Mystical sounds of the forest.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Superman</h3>
+        <audio controls>
+          <source src="audio/Superman.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A heroic composition.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Daydream</h3>
+        <audio controls>
+          <source src="audio/Daydream.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A dreamy, contemplative piece.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Fate River</h3>
+        <audio controls>
+          <source src="audio/Fate River.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A flowing composition about destiny.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>The Deadline</h3>
+        <audio controls>
+          <source src="audio/The Deadline.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A tense piece about racing against time.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Sanguine</h3>
+        <audio controls>
+          <source src="audio/Sanguine.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>An optimistic and hopeful composition.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Metal Rain</h3>
+        <audio controls>
+          <source src="audio/Metal Rain.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A powerful, percussive piece.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>The Fire</h3>
+        <audio controls>
+          <source src="audio/The Fire.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A passionate, intense composition.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Heavy Snow</h3>
+        <audio controls>
+          <source src="audio/Heavy Snow.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A quiet, contemplative winter piece.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Jumping</h3>
+        <audio controls>
+          <source src="audio/Jumping.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>An energetic, playful composition.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Choleria</h3>
+        <audio controls>
+          <source src="audio/Choleria.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>An intense, emotional piece.</p>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Wait on Him</h3>
+        <audio controls>
+          <source src="audio/Wait on Him.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <p>A spiritual, contemplative composition.</p>
+      </div>
     </div>
     
     <a href="index.html" class="back-link">← Back to Home</a>
