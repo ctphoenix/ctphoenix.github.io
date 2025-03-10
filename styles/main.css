@@ -347,19 +347,28 @@ footer.site-footer .footer-item:last-child {
   }
   
   .profile-section {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
     margin: 1.5em 0;
     gap: 1em;
+    position: relative;
   }
   
   .profile-image {
-    flex: 0 0 120px;
-    margin-bottom: 0.5em;
+    flex: 0 0 80px;
+    margin-bottom: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  .profile-content {
+    flex: 1;
+    padding-right: 90px; /* Make room for the image */
   }
   
   .profile-content h1 {
-    text-align: center;
+    text-align: left;
   }
   
   nav {
@@ -376,7 +385,7 @@ footer.site-footer .footer-item:last-child {
     padding: 0.5em 0;
     border-bottom: 1px solid var(--light-gray);
     width: 100%;
-    text-align: center;
+    text-align: left;
   }
   
   nav .nav-item:last-child {
