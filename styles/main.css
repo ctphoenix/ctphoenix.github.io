@@ -355,7 +355,7 @@ footer.site-footer .footer-item:last-child {
   }
   
   .profile-image {
-    flex: 0 0 60px;
+    flex: 0 0 40px;
     margin-bottom: 0;
     position: absolute;
     right: 0;
@@ -364,7 +364,7 @@ footer.site-footer .footer-item:last-child {
   
   .profile-content {
     flex: 1;
-    padding-right: 70px;
+    padding-right: 50px;
   }
   
   .profile-content h1 {
@@ -395,6 +395,14 @@ footer.site-footer .footer-item:last-child {
   .folder-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 15px;
+  }
+  
+  .headshot {
+    width: 100%;
+    max-width: 40px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
 }
 
