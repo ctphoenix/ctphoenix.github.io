@@ -1,0 +1,276 @@
+/* Main styles for Patrick Staples' website */
+
+:root {
+  --primary-color: #0366d6;
+  --text-color: #333;
+  --light-gray: #eee;
+  --border-color: #cccccc;
+  --background-light: #f9f9f9;
+  --max-width: 800px;
+  --header-font: 'Georgia', serif;
+  --body-font: 'Arial', sans-serif;
+}
+
+body {
+  font-family: var(--body-font);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+}
+
+.top-container {
+  min-height: calc(100vh - 80px);
+}
+
+.content-container {
+  padding: 0 1em;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--header-font);
+  color: var(--text-color);
+  text-align: start;
+}
+
+h1 {
+  font-size: 1.8em;
+  border-bottom: 2px solid var(--light-gray);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.4em;
+  margin-top: 40px;
+  border-bottom: 1px solid var(--light-gray);
+  padding-bottom: 8px;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Header styles */
+header.site-header {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1em;
+  align-items: center;
+  padding: 1em 0;
+}
+
+header.site-header .brand {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  font-weight: bold;
+  margin-right: 1em;
+  font-family: var(--header-font);
+}
+
+header.site-header .subtitle {
+  font-size: 0.9em;
+  font-style: italic;
+  color: #666;
+}
+
+/* Navigation */
+nav {
+  margin: 1em 0 2em 0;
+}
+
+nav .nav-content {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+nav .nav-item {
+  padding: 0 1em;
+  border-right: 1px solid var(--border-color);
+}
+
+nav .nav-item.active {
+  font-weight: bold;
+}
+
+nav .nav-item.active a {
+  color: #000000;
+  text-decoration: none;
+}
+
+nav .nav-item:last-child {
+  border-right: none;
+}
+
+nav .nav-item:first-child {
+  padding-left: 0;
+}
+
+/* Main content */
+main {
+  text-align: justify;
+}
+
+.math-content {
+  background-color: var(--background-light);
+  padding: 20px;
+  border-radius: 5px;
+  margin: 20px 0;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.section-title {
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 1.5em;
+  font-family: var(--header-font);
+}
+
+.subsection-title {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 1.2em;
+  font-family: var(--header-font);
+}
+
+.quote {
+  border-left: 4px solid #ddd;
+  padding-left: 15px;
+  margin: 15px 0;
+  font-style: italic;
+  color: #555;
+}
+
+.footnote {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 20px;
+  border-top: 1px solid var(--light-gray);
+  padding-top: 10px;
+}
+
+.benefit {
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+
+.benefit-title {
+  font-weight: bold;
+}
+
+/* Folder grid for technical writings */
+.folder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.folder-container {
+  padding: 15px;
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+  background-color: var(--background-light);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+
+.folder-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.folder-icon {
+  font-size: 3em;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  margin-bottom: 20px;
+  font-size: 0.9em;
+}
+
+/* Back link */
+.back-link {
+  margin-top: 30px;
+  display: block;
+}
+
+/* Footer */
+footer.site-footer {
+  margin-top: 3em;
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1em 0;
+  border-top: 1px solid var(--light-gray);
+}
+
+footer.site-footer .footer-item {
+  padding: 0 1em;
+  border-right: 1px solid var(--border-color);
+}
+
+footer.site-footer .footer-item:last-child {
+  border-right: none;
+}
+
+/* Figures and images */
+.figure {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.figure img {
+  max-width: 70%;
+  height: auto;
+}
+
+.figure-caption {
+  font-style: italic;
+  margin-top: 10px;
+  color: #666;
+}
+
+/* Responsive design */
+@media screen and (max-width: 600px) {
+  .folder-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  nav .nav-content {
+    flex-direction: column;
+  }
+  
+  nav .nav-item {
+    border-right: none;
+    padding: 0.5em 0;
+    border-bottom: 1px solid var(--light-gray);
+  }
+  
+  nav .nav-item:last-child {
+    border-bottom: none;
+  }
+}
+
+@media print {
+  header.site-header, nav, footer.site-footer {
+    display: none;
+  }
+} 

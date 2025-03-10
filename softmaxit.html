@@ -4,226 +4,168 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patrick Staples - Softmaxit</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        margin: 0;
-        padding: 20px;
-        max-width: 1000px;
-        margin: 0 auto;
-        color: #333;
-      }
-      h1, h2, h3 {
-        color: #333;
-      }
-      h1 {
-        border-bottom: 2px solid #eee;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-      }
-      h2 {
-        margin-top: 40px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 8px;
-      }
-      a {
-        color: #0366d6;
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      .back-link {
-        margin-top: 30px;
-        display: block;
-      }
-      .breadcrumbs {
-        margin-bottom: 20px;
-        font-size: 0.9em;
-      }
-      .math-content {
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 5px;
-        margin: 20px 0;
-        line-height: 1.8;
-      }
-      .figure {
-        text-align: center;
-        margin: 20px 0;
-      }
-      .figure img {
-        max-width: 70%;
-        height: auto;
-      }
-      .figure-caption {
-        font-style: italic;
-        margin-top: 10px;
-        color: #666;
-      }
-      .itemize {
-        margin-left: 20px;
-      }
-      .itemize li {
-        margin-bottom: 10px;
-      }
-      .section-title {
-        margin-top: 30px;
-        font-weight: bold;
-        font-size: 1.5em;
-      }
-      .subsection-title {
-        margin-top: 20px;
-        font-weight: bold;
-        font-size: 1.2em;
-      }
-      .quote {
-        border-left: 4px solid #ddd;
-        padding-left: 15px;
-        margin: 15px 0;
-        font-style: italic;
-        color: #555;
-      }
-      .footnote {
-        font-size: 0.9em;
-        color: #666;
-        margin-top: 20px;
-        border-top: 1px solid #eee;
-        padding-top: 10px;
-      }
-      .benefit {
-        margin-bottom: 10px;
-        padding-left: 20px;
-      }
-      .benefit-title {
-        font-weight: bold;
-      }
-    </style>
+    <link rel="stylesheet" href="styles/main.css">
     <!-- MathJax for rendering LaTeX -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </head>
   <body>
-    <div class="breadcrumbs">
-      <a href="index.html">Home</a> &gt; <a href="technical-writings.html">Technical Writings</a> &gt; Softmaxit
+    <div class="top-container">
+      <div class="content-container">
+        <header class="site-header">
+          <h1 class="brand">~Patrick Staples</h1>
+          <span class="subtitle">Technical Writings</span>
+        </header>
+        
+        <nav>
+          <div class="nav-content">
+            <span class="nav-item">
+              <a href="index.html">Home</a>
+            </span>
+            <span class="nav-item">
+              <a href="technical-writings.html">Technical Writings</a>
+            </span>
+            <span class="nav-item">
+              <a href="music.html">Music</a>
+            </span>
+          </div>
+        </nav>
+        
+        <main>
+          <div class="breadcrumbs">
+            <a href="index.html">Home</a> &gt; <a href="technical-writings.html">Technical Writings</a> &gt; Softmaxit
+          </div>
+          
+          <h1>Softmaxit</h1>
+          
+          <div class="math-content">
+            <p>I propose a modification of softmax as an output activation function. This is because the softmax activation function exponentiates what should be log odds of probabilities.</p>
+
+            <div class="section-title">Softmax Review</div>
+            
+            <p>For classification neural networks, you have to choose how to transform the final layer outputs \(\{z_i\}_k\) into probabilities \(\{p_i\}_k\) for \(k\) total classes. Softmax is the standard choice:</p>
+
+            \begin{equation}
+            p_i^{\text{softmax}}:=\frac{e^{z_i}}{\sum_{j=1}^ke^{z_j}}
+            \end{equation}
+
+            <p>I know of three defenses for this choice. The first two:</p>
+            
+            <div class="benefit">
+              <span class="benefit-title">Benefit 1:</span> This function sums to 1, making it a probability space.
+            </div>
+            
+            <div class="benefit">
+              <span class="benefit-title">Benefit 2:</span> It's differentiable, and its derivative for the cross-entropy loss function is far from zero when errors are large.
+            </div>
+
+            <p>Notice that any differentiable function \(f:\mathbb{R}\rightarrow\mathbb{R}^+\) in place of exponentiation would do a similar job. <span class="benefit-title">Benefit 3a</span> is given in Goodfellow <em>et al</em>'s deep learning book, Page 179:</p>
+
+            <div class="quote">
+              "If we begin with the assumption that the unnormalized log probabilities are linear in \(z\) and (target) \(y\), we can exponentiate to obtain the unnormalized probabilities. We then normalize to see that this yields a Bernoulli distribution controlled by a sigmoidal transformation of z."
+            </div>
+
+            <p>From there they construct logistic and softmax output activations for multinomial distributions. In similar style to their development, I will derive a new output activation function.</p>
+
+            <div class="section-title">Softmaxit</div>
+            
+            <div class="subsection-title">Introduction</div>
+            
+            <p>My key assumption is that the log <em>odds</em> of belonging to a class is linear in \(z\), rather than the log <em>probability</em>. This will result in a new activation function, <em>softmaxit</em>. My derivation will follow soon, but I want to list the benefits of this approach beforehand. In addition to Benefits 1 and 2 still holding:</p>
+
+            <div class="benefit">
+              <span class="benefit-title">Benefit 3b:</span> This choice also yields a multinomial distribution controlled by a (new) transformation of z.
+            </div>
+            
+            <div class="benefit">
+              <span class="benefit-title">Benefit 4:</span> Log odds may take on any real value, just as \(z\) does in general. This is contrast to log probabilities, which must be non-positive.
+            </div>
+            
+            <div class="benefit">
+              <span class="benefit-title">Benefit 5:</span> It's directly analogous to logistic regression. Notice that it would be similarly inelegant to regress on log probabilities instead of log odds, for the same reason.
+            </div>
+            
+            <div class="benefit">
+              <span class="benefit-title">Benefit 6:</span> (minor, stylistic point) the conventional use of calling \(z\) a "logit" would now be appropriate and exact.
+            </div>
+
+            <div class="subsection-title">Derivation</div>
+            
+            <p>Define the log odds (<em>i.e.</em>, logit) function as:</p>
+            
+            \begin{align}
+            \sigma^{-1}(p)=\frac{\text{log}(p)}{\text{log}(1-p)}
+            \end{align}
+
+            <p>That is the inverse of the logistic sigmoid (<em>i.e.</em>, expit) function:</p>
+            
+            \begin{align}
+            \sigma(z) := \frac{e^z}{1+e^z}
+            \end{align}
+
+            <p>We'll start with the unnormalized log odds of belonging to a specific class \(i\in \{1,...,k\}\), and normalize after the fact. If the log odds is linear in \(z_i\), then:</p>
+
+            \begin{align}
+            \sigma^{-1}(\tilde{p}_i) :&= z_i \\
+            \Rightarrow\tilde{p}_i &= \sigma(z)_i \\
+            p_i^{\text{softmaxit}} :&= \frac{\tilde{p}_i}{\sum_{j=1}^k \tilde{p}_j} \\
+            &= \frac{e^{z_i}}{(1+e^{z_i})} \bigg/ \sum_{l=1}^k\frac{e^{z_l}}{(1+e^{-z_l})}
+            \end{align}
+
+            <p>The name is made to reflect that it is like softmax, but the exp has been replaced by expit.</p>
+
+            <div class="subsection-title">Backprop</div>
+
+            <p>The proper use of softmaxit is during both training and inference.<sup>1</sup> This means we start with a cost function and do the chain rule for the params in the classification head. I'll pick the cross-entropy cost function, as that's the maximum likelihood choice for multinomial distributions:</p>
+
+            \begin{align}
+            C&:=-\sum_{j=1}^ky_j\cdot \text{log}(p_j)
+            \end{align}
+
+            <p>Here, \(y_i\) is the multinomial label. The derivative is then:</p>
+            
+            \begin{align}
+            \frac{\partial C}{\partial z_i} &= -\sum_{j=1}^k \frac{y_j}{p_j}\frac{\partial p_j}{\partial z_i}
+            \end{align}
+
+            <p>I'll solve the remaining partial derivative in parts:</p>
+
+            \begin{align}
+            \frac{\partial p_j}{\partial z_i} &= \frac{\partial p_j}{\partial \tilde{p}_i}\frac{\partial \tilde{p}_i}{\partial z_i} \\
+            \frac{\partial p_j}{\partial \tilde{p}_i} &=\frac{\sum_l\tilde{p}_l\cdot 1_{i=j} - \tilde{p}_j}{\left(\sum_l\tilde{p}_l\right)^2} \\
+            &= p_j\left(\frac{1_{i=j}}{\tilde{p}_j}-\frac{1}{\sum_l\tilde{p}_l}\right) \\
+            \frac{\partial \tilde{p}_i}{\partial z_i} &= \tilde{p}_i(1-\tilde{p}_i)
+            \end{align}
+
+            <p>Upon combining these terms, the final backprop for the "logit" params takes a simple form:</p>
+            
+            \begin{align}
+            \frac{\partial C}{\partial z_i} &= -\tilde{p}_i(1-\tilde{p}_i)\sum_{j=1}^k y_j\left(\frac{1_{i=j}}{\tilde{p}_j}-\frac{1}{\sum_l\tilde{p}_l}\right) \\
+            &= \boxed{(1-\tilde{p}_i)(p_i-y_i)}
+            \end{align}
+
+            <p>This is similar to the softmax gradients of \(p_i-y_i\), but weighted against large pseudo-probabilities \(\tilde{p}_i\). Such large pseudo-probabilities may lead to saturation, so using the unweighted gradients might also be fine for training.</p>
+
+            <div class="footnote">
+              <p><sup>1</sup> Using softmaxit during inference on models trained with softmax might yield better accuracy, but I'm not sure there are good reasons why, and it's anyway an empirical question.</p>
+            </div>
+          </div>
+          
+          <a href="technical-writings.html" class="back-link">← Back to Technical Writings</a>
+        </main>
+      </div>
     </div>
     
-    <h1>Softmaxit</h1>
-    
-    <div class="math-content">
-      <p>I propose a modification of softmax as an output activation function. This is because the softmax activation function exponentiates what should be log odds of probabilities.</p>
-
-      <div class="section-title">Softmax Review</div>
-      
-      <p>For classification neural networks, you have to choose how to transform the final layer outputs \(\{z_i\}_k\) into probabilities \(\{p_i\}_k\) for \(k\) total classes. Softmax is the standard choice:</p>
-
-      \begin{equation}
-      p_i^{\text{softmax}}:=\frac{e^{z_i}}{\sum_{j=1}^ke^{z_j}}
-      \end{equation}
-
-      <p>I know of three defenses for this choice. The first two:</p>
-      
-      <div class="benefit">
-        <span class="benefit-title">Benefit 1:</span> This function sums to 1, making it a probability space.
-      </div>
-      
-      <div class="benefit">
-        <span class="benefit-title">Benefit 2:</span> It's differentiable, and its derivative for the cross-entropy loss function is far from zero when errors are large.
-      </div>
-
-      <p>Notice that any differentiable function \(f:\mathbb{R}\rightarrow\mathbb{R}^+\) in place of exponentiation would do a similar job. <span class="benefit-title">Benefit 3a</span> is given in Goodfellow <em>et al</em>'s deep learning book, Page 179:</p>
-
-      <div class="quote">
-        "If we begin with the assumption that the unnormalized log probabilities are linear in \(z\) and (target) \(y\), we can exponentiate to obtain the unnormalized probabilities. We then normalize to see that this yields a Bernoulli distribution controlled by a sigmoidal transformation of z."
-      </div>
-
-      <p>From there they construct logistic and softmax output activations for multinomial distributions. In similar style to their development, I will derive a new output activation function.</p>
-
-      <div class="section-title">Softmaxit</div>
-      
-      <div class="subsection-title">Introduction</div>
-      
-      <p>My key assumption is that the log <em>odds</em> of belonging to a class is linear in \(z\), rather than the log <em>probability</em>. This will result in a new activation function, <em>softmaxit</em>. My derivation will follow soon, but I want to list the benefits of this approach beforehand. In addition to Benefits 1 and 2 still holding:</p>
-
-      <div class="benefit">
-        <span class="benefit-title">Benefit 3b:</span> This choice also yields a multinomial distribution controlled by a (new) transformation of z.
-      </div>
-      
-      <div class="benefit">
-        <span class="benefit-title">Benefit 4:</span> Log odds may take on any real value, just as \(z\) does in general. This is contrast to log probabilities, which must be non-positive.
-      </div>
-      
-      <div class="benefit">
-        <span class="benefit-title">Benefit 5:</span> It's directly analogous to logistic regression. Notice that it would be similarly inelegant to regress on log probabilities instead of log odds, for the same reason.
-      </div>
-      
-      <div class="benefit">
-        <span class="benefit-title">Benefit 6:</span> (minor, stylistic point) the conventional use of calling \(z\) a "logit" would now be appropriate and exact.
-      </div>
-
-      <div class="subsection-title">Derivation</div>
-      
-      <p>Define the log odds (<em>i.e.</em>, logit) function as:</p>
-      
-      \begin{align}
-      \sigma^{-1}(p)=\frac{\text{log}(p)}{\text{log}(1-p)}
-      \end{align}
-
-      <p>That is the inverse of the logistic sigmoid (<em>i.e.</em>, expit) function:</p>
-      
-      \begin{align}
-      \sigma(z) := \frac{e^z}{1+e^z}
-      \end{align}
-
-      <p>We'll start with the unnormalized log odds of belonging to a specific class \(i\in \{1,...,k\}\), and normalize after the fact. If the log odds is linear in \(z_i\), then:</p>
-
-      \begin{align}
-      \sigma^{-1}(\tilde{p}_i) :&= z_i \\
-      \Rightarrow\tilde{p}_i &= \sigma(z)_i \\
-      p_i^{\text{softmaxit}} :&= \frac{\tilde{p}_i}{\sum_{j=1}^k \tilde{p}_j} \\
-      &= \frac{e^{z_i}}{(1+e^{z_i})} \bigg/ \sum_{l=1}^k\frac{e^{z_l}}{(1+e^{-z_l})}
-      \end{align}
-
-      <p>The name is made to reflect that it is like softmax, but the exp has been replaced by expit.</p>
-
-      <div class="subsection-title">Backprop</div>
-
-      <p>The proper use of softmaxit is during both training and inference.<sup>1</sup> This means we start with a cost function and do the chain rule for the params in the classification head. I'll pick the cross-entropy cost function, as that's the maximum likelihood choice for multinomial distributions:</p>
-
-      \begin{align}
-      C&:=-\sum_{j=1}^ky_j\cdot \text{log}(p_j)
-      \end{align}
-
-      <p>Here, \(y_i\) is the multinomial label. The derivative is then:</p>
-      
-      \begin{align}
-      \frac{\partial C}{\partial z_i} &= -\sum_{j=1}^k \frac{y_j}{p_j}\frac{\partial p_j}{\partial z_i}
-      \end{align}
-
-      <p>I'll solve the remaining partial derivative in parts:</p>
-
-      \begin{align}
-      \frac{\partial p_j}{\partial z_i} &= \frac{\partial p_j}{\partial \tilde{p}_i}\frac{\partial \tilde{p}_i}{\partial z_i} \\
-      \frac{\partial p_j}{\partial \tilde{p}_i} &=\frac{\sum_l\tilde{p}_l\cdot 1_{i=j} - \tilde{p}_j}{\left(\sum_l\tilde{p}_l\right)^2} \\
-      &= p_j\left(\frac{1_{i=j}}{\tilde{p}_j}-\frac{1}{\sum_l\tilde{p}_l}\right) \\
-      \frac{\partial \tilde{p}_i}{\partial z_i} &= \tilde{p}_i(1-\tilde{p}_i)
-      \end{align}
-
-      <p>Upon combining these terms, the final backprop for the "logit" params takes a simple form:</p>
-      
-      \begin{align}
-      \frac{\partial C}{\partial z_i} &= -\tilde{p}_i(1-\tilde{p}_i)\sum_{j=1}^k y_j\left(\frac{1_{i=j}}{\tilde{p}_j}-\frac{1}{\sum_l\tilde{p}_l}\right) \\
-      &= \boxed{(1-\tilde{p}_i)(p_i-y_i)}
-      \end{align}
-
-      <p>This is similar to the softmax gradients of \(p_i-y_i\), but weighted against large pseudo-probabilities \(\tilde{p}_i\). Such large pseudo-probabilities may lead to saturation, so using the unweighted gradients might also be fine for training.</p>
-
-      <div class="footnote">
-        <p><sup>1</sup> Using softmaxit during inference on models trained with softmax might yield better accuracy, but I'm not sure there are good reasons why, and it's anyway an empirical question.</p>
-      </div>
-    </div>
-    
-    <a href="technical-writings.html" class="back-link">← Back to Technical Writings</a>
+    <footer class="site-footer">
+      <span class="footer-item">
+        Patrick Staples
+      </span>
+      <span class="footer-item">
+        <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+      </span>
+      <span class="footer-item">
+        <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+      </span>
+    </footer>
   </body>
 </html> 
