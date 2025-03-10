@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Staples - Quick Derivation of Statistical
+Power</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <div class="top-container">
+      <div class="content-container">
+        <header class="site-header">
+          <h1 class="brand">Patrick Staples</h1>
+          <span class="subtitle">Technical Writings</span>
+        </header>
+        
+        <nav>
+          <div class="nav-content">
+            <span class="nav-item">
+              <a href="index.html">Home</a>
+            </span>
+            <span class="nav-item active">
+              <a href="technical-writings.html">Technical Writings</a>
+            </span>
+            <span class="nav-item">
+              <a href="music.html">Music</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+            </span>
+          </div>
+        </nav>
+        
+        <main>
+          <div class="breadcrumbs">
+            <a href="technical-writings.html">← Back to Technical Writings</a>
+          </div>
+          
+          <h1>Quick Derivation of Statistical Power</h1>
+          
+          <div class="math-content">
+            <p>Typically, statistical power calculations seem to come
+            from nowhere, although they contain elements of notation
+            that are somewhat familiar. This is a compact derivation of
+            the power calculation, in the simple case of one sample.</p>
+            <p>By the central limit theorem, <span
+            class="math display">\[\begin{aligned}
+            \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}}  \sim Z\ \big|\
+            \text{H}_0 \\
+            \frac{\bar{x} - \mu_A}{\sigma/\sqrt{n}}  \sim Z\ \big|\
+            \text{H}_A
+            \end{aligned}\]</span></p>
+            <p>where <span class="math inline">\(Z\)</span> is
+            distributed standard normal. Rearranging:</p>
+            <p><span class="math display">\[\begin{aligned}
+            \bar{x} &amp;\sim \frac{\sigma}{\sqrt{n}}Z + \mu_0\ \big|\
+            \text{H}_0 \\
+            \bar{x} &amp;\sim \frac{\sigma}{\sqrt{n}}Z + \mu_A\ \big|\
+            \text{H}_A
+            \end{aligned}\]</span></p>
+            <p>Without loss of generality, let <span
+            class="math inline">\(\mu_A &gt; \mu_0\)</span>. The
+            situation looks like this:</p>
+            <figure>
+            <embed src="normals.pdf" style="width:70.0%" />
+            <figcaption>The shaded regions are where the null is
+            rejected under the two hypotheses.</figcaption>
+            </figure>
+            <p>We want to find the <span
+            class="math inline">\(x\)</span>-value where the yellow line
+            is. Let’s call it <span class="math inline">\(Z_c\)</span>.
+            We want <span class="math inline">\(Z_c\)</span> to satisfy
+            the two properties:</p>
+            <p><span class="math display">\[\begin{aligned}
+            \mathbb{P}(\bar{x} &lt; Z_c \big|\ \text{H}_0) &amp;= 1 -
+            \alpha\\
+            \mathbb{P}(\bar{x} &lt; Z_c \big|\ \text{H}_A) &amp;= \beta
+            \end{aligned}\]</span></p>
+            <p>These are met respectively when the following two
+            equations hold:</p>
+            <p><span class="math display">\[\begin{aligned}
+            Z_c &amp;= \mu_0 + \frac{\sigma}{\sqrt{n}}Z_{1 - \alpha} \\
+            Z_c &amp;= \mu_A + \frac{\sigma}{\sqrt{n}}Z_{\beta} = \mu_A
+            - \frac{\sigma}{\sqrt{n}}Z_{1 - \beta}
+            \end{aligned}\]</span></p>
+            <p>Because both are equal to <span
+            class="math inline">\(Z_c\)</span>, we can drop it and set
+            the two right-hand side expressions as equal:</p>
+            <p><span class="math display">\[\begin{aligned}
+            \mu_0 + \frac{\sigma}{\sqrt{n}}Z_{1 - \alpha} = \mu_A -
+            \frac{\sigma}{\sqrt{n}}Z_{1 - \beta}
+            \end{aligned}\]</span></p>
+            <p>Solving for <span class="math inline">\(n\)</span>, we
+            have:</p>
+            <p><span class="math display">\[\begin{aligned}
+            \mu_A - \mu_0 &amp;= \frac{\sigma}{\sqrt{n}}\big[Z_{1 -
+            \alpha} + Z_{1 - \beta}\big] \\
+            \Rightarrow\quad \Aboxed{n &amp;= \left[\frac{\sigma(Z_{1 -
+            \alpha} + Z_{1 - \beta})}{\mu_A - \mu_0}\right]^2} \\
+            \end{aligned}\]</span></p>
+            <p>The different flavors of power calculation come from:</p>
+            <ul>
+            <li><p>two-sided tests (just substitute <span
+            class="math inline">\(Z_{1-\alpha/2}\)</span> in place of
+            <span class="math inline">\(Z_{1-\alpha}\)</span>)</p></li>
+            <li><p>hypothesis testing using a more complicated
+            statistic, like <span
+            class="math inline">\(\bar{x}_1-\bar{x}_2\)</span></p></li>
+            <li><p>using a different finite-sample approximation for the
+            distribution of <span
+            class="math inline">\(\bar{x}\)</span>.</p></li>
+            </ul>
+          </div>
+          
+          <div class="breadcrumbs">
+            <a href="technical-writings.html">← Back to Technical Writings</a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html> 

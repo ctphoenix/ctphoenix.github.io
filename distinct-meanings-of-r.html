@@ -4,112 +4,113 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patrick Staples - Distinct Meanings of "R"</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        margin: 0;
-        padding: 20px;
-        max-width: 1000px;
-        margin: 0 auto;
-        color: #333;
-      }
-      h1, h2, h3 {
-        color: #333;
-      }
-      h1 {
-        border-bottom: 2px solid #eee;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-      }
-      h2 {
-        margin-top: 40px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 8px;
-      }
-      a {
-        color: #0366d6;
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      .back-link {
-        margin-top: 30px;
-        display: block;
-      }
-      .breadcrumbs {
-        margin-bottom: 20px;
-        font-size: 0.9em;
-      }
-      .math-content {
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 5px;
-        margin: 20px 0;
-        line-height: 1.8;
-      }
-      .figure {
-        text-align: center;
-        margin: 20px 0;
-      }
-      .figure img {
-        max-width: 70%;
-        height: auto;
-      }
-      .figure-caption {
-        font-style: italic;
-        margin-top: 10px;
-        color: #666;
-      }
-      .itemize {
-        margin-left: 20px;
-      }
-      .itemize li {
-        margin-bottom: 10px;
-      }
-      .footnote {
-        font-size: 0.9em;
-        color: #666;
-        margin-top: 5px;
-        border-top: 1px solid #eee;
-        padding-top: 5px;
-      }
-    </style>
+    <link rel="stylesheet" href="styles/main.css">
     <!-- MathJax for rendering LaTeX -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </head>
   <body>
-    <div class="breadcrumbs">
-      <a href="index.html">Home</a> &gt; <a href="technical-writings.html">Technical Writings</a> &gt; Distinct Meanings of "R"
-    </div>
-    
-    <h1>Two Distinct "R"s</h1>
-    
-    <div class="math-content">
-      <p>Let \(\mathbf{y}\) be a true outcome vector and \(\widehat{\mathbf{y}}\) be a vector of predictions of \(\mathbf{y}\). Define the (centered) sum of products \(\text{SP}(\mathbf{z}, \mathbf{w}) := (\mathbf{z}-\overline{\mathbf{z}})^\top(\mathbf{w}-\overline{\mathbf{w}})\), and define the curried function \(\text{SP}(\mathbf{z}) := \text{SP}(\mathbf{z}, \mathbf{z})\).</p>
-
-      <p>Consider two estimands. First, the <em>coefficient of determination</em><sup>1</sup>:</p>
-
-      \begin{align}
-          R^2 := 1 - \frac{\text{SP}(\mathbf{y}-\widehat{\mathbf{y}})}{\text{SP}(\mathbf{y})} = \frac{\text{SP}(\widehat{\mathbf{y}})}{\text{SP}(\mathbf{y})}
-      \end{align}
-
-      <p>Second, the <em>Pearson correlation</em> between outcomes and prediction:</p>
-
-      \begin{align}
-          \widehat{\rho} := \frac{\text{SP}(\mathbf{y},\  \widehat{\mathbf{y}})}{\sqrt{\text{SP}(\mathbf{y})\text{SP}(\widehat{\mathbf{y}})}}
-      \end{align}
-
-      <p>To summarize, \(\widehat{\rho}\) uses both quantities from \(R^2\), in addition to a third term that does not strongly depend on the other two<sup>2</sup>. So the two estimands are logically separable.</p>
-
-      <div class="footnote">
-        <p><sup>1</sup> The second equality follows if the estimator is unbiased: \(\mathbb{E}(\widehat{y}) = \mathbb{E}(y)\)</p>
-        <p><sup>2</sup> The condition for equality is \(\text{SP}(\mathbf{y},\  \widehat{\mathbf{y}}) = \text{SP}^{3/2}(\widehat{\mathbf{y}})\text{SP}^{-1/2}(\mathbf{y})\). This does not seem guaranteed, even approximately.</p>
+    <div class="top-container">
+      <div class="content-container">
+        <header class="site-header">
+          <h1 class="brand">Patrick Staples</h1>
+          <span class="subtitle">Technical Writings</span>
+        </header>
+        
+        <nav>
+          <div class="nav-content">
+            <span class="nav-item">
+              <a href="index.html">Home</a>
+            </span>
+            <span class="nav-item active">
+              <a href="technical-writings.html">Technical Writings</a>
+            </span>
+            <span class="nav-item">
+              <a href="music.html">Music</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+            </span>
+          </div>
+        </nav>
+        
+        <main>
+          <div class="breadcrumbs">
+            <a href="technical-writings.html">← Back to Technical Writings</a>
+          </div>
+          
+          <h1>Distinct Meanings of "R"</h1>
+          
+          <div class="math-content">
+            <p>Correlation, often denoted by "R", actually shares two
+            definitions that are logically separable. This snippet
+            demonstrates that.</p>
+            <p>Let <span class="math inline">\(\mathbf{y}\)</span> be a
+            true outcome vector and <span
+            class="math inline">\(\widehat{\mathbf{y}}\)</span> be a
+            vector of predictions of <span
+            class="math inline">\(\mathbf{y}\)</span>. Define the
+            (centered) sum of products <span
+            class="math inline">\(\text{SP}(\mathbf{z}, \mathbf{w}) :=
+            (\mathbf{z}-\overline{\mathbf{z}})^\top(\mathbf{w}-\overline{\mathbf{w}})\)</span>,
+            and define the curried function <span
+            class="math inline">\(\text{SP}(\mathbf{z}) :=
+            \text{SP}(\mathbf{z}, \mathbf{z})\)</span>.</p>
+            <p> <br />
+            Consider two estimands. First, the <em>coefficient of
+            determination</em><a href="#fn1" class="footnote-ref"
+            id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
+            <p><span class="math display">\[\begin{aligned}
+                R^2 := 1 -
+            \frac{\text{SP}(\mathbf{y}-\widehat{\mathbf{y}})}{\text{SP}(\mathbf{y})}
+            =
+            \frac{\text{SP}(\widehat{\mathbf{y}})}{\text{SP}(\mathbf{y})}
+            \label{eqn:coef}
+            \end{aligned}\]</span></p>
+            <p>Second, the <em>Pearson correlation</em> between outcomes
+            and prediction:</p>
+            <p><span class="math display">\[\begin{aligned}
+                \widehat{\rho} :=
+            \frac{\text{SP}(\mathbf{y},\  \widehat{\mathbf{y}})}{\sqrt{\text{SP}(\mathbf{y})\text{SP}(\widehat{\mathbf{y}})}}
+            \end{aligned}\]</span></p>
+            <p>To summarize, <span
+            class="math inline">\(\widehat{\rho}\)</span> uses both
+            quantities from <span class="math inline">\(R^2\)</span>, in
+            addition to a third term that does not strongly depend on
+            the other two<a href="#fn2" class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a>. So the two estimands
+            are logically separable.</p>
+            <section id="footnotes"
+            class="footnotes footnotes-end-of-document"
+            role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1"><p>The second equality in (<a href="#eqn:coef"
+            data-reference-type="ref"
+            data-reference="eqn:coef">[eqn:coef]</a>) follows if the
+            estimator is unbiased: <span
+            class="math inline">\(\mathbb{E}(\widehat{y}) =
+            \mathbb{E}(y)\)</span><a href="#fnref1"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn2"><p>The condition for equality is <span
+            class="math inline">\(\text{SP}(\mathbf{y},\  \widehat{\mathbf{y}})
+            =
+            \text{SP}^{3/2}(\widehat{\mathbf{y}})\text{SP}^{-1/2}(\mathbf{y})\)</span>.<br />
+            This does not seem guaranteed, even approximately.<a
+            href="#fnref2" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </section>
+          </div>
+          
+          <div class="breadcrumbs">
+            <a href="technical-writings.html">← Back to Technical Writings</a>
+          </div>
+        </main>
       </div>
     </div>
-    
-    <a href="technical-writings.html" class="back-link">← Back to Technical Writings</a>
   </body>
 </html> 

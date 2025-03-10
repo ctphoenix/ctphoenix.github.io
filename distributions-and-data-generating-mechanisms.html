@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Staples - Distributions and Data Generating
+Mechanisms</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <div class="top-container">
+      <div class="content-container">
+        <header class="site-header">
+          <h1 class="brand">Patrick Staples</h1>
+          <span class="subtitle">Technical Writings</span>
+        </header>
+        
+        <nav>
+          <div class="nav-content">
+            <span class="nav-item">
+              <a href="index.html">Home</a>
+            </span>
+            <span class="nav-item active">
+              <a href="technical-writings.html">Technical Writings</a>
+            </span>
+            <span class="nav-item">
+              <a href="music.html">Music</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+            </span>
+          </div>
+        </nav>
+        
+        <main>
+          <div class="breadcrumbs">
+            <a href="technical-writings.html">← Back to Technical Writings</a>
+          </div>
+          
+          <h1>Distributions and Data Generating Mechanisms</h1>
+          
+          <div class="math-content">
+            <p>When we say a random variable <span
+            class="math inline">\(X\)</span> has some distribution, that
+            means we have specified a function that tells us how likely
+            each outcome is. This function must sum (or integrate) to 1
+            over all possible values.</p>
+            <p>We can view this function as having two parts: <span
+            class="math display">\[\text{Distribution} =
+            \underbrace{\text{Kernel}}_{\text{interesting functional
+            form depending on } x}
+            \times
+            \underbrace{\text{normalizing constant}}_{\text{ensures
+            total probability is } 1}.\]</span> The <em>kernel</em> is
+            simply the piece of the function that depends on the
+            variable <span class="math inline">\(x\)</span>. If this
+            kernel integrates / sums to a finite number, we can divide
+            the kernel by this number to multiply by the appropriate
+            constant so that the total area (or sum) is 1. So any
+            function whose integral is finite <em>can</em> be turned
+            into a probability distribution by dividing by that
+            integral.</p>
+            <p>In the examples below, we will sometimes write <span
+            class="math inline">\(\displaystyle p(x) \propto
+            f(x)\)</span> to indicate “<span
+            class="math inline">\(p(x)\)</span> is proportional to <span
+            class="math inline">\(f(x)\)</span>, and the rest of the
+            constant is chosen to make things sum or integrate to
+            1.”</p>
+            <p>We will start with the simplest distributions and then
+            build up to slightly more complex ones, showing how certain
+            distributions arise naturally from data generating
+            mechanisms. We will also highlight how some distributions
+            are related to each other (for instance, how summing certain
+            random variables leads to another known distribution).</p>
+            <h1 class="unnumbered" id="bernoulli-distribution">1.
+            Bernoulli Distribution</h1>
+            <h3 class="unnumbered" id="kernel">Kernel</h3>
+            <p>The Bernoulli distribution takes values <span
+            class="math inline">\(x \in \{0, 1\}\)</span>. We can write
+            its pmf (probability mass function) as: <span
+            class="math display">\[p(x) = p^x (1-p)^{1-x},\]</span>
+            where <span class="math inline">\(0 &lt; p &lt;
+            1\)</span>.</p>
+            <p>This particular distribution doesn’t have an normalizing
+            constant: because <span class="math inline">\(x\)</span> is
+            either 0 or 1, we can see that this function is either <span
+            class="math inline">\(p\)</span> (when <span
+            class="math inline">\(x=1\)</span>) or <span
+            class="math inline">\(1-p\)</span> (when <span
+            class="math inline">\(x=0\)</span>), and <span
+            class="math inline">\(p(0) + p(1) = 1\)</span>.</p>
+            <h3 class="unnumbered" id="intuitive-explanation">Intuitive
+            Explanation</h3>
+            <p>A Bernoulli random variable represents a single trial
+            with two possible outcomes (often called “success” and
+            “failure”), with probability <span
+            class="math inline">\(p\)</span> of success. You might think
+            of tossing a possibly biased coin. The pmf reflects that if
+            <span class="math inline">\(X=1\)</span> (success), we get
+            factor <span class="math inline">\(p\)</span>, and if <span
+            class="math inline">\(X=0\)</span> (failure), we get factor
+            <span class="math inline">\((1-p)\)</span>.</p>
+            <h1 class="unnumbered" id="binomial-distribution">2.
+            Binomial Distribution</h1>
+            <h3 class="unnumbered" id="kernel-1">Kernel</h3>
+            <p>A Binomial random variable <span class="math inline">\(X
+            \in \{0,1,\ldots,n\}\)</span> can be viewed as the sum of
+            <span class="math inline">\(n\)</span> independent
+            Bernoulli(<span class="math inline">\(p\)</span>) trials.
+            Its pmf is: <span class="math display">\[p(x) =
+            \binom{n}{x}\, p^x (1-p)^{n-x},
+            \quad x = 0,1,\ldots,n.\]</span> If we strip out the
+            binomial coefficient (and ignore that it depends on <span
+            class="math inline">\(x\)</span>), the kernel is <span
+            class="math display">\[\text{Kernel} \;=\; p^x
+            (1-p)^{n-x}.\]</span> The factor <span
+            class="math inline">\(\binom{n}{x}\)</span> is also part of
+            the pmf, but you can think of it as arising from the need to
+            count all ways to arrange the <span
+            class="math inline">\(x\)</span> successes among <span
+            class="math inline">\(n\)</span> trials. The overall
+            normalizing constant ensures the pmf sums to 1 over <span
+            class="math inline">\(x=0\)</span> to <span
+            class="math inline">\(n\)</span>.</p>
+            <h3 class="unnumbered"
+            id="intuitive-explanation-1">Intuitive Explanation</h3>
+            <p>If we flip a (possibly biased) coin <span
+            class="math inline">\(n\)</span> times, the Binomial(<span
+            class="math inline">\(n,p\)</span>) distribution describes
+            the number of heads. The form <span
+            class="math inline">\(p^x (1-p)^{n-x}\)</span> is the kernel
+            from the Bernoulli story, but raised to reflect <span
+            class="math inline">\(x\)</span> successes and <span
+            class="math inline">\(n-x\)</span> failures, times a
+            combinatorial factor counting how many distinct ways those
+            outcomes can appear.</p>
+            <h1 class="unnumbered" id="geometric-distribution">3.
+            Geometric Distribution</h1>
+            <h3 class="unnumbered" id="kernel-2">Kernel</h3>
+            <p>For the Geometric distribution (in one convention) <span
+            class="math inline">\(X \in \{1,2,3,\ldots\}\)</span> is the
+            trial index of the <em>first</em> success in a sequence of
+            Bernoulli(<span class="math inline">\(p\)</span>) trials.
+            Its pmf is: <span class="math display">\[p(x) = (1-p)^{x-1}
+            p, \quad x = 1,2,3,\ldots\]</span> The kernel (up to a
+            constant) is: <span class="math display">\[\text{Kernel}
+            \;=\; (1-p)^{x-1}.\]</span></p>
+            <h3 class="unnumbered"
+            id="intuitive-explanation-2">Intuitive Explanation</h3>
+            <p>We keep flipping a coin (with success probability <span
+            class="math inline">\(p\)</span>) until the first success.
+            The chance that the first success is on the <span
+            class="math inline">\(x\)</span>-th flip requires that the
+            first <span class="math inline">\((x-1)\)</span> flips were
+            failures (each with probability <span
+            class="math inline">\((1-p)\)</span>), and then the <span
+            class="math inline">\(x\)</span>-th is a success (with
+            probability <span class="math inline">\(p\)</span>). Summing
+            over all <span class="math inline">\(x\)</span> from 1 to
+            <span class="math inline">\(\infty\)</span> and requiring
+            this sum to be 1 leads to the pmf having the factor <span
+            class="math inline">\(p\)</span> in front (the normalizing
+            constant in that sense).</p>
+            <h1 class="unnumbered"
+            id="negative-binomial-distribution">4. Negative Binomial
+            Distribution</h1>
+            <h3 class="unnumbered" id="kernel-3">Kernel</h3>
+            <p>A Negative Binomial random variable <span
+            class="math inline">\(X\)</span> can be seen as the number
+            of <em>failures</em> before the <span
+            class="math inline">\(r\)</span>-th success (or the trial of
+            the <span class="math inline">\(r\)</span>-th success,
+            depending on convention). One standard pmf form is: <span
+            class="math display">\[p(x) = \binom{x + r - 1}{x} (1-p)^x\,
+            p^r,
+            \quad x = 0,1,2,\ldots\]</span> The kernel is similar to the
+            geometric, but the choose function out front ensures all the
+            ways you can succeed <span class="math inline">\(r\)</span>
+            times up to <span class="math inline">\(x\)</span>.</p>
+            <h3 class="unnumbered"
+            id="intuitive-explanation-3">Intuitive Explanation</h3>
+            <p>This is the generalization of the geometric story to the
+            case where we continue flipping a coin and count the number
+            of failures before we have accumulated <span
+            class="math inline">\(r\)</span> successes. Hence, its
+            kernel has the same <span
+            class="math inline">\((1-p)^{x}\)</span> flavor, but
+            reflects waiting for multiple successes.</p>
+            <h1 class="unnumbered" id="poisson-distribution">5. Poisson
+            Distribution</h1>
+            <h3 class="unnumbered" id="kernel-4">Kernel</h3>
+            <p>The Poisson distribution takes values <span
+            class="math inline">\(x \in \{0,1,2,\ldots\}\)</span> with
+            pmf <span class="math display">\[p(x) =
+            \frac{\lambda^x}{x!}\, e^{-\lambda}.\]</span> The kernel, up
+            to a constant, is <span class="math display">\[\text{Kernel}
+            \;=\; \frac{\lambda^x}{x!}.\]</span></p>
+            <h3 class="unnumbered"
+            id="intuitive-explanation-4">Intuitive Explanation</h3>
+            <p>The Poisson often describes the number of events (say,
+            fish sightings in a river) that occur within a fixed time
+            interval, given that each instant has a fixed “instantaneous
+            probability” (sometimes called a hazard rate) of an event.
+            If events happen independently at a constant average rate
+            <span class="math inline">\(\lambda\)</span>, then the count
+            in one unit of time follows a Poisson(<span
+            class="math inline">\(\lambda\)</span>) distribution.</p>
+            <p>It also has a nice property: <em>the sum of two
+            independent Poisson random variables, with rates <span
+            class="math inline">\(\lambda_1\)</span> and <span
+            class="math inline">\(\lambda_2\)</span>, is Poisson with
+            rate <span class="math inline">\(\lambda_1 +
+            \lambda_2\)</span>.</em> This makes sense if you imagine two
+            independent “streams” of events. Combining them simply
+            creates one Poisson process with a higher total rate <span
+            class="math inline">\(\lambda_1 + \lambda_2\)</span>.</p>
+            <h1 class="unnumbered" id="exponential-distribution">6.
+            Exponential Distribution</h1>
+            <h3 class="unnumbered" id="kernel-5">Kernel</h3>
+            <p>Moving to continuous distributions, let <span
+            class="math inline">\(X \ge 0\)</span>. Then an
+            Exponential(<span class="math inline">\(\lambda\)</span>)
+            random variable has pdf <span class="math display">\[f(x) =
+            \lambda\, e^{-\lambda x}, \quad x \ge 0.\]</span> The kernel
+            is <span class="math display">\[\text{Kernel} \;=\;
+            e^{-\lambda x}.\]</span></p>
+            <h3 class="unnumbered"
+            id="intuitive-explanation-5">Intuitive Explanation</h3>
+            <p>Imagine events happening one by one in a Poisson process
+            with rate <span class="math inline">\(\lambda\)</span>. The
+            waiting time until the <em>first event</em> is
+            Exponential(<span class="math inline">\(\lambda\)</span>).
+            In other words, there’s a fixed instantaneous hazard rate
+            <span class="math inline">\(\lambda\)</span> at any
+            moment.</p>
+            <p>This distribution is a continuous analog to the geometric
+            distribution: the probability of seeing the first event in a
+            tiny interval is <span class="math inline">\(\lambda \times
+            \text{(length of interval)}\)</span>, and no memory is
+            retained if it doesn’t happen. When you integrate the kernel
+            <span class="math inline">\(e^{-\lambda x}\)</span> from
+            <span class="math inline">\(0\)</span> to <span
+            class="math inline">\(\infty\)</span>, you get <span
+            class="math inline">\(1/\lambda\)</span>, so the factor
+            <span class="math inline">\(\lambda\)</span> out in front is
+            the normalizing constant.</p>
+            <h1 class="unnumbered" id="gamma-distribution">7. Gamma
+            Distribution</h1>
+            <h3 class="unnumbered" id="kernel-6">Kernel</h3>
+            <p>A Gamma(<span class="math inline">\(\alpha,
+            \lambda\)</span>) random variable (for <span
+            class="math inline">\(\alpha &gt; 0\)</span> and <span
+            class="math inline">\(\lambda&gt;0\)</span>) has pdf <span
+            class="math display">\[f(x) =
+            \frac{\lambda^\alpha}{\Gamma(\alpha)}\, x^{\alpha - 1}
+            e^{-\lambda x}, \quad x \ge 0.\]</span> If we ignore the
+            multiplicative constants, the kernel is: <span
+            class="math display">\[\text{Kernel} \;=\; x^{\alpha - 1}
+            e^{-\lambda x}.\]</span></p>
+            <h3 class="unnumbered"
+            id="intuitive-explanation-6">Intuitive Explanation</h3>
+            <p>Like how the Negative Binomial distribution arises from
+            waiting for <span class="math inline">\(r\)</span> successes
+            with a certain geometric structure, the Gamma distribution
+            describes the waiting time until the <span
+            class="math inline">\(\alpha\)</span>-th event in a Poisson
+            process, <em>when <span
+            class="math inline">\(\alpha\)</span> is a positive
+            integer</em>. That is, the sum of <span
+            class="math inline">\(\alpha\)</span> independent
+            Exponential(<span class="math inline">\(\lambda\)</span>)
+            random variables is Gamma(<span
+            class="math inline">\(\alpha,\lambda\)</span>).</p>
+            <p>When <span class="math inline">\(\alpha\)</span> is not
+            necessarily an integer, we can still view the Gamma as the
+            <em>continuous generalization</em> of that same idea. The
+            factor <span class="math inline">\(x^{\alpha-1}\)</span> in
+            the kernel arises naturally from the process of summing
+            multiple exponential waiting times (the “shape” <span
+            class="math inline">\(\alpha\)</span> is effectively how
+            many exponentials you’re summing).</p>
+            <h1 class="unnumbered" id="normal-gaussian-distribution">8.
+            Normal (Gaussian) Distribution</h1>
+            <h3 class="unnumbered" id="kernel-7">Kernel</h3>
+            <p>The Normal distribution with mean <span
+            class="math inline">\(\mu\)</span> and variance <span
+            class="math inline">\(\sigma^2\)</span> has pdf <span
+            class="math display">\[f(x) =
+            \frac{1}{\sqrt{2\pi}\sigma}\,\exp\!\biggl(-\frac{(x-\mu)^2}{2\sigma^2}\biggr).\]</span>
+            Up to a constant, the kernel is <span
+            class="math display">\[\text{Kernel} \;=\;
+            \exp\!\Bigl(-\frac{(x-\mu)^2}{2\sigma^2}\Bigr).\]</span></p>
+            <p>Don’t let that form scare you: it’s the exponential of a
+            downward quadratic, with two parameters that govern the mean
+            and width.</p>
+            <h3 class="unnumbered"
+            id="intuitive-explanation-7">Intuitive Explanation</h3>
+            <p>The Normal(<span
+            class="math inline">\(\mu,\sigma^2\)</span>) distribution
+            commonly arises as a sum of many small independent effects
+            (by the Central Limit Theorem). For example, if you sum up a
+            large number of independent random variables with finite
+            mean and variance, in many cases the distribution of that
+            sum (properly scaled) approaches a Normal distribution. Its
+            exponential form in the kernel reflects how, in the
+            continuum, we are effectively capturing the “bell-shape”
+            that results from averaging many small random
+            contributions.</p>
+            <h1 class="unnumbered" id="summary-of-connections">Summary
+            of Connections</h1>
+            <ul>
+            <li><p><em>Bernoulli</em> is a single yes/no trial.</p></li>
+            <li><p><em>Binomial</em> is the sum of <span
+            class="math inline">\(n\)</span> Bernoulli trials.</p></li>
+            <li><p><em>Geometric</em> is the count of trials until the
+            first success.</p></li>
+            <li><p><em>Negative Binomial</em> is the general count of
+            failures (or trials) until the <span
+            class="math inline">\(r\)</span>-th success.</p></li>
+            <li><p><em>Poisson</em> arises from a “constant hazard”
+            count process, and sums neatly with other Poissons.</p></li>
+            <li><p><em>Exponential</em> is the waiting time for the
+            first event in a Poisson process.</p></li>
+            <li><p><em>Gamma</em> is the waiting time for the <span
+            class="math inline">\(\alpha\)</span>-th event (sum of
+            exponentials).</p></li>
+            <li><p><em>Normal</em> arises as the continuous limit of
+            many small additive effects (the central limit
+            theorem).</p></li>
+            </ul>
+          </div>
+          
+          <div class="breadcrumbs">
+            <a href="technical-writings.html">← Back to Technical Writings</a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html> 

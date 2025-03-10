@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Staples - Optimal Stopping Times</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <div class="top-container">
+      <div class="content-container">
+        <header class="site-header">
+          <h1 class="brand">Patrick Staples</h1>
+          <span class="subtitle">Technical Writings</span>
+        </header>
+        
+        <nav>
+          <div class="nav-content">
+            <span class="nav-item">
+              <a href="index.html">Home</a>
+            </span>
+            <span class="nav-item active">
+              <a href="technical-writings.html">Technical Writings</a>
+            </span>
+            <span class="nav-item">
+              <a href="music.html">Music</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+            </span>
+          </div>
+        </nav>
+        
+        <main>
+          <div class="breadcrumbs">
+            <a href="technical-writings.html">← Back to Technical Writings</a>
+          </div>
+          
+          <h1>Optimal Stopping Times</h1>
+          
+          <div class="math-content">
+            <h1 id="introduction">Introduction</h1>
+            <p>We’re trying to detect if chunks of text contain some
+            trait (<em>e.g.</em>, talk of self-harm). Whether they do or
+            not can be described as a collection of coin flips <span
+            class="math inline">\(y_i \sim \text{Bernoulli}(p_i),\
+            i=1,...,n\)</span>, where <span
+            class="math inline">\(i\)</span> indexes a document, <span
+            class="math inline">\(y_i=1\)</span> if and only if the
+            trait is present in the chunk, and <span
+            class="math inline">\(p_i\)</span> is the probability of
+            <span class="math inline">\(y_i=1\)</span>. The task is for
+            a human checker to find all the <span
+            class="math inline">\(\{i: y_i=1\}\)</span>, but alas <span
+            class="math inline">\(n\)</span> is so large we can’t
+            actually check them all.</p>
+            <p>The most recent strategy we’ve discussed is to:</p>
+            <ol>
+            <li><p>rank <span class="math inline">\(n\)</span> chunks
+            from most likely to contain the trait to the least
+            likely,</p></li>
+            <li><p>verify the most likely ones first, checking in
+            decreasing order of likelihood,</p></li>
+            <li><p>stop at some point.</p></li>
+            </ol>
+            <p>If we stop before checking them all, of course we might
+            miss some <span class="math inline">\(y_i=1\)</span> cases.
+            The method proposed here will give an estimate of how many
+            such cases we are likely to have missed for any stopping
+            point.</p>
+            <p>Assume the ranking above is already done: the ranker
+            tried to re-order the <span
+            class="math inline">\(y_i\)</span>s to put <span
+            class="math inline">\(p_i\)</span>s in monotonically
+            decreasing order, <span class="math inline">\(p_1 \geq p_2
+            \geq ... \geq p_n\)</span>.</p>
+            <p>The method we propose makes a <strong>single key
+            assumption</strong><a href="#fn1" class="footnote-ref"
+            id="fnref1" role="doc-noteref"><sup>1</sup></a><a
+            href="#fn2" class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a>:</p>
+            <p><span class="math display">\[\begin{aligned}
+            p_i &amp;= \boxed{\text{expit}\left(a + b\cdot
+            \frac{i}{n}\right)}\ ,\text{\ \ \ where\ \ \ expit}(x) :=
+            \frac{1}{1+e^{-x}}.\label{eq}
+            \end{aligned}\]</span></p>
+            <p>The goal is to check enough chunks such that the expected
+            number of cases among the unchecked chunks, or count of
+            <em>false negatives</em> (), is sufficiently low. Formally,
+            the goal is to select <span
+            class="math inline">\(i^*\)</span> satisfying</p>
+            <p><span class="math display">\[\begin{aligned}
+            \text{fn}(i^*) := \sum_{i=i^*+1}^n \mathbb{E}(y_i) \leq t
+            \end{aligned}\]</span> for a desired threshold <span
+            class="math inline">\(t\)</span>.</p>
+            <h1 id="methods">Methods</h1>
+            <p>Assume the human checker has already discovered the
+            values <span class="math inline">\(\{y_1, ...,
+            y_{i&#39;}\}\)</span>. Is it okay to stop? That is, have we
+            reached <span class="math inline">\(i&#39;=i^*\)</span>? If
+            we estimate <span class="math inline">\(a\)</span> and <span
+            class="math inline">\(b\)</span>, from Equation/Assumption
+            (<a href="#eq" data-reference-type="ref"
+            data-reference="eq">[eq]</a>) we immediately have the point
+            estimate:</p>
+            <p><span class="math display">\[\begin{aligned}
+            \widehat{\text{fn}}(i&#39;; \widehat{a}, \widehat{b}) &amp;=
+            \sum_{i=i&#39;+1}^n \widehat{\mathbb{E}}(y_i) \\
+            &amp;= \sum_{i=i&#39;+1}^n  \widehat{p_i} \\
+            &amp;= \sum_{i=i&#39;+1}^n
+            \text{expit}\left(\widehat{a}+\widehat{b}\cdot
+            \frac{i}{n}\right)
+            \end{aligned}\]</span></p>
+            <p>Very simply, we can use logistic regression to estimate
+            <span class="math inline">\(a\)</span> and <span
+            class="math inline">\(b\)</span> to accomplish this. Obtain
+            maximum likelihood point estimates (and covariance)<a
+            href="#fn3" class="footnote-ref" id="fnref3"
+            role="doc-noteref"><sup>3</sup></a> by modeling:</p>
+            <p><span class="math display">\[\begin{aligned}
+            \text{logit}(y_i) \sim a + b\cdot \frac{i}{n},\quad i=1,
+            ..., i&#39;
+            \end{aligned}\]</span></p>
+            <p>We can even make a predictive distribution for the false
+            negative count, by drawing from:</p>
+            <p><span class="math display">\[\begin{aligned}
+            \widehat{\text{fn}}(i&#39;; \widehat{a}, \widehat{b})
+            &amp;\sim \text{fn}(i&#39;;\ a&#39;, b&#39;), \\
+            a&#39;, b&#39; &amp;\sim \text{Normal}\left((\widehat{a},
+            \widehat{b}),\ \widehat{\Sigma}(\widehat{a},
+            \widehat{b})\right).
+            \end{aligned}\]</span></p>
+            <p>We’re done checking chunks when this distribution shows
+            an acceptable range.<a href="#fn4" class="footnote-ref"
+            id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+            <h1 id="simulation">Simulation</h1>
+            <p>Notice that for the <span
+            class="math inline">\(p_i\)</span> to be monotone
+            decreasing, <span class="math inline">\(b\)</span> must be
+            negative. The crisper the ranking, the larger <span
+            class="math inline">\(-b\)</span> will be. Rather than think
+            hard about <span class="math inline">\(a\)</span> directly,
+            I’ve found it more convenient to only specify a total number
+            of cases <span class="math inline">\(m\in [1, ...,
+            n]\)</span> and use a root solver to find</p>
+            <p><span class="math display">\[\begin{aligned}
+            a: \frac{1}{n}\sum_{i=1}^n\text{expit}\left(a+b\cdot
+            \frac{i}{n}\right) - \frac{m}{n} = 0.
+            \end{aligned}\]</span></p>
+            <p>I’ve developed simulation code that’s easy to modify and
+            play with; I’ll introduce the figures they make, and
+            demonstrate a few cases here. Beyond that, playing with the
+            parameters yourself should give you a stronger sense of
+            what’s going on.</p>
+            <p>First, let’s plot the ranked <span
+            class="math inline">\(p_i\)</span> values for <span
+            class="math inline">\(n=1000\)</span>. In this case, the
+            ranker is only modestly successful: <span
+            class="math inline">\(b:=-10\)</span>. The number of cases
+            is <span class="math inline">\(m=100\)</span>. Who cares
+            what <span class="math inline">\(a\)</span> turns out to be.
+            The red line shows how many <span
+            class="math inline">\(y_i\)</span> have been checked.<a
+            href="#fn5" class="footnote-ref" id="fnref5"
+            role="doc-noteref"><sup>5</sup></a></p>
+            <figure id="fig:figure1">
+            <p><embed src="ranked_rankbad.pdf" /> <span id="fig:figure1"
+            data-label="fig:figure1"></span></p>
+            </figure>
+            <p>What follows next is a histogram of draws from the
+            predictive distribution of false negatives, <span
+            class="math inline">\(\widehat{\text{fn}}(i&#39;;
+            \widehat{a}, \widehat{b})\)</span>. We’d like these numbers
+            to be small enough to stomach. If not low enough, keep
+            checking <span class="math inline">\(y_i\)</span>s. I’ve
+            also put a blue bar showing the true expected number of
+            remaining cases.</p>
+            <p>Please note that the <span
+            class="math inline">\(y\)</span>-axis is log-scaled, and the
+            <span class="math inline">\(x\)</span>-axis is not
+            constrained.</p>
+            <figure id="fig:figure1">
+            <p><embed src="coverage_rankbad.pdf" /> <span
+            id="fig:figure1" data-label="fig:figure1"></span></p>
+            </figure>
+            <p>Are these numbers too high? This is for someone in charge
+            to decide.</p>
+            <p>The next page shows a progression of three checkpoints
+            for the checker. In this simulation, the ranker is assumed
+            to have had an easier time (<span
+            class="math inline">\(b=-100\)</span>).</p>
+            <ul>
+            <li><p>The first row shows a clearly too-early stopping
+            point (<span class="math inline">\(i&#39;=m/2=50\)</span>);
+            the resulting false negatives distribution shows abysmally
+            high mean and variance.</p></li>
+            <li><p>The middle row shows the situation when the checker
+            notices that the cases currently being checked are 50/50 hit
+            or miss (in stark contrast to earlier checks)<a href="#fn6"
+            class="footnote-ref" id="fnref6"
+            role="doc-noteref"><sup>6</sup></a>. This actually looks
+            like an acceptable place to stop!</p></li>
+            <li><p>The final row is overkill: they haven’t seen a case
+            in a while, they just wanted to be sure. The resulting false
+            negative distribution agrees: the expected number of
+            remaining cases is a strong zero. Not one, zero.</p></li>
+            </ul>
+            <figure id="fig:figures">
+            <figure>
+            <embed src="ranked_notdone.pdf" />
+            </figure>
+            <figure>
+            <embed src="coverage_notdone.pdf" />
+            </figure>
+            <figure>
+            <embed src="ranked_halfhalf.pdf" />
+            </figure>
+            <figure>
+            <embed src="coverage_halfhalf.pdf" />
+            </figure>
+            <figure>
+            <embed src="ranked_thorough.pdf" />
+            </figure>
+            <figure>
+            <embed src="coverage_thorough.pdf" />
+            </figure>
+            </figure>
+            <h1 id="r-code"><code>R</code> Code</h1>
+            <pre><code>library(mvtnorm)
+
+# ### set important params
+n = 1000              # total chunks
+n_investigated = 100  # how many have been checked
+m = 100               # count of true cases
+b = -100              # ranker quality (more negative is better quality)
+
+# ### params / data that follow or aren&#39;t key for user to specify
+B = 100000            # samples from estimated false negative distribution
+x = seq(0, 1, length.out=n)
+f = function(a) mean(expit(a + b * x)) - m/n
+a = uniroot(f, lower=-20, upper=1000)$root
+p = expit(a + b * x)  # ranked probabilities
+y = rbinom(n, 1, p)   # actual sampled data
+
+# ### plot true ranked probabilities
+plot(p, type=&quot;l&quot;, ylim=c(0, 1), xlab=&quot;Rank&quot;, main=expression(paste(&quot;Ranked &quot;, p[i])),
+     ylab=expression(p[i]), lwd=2, col=rgb(.2, .2, .2))
+abline(v=n_investigated, lwd=2, col=red, lty=2)
+legend(&quot;topright&quot;, c(expression(p[i]), expression(n[investigated])),
+       lwd=2, col=c(rgb(.2, .2, .2), red), lty=c(1, 2))
+
+# ### estimate ranks from data so far
+# note: because they&#39;re ranked, earlier observations are more likely to be 1s than 0s.
+# for better estimation properties, I weight later observations more heavily.
+weights = round(sqrt(1:n_investigated))
+model &lt;- glm(y[1:n_investigated] ~ x[1:n_investigated], 
+             family=binomial(link=&#39;logit&#39;), weights=weights)
+
+# ### sample estimated false negatives
+draws = rmvnorm(B, mean=model$coefficients, sigma = summary(model)$cov.unscaled)
+fn = rep(NA, B)
+for(j in 1:B) fn[j] = sum(expit(draws[j, 1] + x[(n_investigated+1):n] * draws[j, 2]))
+
+# ### plot estimated and true false negatives
+gray=rgb(0.9, 0.9, 0.9); blue=rgb(0, .4, 1); red=rgb(1, .3, 0)
+plt=hist(fn, breaks=100, plot=FALSE)
+plt$counts=log10(plt$counts)
+plt$counts[plt$counts==-Inf] = 0
+y_ticks = 0:4
+y_labels &lt;- c(&quot;0&quot;, expression(10^1), expression(10^2), expression(10^3), expression(10^4))
+
+plot(plt, yaxt=&quot;n&quot;, col=gray,
+     xlab=&quot;Estimated Cases Missed by Human&quot;, ylab=&quot;Simulated Counts&quot;)
+axis(side = 2, at = y_ticks, labels = y_labels, las = 1)
+abline(v=sum(expit(a + x[(n_investigated+1):n] * b)), col=blue, lwd=5)
+
+legend(&quot;topright&quot;, legend = c(&quot;Simulation&quot;, &quot;Truth&quot;), fill = c(gray, NA), 
+       lwd = c(NA, 4), col = c(&quot;black&quot;, blue),
+       border = c(&quot;black&quot;, NA), cex = 0.8)</code></pre>
+            <section id="footnotes"
+            class="footnotes footnotes-end-of-document"
+            role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1"><p>Equation <a href="#eq"
+            data-reference-type="ref" data-reference="eq">[eq]</a> might
+            not be true. There’s no specific reason for the <span
+            class="math inline">\(p_i\)</span> to take this specific
+            form, or even be monotone decreasing. But we have to start
+            somewhere, and I think this assumption will be pretty good
+            if the ranker does its job.<a href="#fnref1"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn2"><p>Note that Equation <a href="#eq"
+            data-reference-type="ref" data-reference="eq">[eq]</a> could
+            have just as well been <span
+            class="math inline">\(\text{expit}(a+b\cdot i)\)</span>, but
+            then coefficients <span class="math inline">\(a\)</span> and
+            <span class="math inline">\(b\)</span> would rely on <span
+            class="math inline">\(n\)</span>, which is inelegant, hence
+            the normalization.<a href="#fnref2" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn3"><p>I’m happy to go into details about how such
+            point estimates and covariance are gotten from maximum
+            likelihood theory, but I imagine you either know it already,
+            or don’t but assume the details have been worked out. (They
+            have.)<a href="#fnref3" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn4"><p><em>Caveat emptor</em>: like any predictive
+            distribution, the truth is not guaranteed to be near the
+            average or anything like that, only that the distribution
+            covers the truth, and only approximately so with finite
+            samples. If you run this simulation many times, you’ll see
+            this relationship. But simulated coverage is good for <span
+            class="math inline">\(n=1000\)</span> (approximately our
+            case).<a href="#fnref4" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn5"><p>In the Methods section, this is referred to
+            as <span class="math inline">\(i&#39;\)</span>. I’ve called
+            it <span
+            class="math inline">\(n_{\text{investigated}}\)</span> in
+            the plot for interpretability.<a href="#fnref5"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn6"><p>If Equation <a href="#eq"
+            data-reference-type="ref" data-reference="eq">[eq]</a> this
+            occurs precisely when <span
+            class="math inline">\(i&#39;=m\)</span>.<a href="#fnref6"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </section>
+          </div>
+          
+          <div class="breadcrumbs">
+            <a href="technical-writings.html">← Back to Technical Writings</a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html> 
