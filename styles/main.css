@@ -69,6 +69,7 @@ header.site-header {
   margin-bottom: 1em;
   align-items: center;
   padding: 1em 0;
+  border-bottom: 1px solid var(--light-gray);
 }
 
 header.site-header .brand {
@@ -90,13 +91,18 @@ header.site-header .subtitle {
 
 /* Navigation */
 nav {
-  margin: 1em 0 2em 0;
+  margin: 0 0 2em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 nav .nav-content {
   display: flex;
   flex-direction: row;
   overflow: hidden;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 nav .nav-item {
@@ -104,11 +110,8 @@ nav .nav-item {
   border-right: 1px solid var(--border-color);
 }
 
-nav .nav-item.active {
-  font-weight: bold;
-}
-
 nav .nav-item.active a {
+  font-weight: bold;
   color: #000000;
   text-decoration: none;
 }
@@ -304,10 +307,6 @@ footer.site-footer .footer-item:last-child {
   .profile-image {
     flex: 0 0 150px;
     margin-bottom: 1em;
-  }
-  
-  .folder-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
   
   nav .nav-content {
