@@ -107,6 +107,29 @@
       .nav-link:hover {
         background-color: #f0f0f0;
       }
+      .folder-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+      }
+      .folder-container {
+        padding: 15px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        transition: transform 0.2s, box-shadow 0.2s;
+        text-align: center;
+      }
+      .folder-container:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      }
+      .folder-icon {
+        font-size: 3em;
+        color: #0366d6;
+        margin-bottom: 10px;
+      }
     </style>
   </head>
   <body>
@@ -115,15 +138,32 @@
     <div class="nav-container">
       <div class="nav-links">
         <a href="#main-collection" class="nav-link">Main Collection</a>
-        <a href="#paintings" class="nav-link">Paintings</a>
-        <a href="#spring-journal" class="nav-link">Spring Journal</a>
-        <a href="#education-in-zion" class="nav-link">Education in Zion</a>
-        <a href="#fall-journal" class="nav-link">Fall Journal</a>
+        <a href="#folders" class="nav-link">Folders</a>
         <a href="index.html" class="nav-link">← Back to Home</a>
       </div>
     </div>
     
     <p>Welcome to my music page. Here you can listen to my original compositions and audio work, organized by collection.</p>
+    
+    <h2 id="folders">Music Folders</h2>
+    <p class="category-description">Browse my music by folder collections.</p>
+    
+    <div class="folder-grid">
+      <a href="paintings.html" class="folder-container">
+        <div class="folder-icon">📁</div>
+        <h3>Paintings</h3>
+      </a>
+      
+      <a href="spring-journal.html" class="folder-container">
+        <div class="folder-icon">📁</div>
+        <h3>Spring Journal</h3>
+      </a>
+      
+      <a href="metamorphosis.html" class="folder-container">
+        <div class="folder-icon">📁</div>
+        <h3>Metamorphosis</h3>
+      </a>
+    </div>
     
     <h2 id="main-collection">Main Collection</h2>
     <p class="category-description">My primary music collection.</p>
@@ -189,266 +229,6 @@
         <h3>Choleria</h3>
         <audio controls>
           <source src="audio/Choleria.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-    </div>
-    
-    <h2 id="paintings">Paintings</h2>
-    <p class="category-description">Music inspired by visual art and imagery.</p>
-    
-    <div class="audio-grid">
-      <div class="audio-container">
-        <h3>Dali</h3>
-        <audio controls>
-          <source src="audio/paintings/Dali.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Melange</h3>
-        <audio controls>
-          <source src="audio/paintings/Melange.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Binary Star</h3>
-        <audio controls>
-          <source src="audio/paintings/Binary Star.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Seattle what do I do now</h3>
-        <audio controls>
-          <source src="audio/paintings/Seattle what do I do now.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>unpretty poem</h3>
-        <audio controls>
-          <source src="audio/paintings/unpretty poem.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Short</h3>
-        <audio controls>
-          <source src="audio/paintings/Short.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>And Fill The Void (Spin Foam Remix)</h3>
-        <audio controls>
-          <source src="audio/paintings/And Fill The Void (Spin Foam Remix).mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Gravity (Lagrange Point Remix)</h3>
-        <audio controls>
-          <source src="audio/paintings/Gravity (Lagrange Point Remix).mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-    </div>
-    
-    <h2 id="spring-journal">Spring Journal</h2>
-    <p class="category-description">A collection of pieces documenting the spring season.</p>
-    
-    <div class="audio-grid">
-      <div class="audio-container">
-        <h3>Wandering</h3>
-        <audio controls>
-          <source src="audio/spring journal/Wandering.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Wait on Him</h3>
-        <audio controls>
-          <source src="audio/spring journal/Wait on Him.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>The Promotion</h3>
-        <audio controls>
-          <source src="audio/spring journal/The Promotion.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>The Fire</h3>
-        <audio controls>
-          <source src="audio/spring journal/The Fire.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>The Deadline</h3>
-        <audio controls>
-          <source src="audio/spring journal/The Deadline.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>The Belfry</h3>
-        <audio controls>
-          <source src="audio/spring journal/The Belfry.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Superman</h3>
-        <audio controls>
-          <source src="audio/spring journal/Superman.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Sanguine</h3>
-        <audio controls>
-          <source src="audio/spring journal/Sanguine.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Metal Rain</h3>
-        <audio controls>
-          <source src="audio/spring journal/Metal Rain.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Lavender</h3>
-        <audio controls>
-          <source src="audio/spring journal/Lavender.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Jumping</h3>
-        <audio controls>
-          <source src="audio/spring journal/Jumping.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Heavy Snow</h3>
-        <audio controls>
-          <source src="audio/spring journal/Heavy Snow.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Forest Spirits</h3>
-        <audio controls>
-          <source src="audio/spring journal/Forest Spirits.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Fate River</h3>
-        <audio controls>
-          <source src="audio/spring journal/Fate River.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Eager Flight</h3>
-        <audio controls>
-          <source src="audio/spring journal/Eager Flight.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Daydream</h3>
-        <audio controls>
-          <source src="audio/spring journal/Daydream.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>We Will Meet Again</h3>
-        <audio controls>
-          <source src="audio/spring journal/We Will Meet Again.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-    </div>
-    
-    <h2 id="education-in-zion">Education in Zion</h2>
-    <p class="category-description">Music from the Education in Zion collection.</p>
-    
-    <div class="audio-grid">
-      <div class="audio-container">
-        <h3>Blackbird</h3>
-        <audio controls>
-          <source src="audio/spring journal/education in zion/Blackbird.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>Impetus</h3>
-        <audio controls>
-          <source src="audio/spring journal/education in zion/Impetus.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>The Eternal Bells</h3>
-        <audio controls>
-          <source src="audio/spring journal/education in zion/The Eternal Bells.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-    </div>
-    
-    <h2 id="fall-journal">Fall Journal</h2>
-    <p class="category-description">Music from the Fall Journal collection.</p>
-    
-    <div class="audio-grid">
-      <div class="audio-container">
-        <h3>December</h3>
-        <audio controls>
-          <source src="audio/spring journal/fall journal/December.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-      
-      <div class="audio-container">
-        <h3>I Know That Face</h3>
-        <audio controls>
-          <source src="audio/spring journal/fall journal/I Know That Face.mp3" type="audio/mpeg">
           Your browser does not support the audio element.
         </audio>
       </div>

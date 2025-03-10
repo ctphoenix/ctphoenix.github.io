@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Staples - Fall Journal</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        color: #333;
+      }
+      h1, h2, h3 {
+        color: #333;
+      }
+      h1 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin-top: 40px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+      }
+      a {
+        color: #0366d6;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .audio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+      }
+      .audio-container {
+        padding: 15px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .audio-container:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      }
+      .audio-container h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+      }
+      .download-link {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 15px;
+        background-color: #0366d6;
+        color: white;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+      .download-link:hover {
+        background-color: #0255b3;
+        text-decoration: none;
+      }
+      .note {
+        font-style: italic;
+        color: #666;
+        font-size: 0.9em;
+      }
+      .back-link {
+        margin-top: 30px;
+        display: block;
+      }
+      .category-description {
+        margin-bottom: 20px;
+      }
+      audio {
+        width: 100%;
+      }
+      .nav-container {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        padding: 10px 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        z-index: 100;
+      }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        padding-bottom: 5px;
+      }
+      .nav-link {
+        white-space: nowrap;
+        padding: 5px 10px;
+        border-radius: 4px;
+      }
+      .nav-link:hover {
+        background-color: #f0f0f0;
+      }
+      .breadcrumbs {
+        margin-bottom: 20px;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="breadcrumbs">
+      <a href="music.html">Music Collection</a> &gt; <a href="spring-journal.html">Spring Journal</a> &gt; Fall Journal
+    </div>
+    
+    <h1>Fall Journal Collection</h1>
+    
+    <p class="category-description">Music from the Fall Journal collection.</p>
+    
+    <div class="audio-grid">
+      <div class="audio-container">
+        <h3>December</h3>
+        <audio controls>
+          <source src="audio/spring journal/fall journal/December.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      
+      <div class="audio-container">
+        <h3>I Know That Face</h3>
+        <audio controls>
+          <source src="audio/spring journal/fall journal/I Know That Face.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      
+      <div class="audio-container">
+        <h3>Wait on Him</h3>
+        <audio controls>
+          <source src="audio/spring journal/fall journal/Wait on Him.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+    
+    <a href="spring-journal.html" class="back-link">← Back to Spring Journal</a>
+  </body>
+</html> 
