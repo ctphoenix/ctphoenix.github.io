@@ -325,7 +325,7 @@
             your linear algebra and calculus, you should be able to
             follow it. Here’s the model in this case:</p>
             <p><span class="math display">\[\mathbf{y} =
-            \mathbf{X}\bm{\beta} + \bm{\epsilon}\]</span></p>
+            \mathbf{X}{\beta} + {\epsilon}\]</span></p>
             <p>Where:</p>
             <ul>
             <li><p><span class="math inline">\(\mathbf{y}\)</span> is
@@ -334,47 +334,47 @@
             <li><p><span class="math inline">\(\mathbf{X}\)</span> is
             our data (an <span class="math inline">\(n \times p\)</span>
             matrix of predictors)</p></li>
-            <li><p><span class="math inline">\(\bm{\beta}\)</span> is
+            <li><p><span class="math inline">\({\beta}\)</span> is
             our fitted coefficients (a <span class="math inline">\(p
             \times 1\)</span> vector)</p></li>
-            <li><p><span class="math inline">\(\bm{\epsilon}\)</span>
+            <li><p><span class="math inline">\({\epsilon}\)</span>
             are the errors (an <span class="math inline">\(n \times
             1\)</span> vector)</p></li>
             </ul>
             <p>If the errors are independent (the scope of this course)
             and normally distributed (an assumption of linear regression
             anyways), the likelihood function is:</p>
-            <p><span class="math display">\[\mathcal{L}(\bm{\beta},
+            <p><span class="math display">\[\mathcal{L}({\beta},
             \sigma^2|\mathbf{y},\mathbf{X}) = (2\pi\sigma^2)^{-n/2}
             \exp\left(-\frac{1}{2\sigma^2}(\mathbf{y} -
-            \mathbf{X}\bm{\beta})^T(\mathbf{y} -
-            \mathbf{X}\bm{\beta})\right)\]</span></p>
+            \mathbf{X}{\beta})^T(\mathbf{y} -
+            \mathbf{X}{\beta})\right)\]</span></p>
             <p>Maximizing this directly would be horrible, but as
             typical it’s better after taking the log:</p>
-            <p><span class="math display">\[\ell(\bm{\beta},
+            <p><span class="math display">\[\ell({\beta},
             \sigma^2|\mathbf{y},\mathbf{X}) =
             -\frac{n}{2}\log(2\pi\sigma^2) -
             \frac{1}{2\sigma^2}(\mathbf{y} -
-            \mathbf{X}\bm{\beta})^T(\mathbf{y} -
-            \mathbf{X}\bm{\beta})\]</span></p>
+            \mathbf{X}{\beta})^T(\mathbf{y} -
+            \mathbf{X}{\beta})\]</span></p>
             <p>To find the maximum likelihood estimate of <span
-            class="math inline">\(\bm{\beta}\)</span>, we differentiate
+            class="math inline">\({\beta}\)</span>, we differentiate
             the log-likelihood with respect to <span
-            class="math inline">\(\bm{\beta}\)</span> (the score)<a
+            class="math inline">\({\beta}\)</span> (the score)<a
             href="#fn5" class="footnote-ref" id="fnref5"
             role="doc-noteref"><sup>5</sup></a>:</p>
             <p><span
             class="math display">\[\mathcal{S}(\boldsymbol{\beta}) =
-            \frac{\partial \ell}{\partial \bm{\beta}} =
+            \frac{\partial \ell}{\partial {\beta}} =
             \frac{1}{\sigma^2}\mathbf{X}^T(\mathbf{y} -
-            \mathbf{X}\bm{\beta})\]</span></p>
+            \mathbf{X}{\beta})\]</span></p>
             <p>Setting this to zero and solving for <span
-            class="math inline">\(\bm{\beta}\)</span>:</p>
+            class="math inline">\({\beta}\)</span>:</p>
             <p><span
-            class="math display">\[\mathbf{X}^T\mathbf{X}\bm{\beta} =
+            class="math display">\[\mathbf{X}^T\mathbf{X}{\beta} =
             \mathbf{X}^T\mathbf{y}\]</span></p>
             <p><span class="math display">\[\Rightarrow
-            \boxed{\hat{\bm{\beta}} =
+            \boxed{\hat{{\beta}} =
             (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}}\]</span></p>
             <p>This is the closed-form solution for the maximum
             likelihood estimates in multivariate linear regression! You
@@ -384,13 +384,13 @@
             all. Let’s go on and derive the information, taking the
             negative expectated value of the second derivative of the
             log-likelihood with respect to <span
-            class="math inline">\(\bm{\beta}\)</span>:</p>
-            <p><span class="math display">\[\mathcal{I}(\bm{\beta}) =
-            -\mathbb{E}\left[\frac{\partial^2 \ell}{\partial \bm{\beta}
-            \ \partial\bm{\beta}^T}\right] =
+            class="math inline">\({\beta}\)</span>:</p>
+            <p><span class="math display">\[\mathcal{I}({\beta}) =
+            -\mathbb{E}\left[\frac{\partial^2 \ell}{\partial {\beta}
+            \ \partial{\beta}^T}\right] =
             \frac{1}{\sigma^2}\mathbf{X}^T\mathbf{X}\]</span></p>
             <p>Taking the inverse, the covariance matrix is:</p>
-            <p><span class="math display">\[Var(\hat{\bm{\beta}}) =
+            <p><span class="math display">\[Var(\hat{{\beta}}) =
             \sigma^2(\mathbf{X}^T\mathbf{X})^{-1}\]</span></p>
             <p>You can then use these to form confidence intervals, do
             hypothesis testing, whatever you’d like. That’s it! That’s
