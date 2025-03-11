@@ -369,7 +369,7 @@ footer.site-footer .footer-item:last-child {
     flex-direction: row;
     align-items: center;
     margin: 1.5em 0;
-    gap: 1em;
+    gap: 0.5em;
     justify-content: space-between;
   }
   
