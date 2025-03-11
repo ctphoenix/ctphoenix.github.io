@@ -322,8 +322,33 @@ footer.site-footer .footer-item:last-child {
 
 /* Mobile specific styles */
 @media screen and (max-width: 767px) {
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  
   .content-container {
     padding: 0 1.2em;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.site-header {
+    order: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.8em 0;
+  }
+  
+  main {
+    order: 2;
+  }
+  
+  nav {
+    order: 3 !important;
+    margin-top: 2em;
+    border-top: 1px solid var(--light-gray);
+    padding-top: 1em;
   }
   
   h1 {
@@ -336,34 +361,6 @@ footer.site-footer .footer-item:last-child {
     margin-top: 30px;
   }
   
-  .top-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .content-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  header.site-header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.8em 0;
-    order: 1;
-  }
-  
-  main {
-    order: 2;
-  }
-  
-  nav {
-    order: 3;
-    margin: 2em 0 1em 0;
-    border-top: 1px solid var(--light-gray);
-    padding-top: 1em;
-  }
-  
   header.site-header .brand {
     margin-bottom: 0.3em;
   }
@@ -373,7 +370,7 @@ footer.site-footer .footer-item:last-child {
     align-items: center;
     margin: 1.5em 0;
     gap: 1em;
-    position: relative;
+    justify-content: space-between;
   }
   
   .profile-image {
