@@ -376,8 +376,8 @@ footer.site-footer .footer-item:last-child {
   .profile-image {
     flex: 0 0 auto;
     position: static;
-    width: 40%;
-    max-width: 80px;
+    width: 45%;
+    max-width: 100px;
     margin-left: auto;
   }
   
