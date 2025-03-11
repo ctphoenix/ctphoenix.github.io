@@ -321,7 +321,7 @@ footer.site-footer .footer-item:last-child {
 }
 
 /* Mobile specific styles */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1200px) {
   body {
     display: flex;
     flex-direction: column;
@@ -376,14 +376,14 @@ footer.site-footer .footer-item:last-child {
   .profile-image {
     flex: 0 0 auto;
     position: static;
-    width: 45%;
-    max-width: 100px;
+    width: 50%;
+    max-width: 150px;
     margin-left: auto;
   }
   
   .profile-content {
     flex: 0 0 auto;
-    width: 45%;
+    width: 50%;
     padding-right: 0;
   }
   
