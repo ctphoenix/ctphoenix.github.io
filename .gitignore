@@ -8,4 +8,9 @@ audio/La Chasse.wav
 .Spotlight-V100
 .Trashes
 ehthumbs.db
-Thumbs.db 
+Thumbs.db
+
+venv
+venv/
+__pycache__
+__pycache__/
