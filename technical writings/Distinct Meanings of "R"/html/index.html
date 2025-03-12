@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Distinct "R"s - Patrick Staples</title>
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <div class="top-container">
+      <div class="content-container">
+        <header class="site-header">
+          <h1 class="brand">Patrick Staples</h1>
+        </header>
+        
+        <nav>
+          <div class="nav-content">
+            <span class="nav-item">
+              <a href="../../../index.html">Home</a>
+            </span>
+            <span class="nav-item active">
+              <a href="../../../technical-writings.html">Technical Writings</a>
+            </span>
+            <span class="nav-item">
+              <a href="../../../music.html">Music</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+            </span>
+          </div>
+        </nav>
+        
+        <main>
+          <div class="breadcrumbs">
+            <a href="../../../technical-writings.html">← Back to Technical Writings</a>
+          </div>
+          
+          <h1>Two Distinct "R"s</h1>
+          
+          <div class="math-content">
+            <p>Correlation, often denoted by "R", actually shares two definitions that are logically separable. This snippet demonstrates that.</p>
+            
+            <p>Let \(\mathbf{y}\) be a true outcome vector and \(\widehat{\mathbf{y}}\) be a vector of predictions of \(\mathbf{y}\). Define the (centered) sum of products \(\text{SP}(\mathbf{z}, \mathbf{w}) := (\mathbf{z}-\overline{\mathbf{z}})^\top(\mathbf{w}-\overline{\mathbf{w}})\), and define the curried function \(\text{SP}(\mathbf{z}) := \text{SP}(\mathbf{z}, \mathbf{z})\).</p>
+            
+            <p>Consider two estimands. First, the <em>coefficient of determination</em><sup>1</sup>:</p>
+            
+            <p>\begin{align}
+            R^2 := 1 - \frac{\text{SP}(\mathbf{y}-\widehat{\mathbf{y}})}{\text{SP}(\mathbf{y})} = \frac{\text{SP}(\widehat{\mathbf{y}})}{\text{SP}(\mathbf{y})} \tag{1}
+            \end{align}</p>
+            
+            <p>Second, the <em>Pearson correlation</em> between outcomes and prediction:</p>
+            
+            <p>\begin{align}
+            \widehat{\rho} := \frac{\text{SP}(\mathbf{y},\  \widehat{\mathbf{y}})}{\sqrt{\text{SP}(\mathbf{y})\text{SP}(\widehat{\mathbf{y}})}}
+            \end{align}</p>
+            
+            <p>To summarize, \(\widehat{\rho}\) uses both quantities from \(R^2\), in addition to a third term that does not strongly depend on the other two<sup>2</sup>. So the two estimands are logically separable.</p>
+            
+            <hr>
+            <div class="footnotes">
+              <p><sup>1</sup> The second equality in (1) follows if the estimator is unbiased: \(\mathbb{E}(\widehat{y}) = \mathbb{E}(y)\)</p>
+              <p><sup>2</sup> The condition for equality is \(\text{SP}(\mathbf{y},\  \widehat{\mathbf{y}}) = \text{SP}^{3/2}(\widehat{\mathbf{y}})\text{SP}^{-1/2}(\mathbf{y})\). This does not seem guaranteed, even approximately.</p>
+            </div>
+          </div>
+          
+          <div class="breadcrumbs">
+            <a href="../../../technical-writings.html">← Back to Technical Writings</a>
+          </div>
+        </main>
+      </div>
+    </div>
+    
+    <footer class="site-footer">
+      <span class="footer-item">
+        Patrick Staples
+      </span>
+      <span class="footer-item">
+        <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+      </span>
+      <span class="footer-item">
+        <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+      </span>
+    </footer>
+  </body>
+</html>

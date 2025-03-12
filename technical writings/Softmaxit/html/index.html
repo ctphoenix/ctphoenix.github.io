@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Staples - Softmaxit</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <div class="top-container">
+      <div class="content-container">
+        <header class="site-header">
+          <h1 class="brand">Patrick Staples</h1>
+        </header>
+        
+        <nav>
+          <div class="nav-content">
+            <span class="nav-item">
+              <a href="index.html">Home</a>
+            </span>
+            <span class="nav-item active">
+              <a href="technical-writings.html">Technical Writings</a>
+            </span>
+            <span class="nav-item">
+              <a href="music.html">Music</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+            </span>
+          </div>
+        </nav>
+        
+        <main>
+          <div class="breadcrumbs">
+            <a href="technical-writings.html">← Back to Technical Writings</a>
+          </div>
+          
+          <h1>Softmaxit</h1>
+          
+          <div class="math-content">
+            <p>Here is a proposal for a modification of softmax as an
+            output activation function. This is because the softmax
+            activation function exponentiates what should be log odds of
+            probabilities.</p>
+            <h1 id="softmax-review">Softmax Review</h1>
+            <p>For classification neural networks, you have to choose
+            how to transform the final layer outputs <span
+            class="math inline">\(\{z_i\}_k\)</span> into probabilities
+            <span class="math inline">\(\{p_i\}_k\)</span> for <span
+            class="math inline">\(k\)</span> total classes. Softmax is
+            the standard choice:</p>
+            <p><span
+            class="math display">\[p_i^{\text{softmax}}:=\frac{e^{z_i}}{\sum_{j=1}^ke^{z_j}}\]</span></p>
+            <p>I know of three defenses for this choice. The first
+            two:</p>
+            <ul>
+            <li><p><strong>Benefit 1</strong>: This function sums to 1,
+            making it a probability space.</p></li>
+            <li><p><strong>Benefit 2</strong>: It’s differentiable, and
+            its derivative for the cross-entropy loss function is far
+            from zero when errors are large.</p></li>
+            </ul>
+            <p>Notice that any differentiable function <span
+            class="math inline">\(f:\mathbb{R}\rightarrow\mathbb{R}^+\)</span>
+            in place of exponentiation would do a similar job.
+            <strong>Benefit 3a</strong> is given in Goodfellow <em>et
+            al</em>’s deep learning book, Page 179:</p>
+            <blockquote>
+            <p>“If we begin with the assumption that the unnormalized
+            log probabilities are linear in <span
+            class="math inline">\(z\)</span> and (target) <span
+            class="math inline">\(y\)</span>, we can exponentiate to
+            obtain the unnormalized probabilities. We then normalize to
+            see that this yields a Bernoulli distribution controlled by
+            a sigmoidal transformation of z.”</p>
+            </blockquote>
+            <p>From there they construct logistic and softmax output
+            activations for multinomial distributions. In similar style
+            to their development, I will derive a new output activation
+            function.</p>
+            <h1 id="softmaxit">Softmaxit</h1>
+            <h2 id="introduction">Introduction</h2>
+            <p>My key assumption is that the log <em>odds</em> of
+            belonging to a class is linear in <span
+            class="math inline">\(z\)</span>, rather than the log
+            <em>probability</em>. This will result in a new activation
+            function, <em>softmaxit</em>. My derivation will follow
+            soon, but I want to list the benefits of this approach
+            beforehand. In addition to Benefits 1 and 2 still
+            holding:</p>
+            <ul>
+            <li><p><strong>Benefit 3b</strong>: This choice also yields
+            a multinomial distribution controlled by a (new)
+            transformation of z.</p></li>
+            <li><p><strong>Benefit 4</strong>: Log odds may take on any
+            real value, just as <span class="math inline">\(z\)</span>
+            does in general. This is contrast to log probabilities,
+            which must be non-positive.</p></li>
+            <li><p><strong>Benefit 5</strong>: It’s directly analogous
+            to logistic regression. Notice that it would be similarly
+            inelegant to regress on log probabilities instead of log
+            odds, for the same reason.</p></li>
+            <li><p><strong>Benefit 6</strong>: (minor, stylistic point)
+            the conventional use of calling <span
+            class="math inline">\(z\)</span> a “logit” would now be
+            appropriate and exact.</p></li>
+            </ul>
+            <h2 id="derivation">Derivation</h2>
+            <p>Define the log odds (<em>i.e.</em>, logit) function as:
+            <span class="math display">\[\begin{aligned}
+            \sigma^{-1}(p)=\frac{\text{log}(p)}{\text{log}(1-p)}
+            \end{aligned}\]</span></p>
+            <p>That is the inverse of the logistic sigmoid
+            (<em>i.e.</em>, expit) function: <span
+            class="math display">\[\begin{aligned}
+            \sigma(z) := \frac{e^z}{1+e^z}
+            \end{aligned}\]</span></p>
+            <p>We’ll start with the unnormalized log odds of belonging
+            to a specific class <span class="math inline">\(i\in
+            \{1,...,k\}\)</span>, and normalize after the fact. If the
+            log odds is linear in <span
+            class="math inline">\(z_i\)</span>, then:</p>
+            <p><span class="math display">\[\begin{aligned}
+            \sigma^{-1}(\tilde{p}_i) :&amp;= z_i \\
+            \Rightarrow\tilde{p}_i &amp;= \sigma(z)_i \\
+            p_i^{\text{softmaxit}} :&amp;=
+            \frac{\tilde{p}_i}{\sum_{j=1}^k \tilde{p}_j} \\
+            &amp;= \frac{e^{z_i}}{(1+e^{z_i})} \bigg/
+            \sum_{l=1}^k\frac{e^{z_l}}{(1+e^{-z_l})}
+            \end{aligned}\]</span></p>
+            <p>The name is made to reflect that it is like softmax, but
+            the exp has been replaced by expit.</p>
+            <h2 id="backprop">Backprop</h2>
+            <p>The proper use of softmaxit is during both training and
+            inference.<a href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a> This means we start with
+            a cost function and do the chain rule for the params in the
+            classification head. I’ll pick the cross-entropy cost
+            function, as that’s the maximum likelihood choice for
+            multinomial distributions:</p>
+            <p><span class="math display">\[\begin{aligned}
+            C&amp;:=-\sum_{j=1}^ky_j\cdot \text{log}(p_j)
+            \end{aligned}\]</span></p>
+            <p>Here, <span class="math inline">\(y_i\)</span> is the
+            multinomial label. The derivative is then: <span
+            class="math display">\[\begin{aligned}
+            \frac{\partial C}{\partial z_i} &amp;= -\sum_{j=1}^k
+            \frac{y_j}{p_j}\frac{\partial p_j}{\partial z_i}
+            \end{aligned}\]</span></p>
+            <p>I’ll solve the remaining partial derivative in parts:</p>
+            <p><span class="math display">\[\begin{aligned}
+            \frac{\partial p_j}{\partial z_i} &amp;= \frac{\partial
+            p_j}{\partial \tilde{p}_i}\frac{\partial
+            \tilde{p}_i}{\partial z_i} \\
+            \frac{\partial p_j}{\partial \tilde{p}_i}
+            &amp;=\frac{\sum_l\tilde{p}_l\cdot 1_{i=j} -
+            \tilde{p}_j}{\left(\sum_l\tilde{p}_l\right)^2} \\
+            &amp;=
+            p_j\left(\frac{1_{i=j}}{\tilde{p}_j}-\frac{1}{\sum_l\tilde{p}_l}\right)
+            \\
+            \frac{\partial \tilde{p}_i}{\partial z_i} &amp;=
+            \tilde{p}_i(1-\tilde{p}_i)
+            \end{aligned}\]</span></p>
+            <p>Upon combining these terms, the final backprop for the
+            “logit” params takes a simple form: <span
+            class="math display">\[\begin{aligned}
+            \frac{\partial C}{\partial z_i} &amp;=
+            -\tilde{p}_i(1-\tilde{p}_i)\sum_{j=1}^k
+            y_j\left(\frac{1_{i=j}}{\tilde{p}_j}-\frac{1}{\sum_l\tilde{p}_l}\right)
+            \\
+            &amp;= \boxed{(1-\tilde{p}_i)(p_i-y_i)}
+            \end{aligned}\]</span></p>
+            <p>This is similar to the softmax gradients of <span
+            class="math inline">\(p_i-y_i\)</span>, but weighted against
+            large pseudo-probabilities <span
+            class="math inline">\(\tilde{p}_i\)</span>. Such large
+            pseudo-probabilities may lead to saturation, so using the
+            unweighted gradients might also be fine for training.</p>
+            <section id="footnotes"
+            class="footnotes footnotes-end-of-document"
+            role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1"><p>Using softmaxit during inference on models
+            trained with softmax might yield better accuracy, but I’m
+            not sure there are good reasons why, and it’s anyway an
+            empirical question.<a href="#fnref1" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </section>
+          </div>
+          
+          <div class="breadcrumbs">
+            <a href="technical-writings.html">← Back to Technical Writings</a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html> 
