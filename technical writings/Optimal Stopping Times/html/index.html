@@ -48,8 +48,8 @@
             i=1,...,n\)</span>, where <span class="math inline">\(i\)</span> indexes a document, <span class="math inline">\(y_i=1\)</span> if and only if the
             trait is present in the chunk, and <span class="math inline">\(p_i\)</span> is the probability of
             <span class="math inline">\(y_i=1\)</span>. The task is for
-            a human checker to find all the <span class="math inline">\(\{i: y_i=1\}\)</span>, but alas <span class="math inline">\(n\)</span> is so large we can’t
-            actually check them all.</p><img alt="power to reject (delta)" class="article-image" src="coverage_halfhalf.png style="width:70%; margin:auto; display:block;"/>
+            a human checker to find all the <span class="math inline">\(\{i: y_i=1\}\)</span>, but alas <span class="math inline">\(n\)</span> is so large we can't
+            actually check them all.</p><img alt="power to reject (delta)" class="article-image" src="coverage_halfhalf.png" style="width:70%; margin:auto; display:block;"/>
 <p>The most recent strategy we’ve discussed is to:</p>
 <ol>
 <li><p>rank <span class="math inline">\(n\)</span> chunks
@@ -72,7 +72,7 @@
             assumption</strong><a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref"><sup>1</sup></a><a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <p><span class="math display">\[\begin{aligned}
             p_i &amp;= \boxed{\text{expit}\left(a + b\cdot
-            \frac{i}{n}\right)}\ ,\text{\ \ \ where\ \ \ expit}(x) :=
+            \frac{i}{n}\right)}\ ,\text{where expit}(x) :=
             \frac{1}{1+e^{-x}}.\label{eq}
             \end{aligned}\]</span></p>
 <p>The goal is to check enough chunks such that the expected
@@ -139,7 +139,7 @@
             what <span class="math inline">\(a\)</span> turns out to be.
             The red line shows how many <span class="math inline">\(y_i\)</span> have been checked.<a class="footnote-ref" href="#fn5" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
 <figure id="fig:figure1">
-<p><img src="ranked_rankbad.png style="width:70%; margin:auto; display:block;"/> <span data-label="fig:figure1" id="fig:figure1"></span></p>
+<p><img src="ranked_rankbad.png" style="width:70%; margin:auto; display:block;"/> <span data-label="fig:figure1" id="fig:figure1"></span></p>
 </figure>
 <p>What follows next is a histogram of draws from the
             predictive distribution of false negatives, <span class="math inline">\(\widehat{\text{fn}}(i';
@@ -152,7 +152,7 @@
             <span class="math inline">\(x\)</span>-axis is not
             constrained.</p>
 <figure id="fig:figure1">
-<p><embed src="coverage_rankbad.png"/> <span data-label="fig:figure1" id="fig:figure1"></span></p>
+<p><img src="coverage_rankbad.png" style="width:70%; margin:auto; display:block;"/> <span data-label="fig:figure1" id="fig:figure1"></span></p>
 </figure>
 <p>Are these numbers too high? This is for someone in charge
             to decide.</p>
