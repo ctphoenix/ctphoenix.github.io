@@ -48,7 +48,7 @@ Assume the ranking above is already done: the ranker tried to re-order the $y_i$
 The method we propose makes a \textbf{single key assumption}\footnote{Equation \ref{eq} might not be true. There's no specific reason for the $p_i$ to take this specific form, or even be monotone decreasing. But we have to start somewhere, and I think this assumption will be pretty good if the ranker does its job.}\footnote{Note that Equation \ref{eq} could have just as well been $\text{expit}(a+b\cdot i)$, but then coefficients $a$ and $b$ would rely on $n$, which is inelegant, hence the normalization.}:
 
 \begin{align}
-p_i &= \boxed{\text{expit}\left(a + b\cdot \frac{i}{n}\right)}\ ,\text{\ \ \ where\ \ \ expit}(x) := \frac{1}{1+e^{-x}}.\label{eq}
+p_i &= \boxed{\text{expit}\left(a + b\cdot \frac{i}{n}\right)}\ ,\text{where expit}(x) := \frac{1}{1+e^{-x}}.\label{eq}
 \end{align}
 
 The goal is to check enough chunks such that the expected number of cases among the unchecked chunks, or count of \textit{false negatives} (\text{fn}), is sufficiently low. Formally, the goal is to select $i^*$ satisfying
