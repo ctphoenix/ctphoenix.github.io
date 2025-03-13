@@ -1,48 +1,51 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Patrick Staples - Optimal Stopping Times</title>
-<link href="styles/main.css" rel="stylesheet"/>
-<!-- MathJax for rendering LaTeX -->
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-</head>
-<body>
-<div class="top-container">
-<div class="content-container">
-<header class="site-header">
-<h1 class="brand">Patrick Staples</h1>
-</header>
-<nav>
-     <div class="nav-content">
-       <span class="nav-item">
-         <a href="../../../index.html">Home</a>
-       </span>
-       <span class="nav-item active">
-         <a href="../../../technical-writings.html">Technical Writings</a>
-       </span>
-       <span class="nav-item">
-         <a href="../../../music.html">Music</a>
-       </span>
-       <span class="nav-item">
-         <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
-       </span>
-       <span class="nav-item">
-         <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
-       </span>
-     </div>
-   </nav>
-<main>
-<div class="breadcrumbs">
-     <a href="../../../technical-writings.html">← Back to Technical Writings</a>
-</div>
-<h1>Optimal Stopping Times</h1>
-<div class="math-content">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimal Stopping Times - Patrick Staples</title>
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <div class="top-container">
+      <div class="content-container">
+        <header class="site-header">
+          <h1 class="brand">Patrick Staples</h1>
+        </header>
+        
+        <nav>
+          <div class="nav-content">
+            <span class="nav-item">
+              <a href="../../../index.html">Home</a>
+            </span>
+            <span class="nav-item active">
+              <a href="../../../technical-writings.html">Technical Writings</a>
+            </span>
+            <span class="nav-item">
+              <a href="../../../music.html">Music</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+            </span>
+            <span class="nav-item">
+              <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+            </span>
+          </div>
+        </nav>
+        
+        <main>
+          <div class="breadcrumbs">
+            <a href="../../../technical-writings.html">← Back to Technical Writings</a>
+          </div>
+          
+          <h1>Optimal Stopping Times</h1>
+          
+          <div class="math-content">
 <h1 id="introduction">Introduction</h1>
-<p>Let's say we’re trying to detect positive cases in a series of samples. My use case for developing this method was in trying to detect whether chunks of text contain some
+<p>Let's say we're trying to detect positive cases in a series of samples. My use case for developing this method was in trying to detect whether chunks of text contain some
             trait (<em>e.g.</em>, talk of self-harm). Whether they do or
             don't can be described as a collection of coin flips <span class="math inline">\(y_i \sim \text{Bernoulli}(p_i),\
             i=1,...,n\)</span>, where <span class="math inline">\(i\)</span> indexes a document, <span class="math inline">\(y_i=1\)</span> if and only if the
@@ -50,7 +53,7 @@
             <span class="math inline">\(y_i=1\)</span>. The task is for
             a human checker to find all the <span class="math inline">\(\{i: y_i=1\}\)</span>, but alas <span class="math inline">\(n\)</span> is so large we can't
             actually check them all.</p><img alt="power to reject (delta)" class="article-image" src="coverage_halfhalf.png" style="width:70%; margin:auto; display:block;"/>
-<p>The most recent strategy we’ve discussed is to:</p>
+<p>The most recent strategy we've discussed is to:</p>
 <ol>
 <li><p>rank <span class="math inline">\(n\)</span> chunks
             from most likely to contain the trait to the least
@@ -114,26 +117,26 @@
             \widehat{b}),\ \widehat{\Sigma}(\widehat{a},
             \widehat{b})\right).
             \end{aligned}\]</span></p>
-<p>We’re done checking chunks when this distribution shows
+<p>We're done checking chunks when this distribution shows
             an acceptable range.<a class="footnote-ref" href="#fn4" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
 <h1 id="simulation">Simulation</h1>
 <p>Notice that for the <span class="math inline">\(p_i\)</span> to be monotone
             decreasing, <span class="math inline">\(b\)</span> must be
             negative. The crisper the ranking, the larger <span class="math inline">\(-b\)</span> will be. Rather than think
             hard about <span class="math inline">\(a\)</span> directly,
-            I’ve found it more convenient to only specify a total number
+            I've found it more convenient to only specify a total number
             of cases <span class="math inline">\(m\in [1, ...,
             n]\)</span> and use a root solver to find</p>
 <p><span class="math display">\[\begin{aligned}
             a: \frac{1}{n}\sum_{i=1}^n\text{expit}\left(a+b\cdot
             \frac{i}{n}\right) - \frac{m}{n} = 0.
             \end{aligned}\]</span></p>
-<p>I’ve developed simulation code that’s easy to modify and
-            play with; I’ll introduce the figures they make, and
+<p>I've developed simulation code that's easy to modify and
+            play with; I'll introduce the figures they make, and
             demonstrate a few cases here. Beyond that, playing with the
             parameters yourself should give you a stronger sense of
-            what’s going on.</p>
-<p>First, let’s plot the ranked <span class="math inline">\(p_i\)</span> values for <span class="math inline">\(n=1000\)</span>. In this case, the
+            what's going on.</p>
+<p>First, let's plot the ranked <span class="math inline">\(p_i\)</span> values for <span class="math inline">\(n=1000\)</span>. In this case, the
             ranker is only modestly successful: <span class="math inline">\(b:=-10\)</span>. The number of cases
             is <span class="math inline">\(m=100\)</span>. Who cares
             what <span class="math inline">\(a\)</span> turns out to be.
@@ -143,16 +146,16 @@
 </figure>
 <p>What follows next is a histogram of draws from the
             predictive distribution of false negatives, <span class="math inline">\(\widehat{\text{fn}}(i';
-            \widehat{a}, \widehat{b})\)</span>. We’d like these numbers
+            \widehat{a}, \widehat{b})\)</span>. We'd like these numbers
             to be small enough to stomach. If not low enough, keep
-            checking <span class="math inline">\(y_i\)</span>s. I’ve
+            checking <span class="math inline">\(y_i\)</span>s. I've
             also put a blue bar showing the true expected number of
             remaining cases.</p>
 <p>Please note that the <span class="math inline">\(y\)</span>-axis is log-scaled, and the
             <span class="math inline">\(x\)</span>-axis is not
             constrained.</p>
 <figure id="fig:figure1">
-<p><img src="coverage_rankbad.png"/> <span data-label="fig:figure1" id="fig:figure1" style="width:70%; margin:auto; display:block;></span></p>
+<p><img src="coverage_rankbad.png" style="width:70%; margin:auto; display:block;"/> <span data-label="fig:figure1" id="fig:figure1"></span></p>
 </figure>
 <p>Are these numbers too high? This is for someone in charge
             to decide.</p>
@@ -168,7 +171,7 @@
             notices that the cases currently being checked are 50/50 hit
             or miss (in stark contrast to earlier checks)<a class="footnote-ref" href="#fn6" id="fnref6" role="doc-noteref"><sup>6</sup></a>. This actually looks
             like an acceptable place to stop!</p></li>
-<li><p>The final row is overkill: they haven’t seen a case
+<li><p>The final row is overkill: they haven't seen a case
             in a while, they just wanted to be sure. The resulting false
             negative distribution agrees: the expected number of
             remaining cases is a strong zero. Not one, zero.</p></li>
@@ -249,7 +252,7 @@ legend("topright", legend = c("Simulation", "Truth"), fill = c(gray, NA),
 <hr/>
 <ol>
 <li id="fn1"><p>The key assumption might
-            not be true. There’s no specific reason for the <span class="math inline">\(p_i\)</span> to take this specific
+            not be true. There's no specific reason for the <span class="math inline">\(p_i\)</span> to take this specific
             form, or even be monotone decreasing. But we have to start
             somewhere, and I think this assumption will be pretty good
             if the ranker does its job.<a class="footnote-back" href="#fnref1" role="doc-backlink">↩︎</a></p></li>
@@ -258,32 +261,45 @@ legend("topright", legend = c("Simulation", "Truth"), fill = c(gray, NA),
             then coefficients <span class="math inline">\(a\)</span> and
             <span class="math inline">\(b\)</span> would rely on <span class="math inline">\(n\)</span>, which is inelegant, hence
             the normalization.<a class="footnote-back" href="#fnref2" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>I’m happy to go into details about how such
+<li id="fn3"><p>I'm happy to go into details about how such
             point estimates and covariance are gotten from maximum
             likelihood theory, but I imagine you either know it already,
-            or don’t but assume the details have been worked out. (They
+            or don't but assume the details have been worked out. (They
             have.)<a class="footnote-back" href="#fnref3" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p><em>Caveat emptor</em>: like any predictive
             distribution, the truth is not guaranteed to be near the
             average or anything like that, only that the distribution
             covers the truth, and only approximately so with finite
-            samples. If you run this simulation many times, you’ll see
+            samples. If you run this simulation many times, you'll see
             this relationship. But simulated coverage is good for <span class="math inline">\(n=1000\)</span> (approximately our
             case).<a class="footnote-back" href="#fnref4" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>In the Methods section, this is referred to
-            as <span class="math inline">\(i'\)</span>. I’ve called
+            as <span class="math inline">\(i'\)</span>. I've called
             it <span class="math inline">\(n_{\text{investigated}}\)</span> in
             the plot for interpretability.<a class="footnote-back" href="#fnref5" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>If Equation <a data-reference="eq" data-reference-type="ref" href="#eq">[eq]</a> this
             occurs precisely when <span class="math inline">\(i'=m\)</span>.<a class="footnote-back" href="#fnref6" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
-</div>
-<div class="breadcrumbs">
-     <a href="../../../technical-writings.html">← Back to Technical Writings</a>
-</div>
-</main>
-</div>
-</div>
-</body>
+          </div>
+          
+          <div class="breadcrumbs">
+            <a href="../../../technical-writings.html">← Back to Technical Writings</a>
+          </div>
+        </main>
+      </div>
+    </div>
+    
+    <footer class="site-footer">
+      <span class="footer-item">
+        Patrick Staples
+      </span>
+      <span class="footer-item">
+        <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+      </span>
+      <span class="footer-item">
+        <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+      </span>
+    </footer>
+  </body>
 </html>

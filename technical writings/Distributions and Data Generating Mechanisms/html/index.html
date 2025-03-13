@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patrick Staples - Distributions and Data Generating
-Mechanisms</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <title>Distributions and Data Generating Mechanisms - Patrick Staples</title>
+    <link rel="stylesheet" href="../../../styles/main.css">
     <!-- MathJax for rendering LaTeX -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -67,11 +66,11 @@ Mechanisms</title>
             integral.</p>
             <p>In the examples below, we will sometimes write <span
             class="math inline">\(\displaystyle p(x) \propto
-            f(x)\)</span> to indicate “<span
+            f(x)\)</span> to indicate "<span
             class="math inline">\(p(x)\)</span> is proportional to <span
             class="math inline">\(f(x)\)</span>, and the rest of the
             constant is chosen to make things sum or integrate to
-            1.”</p>
+            1."</p>
             <p>We will start with the simplest distributions and then
             build up to slightly more complex ones, showing how certain
             distributions arise naturally from data generating
@@ -87,7 +86,7 @@ Mechanisms</title>
             class="math display">\[p(x) = p^x (1-p)^{1-x},\]</span>
             where <span class="math inline">\(0 &lt; p &lt;
             1\)</span>.</p>
-            <p>This particular distribution doesn’t have an normalizing
+            <p>This particular distribution doesn't have an normalizing
             constant: because <span class="math inline">\(x\)</span> is
             either 0 or 1, we can see that this function is either <span
             class="math inline">\(p\)</span> (when <span
@@ -98,8 +97,8 @@ Mechanisms</title>
             <h3 class="unnumbered" id="intuitive-explanation">Intuitive
             Explanation</h3>
             <p>A Bernoulli random variable represents a single trial
-            with two possible outcomes (often called “success” and
-            “failure”), with probability <span
+            with two possible outcomes (often called "success" and
+            "failure"), with probability <span
             class="math inline">\(p\)</span> of success. You might think
             of tossing a possibly biased coin. The pmf reflects that if
             <span class="math inline">\(X=1\)</span> (success), we get
@@ -205,8 +204,8 @@ Mechanisms</title>
             id="intuitive-explanation-4">Intuitive Explanation</h3>
             <p>The Poisson often describes the number of events (say,
             fish sightings in a river) that occur within a fixed time
-            interval, given that each instant has a fixed “instantaneous
-            probability” (sometimes called a hazard rate) of an event.
+            interval, given that each instant has a fixed "instantaneous
+            probability" (sometimes called a hazard rate) of an event.
             If events happen independently at a constant average rate
             <span class="math inline">\(\lambda\)</span>, then the count
             in one unit of time follows a Poisson(<span
@@ -217,7 +216,7 @@ Mechanisms</title>
             class="math inline">\(\lambda_2\)</span>, is Poisson with
             rate <span class="math inline">\(\lambda_1 +
             \lambda_2\)</span>.</em> This makes sense if you imagine two
-            independent “streams” of events. Combining them simply
+            independent "streams" of events. Combining them simply
             creates one Poisson process with a higher total rate <span
             class="math inline">\(\lambda_1 + \lambda_2\)</span>.</p>
             <h1 class="unnumbered" id="exponential-distribution">6.
@@ -236,14 +235,14 @@ Mechanisms</title>
             with rate <span class="math inline">\(\lambda\)</span>. The
             waiting time until the <em>first event</em> is
             Exponential(<span class="math inline">\(\lambda\)</span>).
-            In other words, there’s a fixed instantaneous hazard rate
+            In other words, there's a fixed instantaneous hazard rate
             <span class="math inline">\(\lambda\)</span> at any
             moment.</p>
             <p>This distribution is a continuous analog to the geometric
             distribution: the probability of seeing the first event in a
             tiny interval is <span class="math inline">\(\lambda \times
             \text{(length of interval)}\)</span>, and no memory is
-            retained if it doesn’t happen. When you integrate the kernel
+            retained if it doesn't happen. When you integrate the kernel
             <span class="math inline">\(e^{-\lambda x}\)</span> from
             <span class="math inline">\(0\)</span> to <span
             class="math inline">\(\infty\)</span>, you get <span
@@ -282,9 +281,9 @@ Mechanisms</title>
             <em>continuous generalization</em> of that same idea. The
             factor <span class="math inline">\(x^{\alpha-1}\)</span> in
             the kernel arises naturally from the process of summing
-            multiple exponential waiting times (the “shape” <span
+            multiple exponential waiting times (the "shape" <span
             class="math inline">\(\alpha\)</span> is effectively how
-            many exponentials you’re summing).</p>
+            many exponentials you're summing).</p>
             <h1 class="unnumbered" id="normal-gaussian-distribution">8.
             Normal (Gaussian) Distribution</h1>
             <h3 class="unnumbered" id="kernel-7">Kernel</h3>
@@ -296,7 +295,7 @@ Mechanisms</title>
             Up to a constant, the kernel is <span
             class="math display">\[\text{Kernel} \;=\;
             \exp\!\Bigl(-\frac{(x-\mu)^2}{2\sigma^2}\Bigr).\]</span></p>
-            <p>Don’t let that form scare you: it’s the exponential of a
+            <p>Don't let that form scare you: it's the exponential of a
             downward quadratic, with two parameters that govern the mean
             and width.</p>
             <h3 class="unnumbered"
@@ -309,7 +308,7 @@ Mechanisms</title>
             mean and variance, in many cases the distribution of that
             sum (properly scaled) approaches a Normal distribution. Its
             exponential form in the kernel reflects how, in the
-            continuum, we are effectively capturing the “bell-shape”
+            continuum, we are effectively capturing the "bell-shape"
             that results from averaging many small random
             contributions.</p>
             <h1 class="unnumbered" id="summary-of-connections">Summary
@@ -323,7 +322,7 @@ Mechanisms</title>
             <li><p><em>Negative Binomial</em> is the general count of
             failures (or trials) until the <span
             class="math inline">\(r\)</span>-th success.</p></li>
-            <li><p><em>Poisson</em> arises from a “constant hazard”
+            <li><p><em>Poisson</em> arises from a "constant hazard"
             count process, and sums neatly with other Poissons.</p></li>
             <li><p><em>Exponential</em> is the waiting time for the
             first event in a Poisson process.</p></li>
@@ -342,5 +341,17 @@ Mechanisms</title>
         </main>
       </div>
     </div>
+    
+    <footer class="site-footer">
+      <span class="footer-item">
+        Patrick Staples
+      </span>
+      <span class="footer-item">
+        <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+      </span>
+      <span class="footer-item">
+        <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+      </span>
+    </footer>
   </body>
 </html> 
