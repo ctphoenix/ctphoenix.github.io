@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>A Brief Intro to Likelihood Theory - Patrick Staples</title>
-<link href="../../../styles/main.css" rel="stylesheet"/>
+<title>Patrick Staples - Brief Intro to Likelihood Theory</title>
+<link href="styles/main.css" rel="stylesheet"/>
 <!-- MathJax for rendering LaTeX -->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -17,84 +17,342 @@
 <h1 class="brand">Patrick Staples</h1>
 </header>
 <nav>
-    <div class="nav-content">
-      <span class="nav-item">
-        <a href="../../../index.html">Home</a>
-      </span>
-      <span class="nav-item active">
-        <a href="../../../technical-writings.html">Technical Writings</a>
-      </span>
-      <span class="nav-item">
-        <a href="../../../music.html">Music</a>
-      </span>
-      <span class="nav-item">
-        <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
-      </span>
-      <span class="nav-item">
-        <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
-      </span>
-    </div>
-  </nav>
+  <div class="nav-content">
+    <span class="nav-item">
+      <a href="../../../index.html">Home</a>
+    </span>
+    <span class="nav-item active">
+      <a href="../../../technical-writings.html">Technical Writings</a>
+    </span>
+    <span class="nav-item">
+      <a href="../../../music.html">Music</a>
+    </span>
+    <span class="nav-item">
+      <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+    </span>
+    <span class="nav-item">
+      <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+    </span>
+  </div>
+</nav>
 <main>
 <div class="breadcrumbs">
-    <a href="../../../technical-writings.html">← Back to Technical Writings</a>
+<a href="../../../technical-writings.html">← Back to Technical Writings</a>
 </div>
-<h1>A Brief Intro to Likelihood Theory</h1>
+<h1>Brief Intro to Likelihood Theory</h1>
 <div class="math-content">
-<p>This is a brief introduction to likelihood theory. It's a powerful tool for statistical inference, and it's the foundation for many statistical methods.</p>
-
-<h2>What is Likelihood?</h2>
-<p>The likelihood function \(L(\theta | x)\) is proportional to the probability of observing data \(x\) given parameters \(\theta\):</p>
-
-<p>\[L(\theta | x) \propto P(x | \theta)\]</p>
-
-<p>For discrete random variables, the likelihood is exactly the probability mass function evaluated at the observed data. For continuous random variables, it's the probability density function.</p>
-
-<h2>The Likelihood Principle</h2>
-<p>The likelihood principle states that all the information about \(\theta\) in a sample is contained in the likelihood function. This means that two different statistical models or experiments that yield the same likelihood function should lead to the same inferences about \(\theta\).</p>
-
-<h2>Maximum Likelihood Estimation</h2>
-<p>The maximum likelihood estimate (MLE) of \(\theta\) is the value that maximizes the likelihood function:</p>
-
-<p>\[\hat{\theta}_{MLE} = \arg\max_{\theta} L(\theta | x)\]</p>
-
-<p>Often, we work with the log-likelihood function \(\ell(\theta | x) = \log L(\theta | x)\) because it's mathematically more convenient and doesn't change the location of the maximum.</p>
-
-<h2>Example: Normal Distribution</h2>
-<p>For a sample \(x_1, x_2, \ldots, x_n\) from a normal distribution \(N(\mu, \sigma^2)\), the likelihood function is:</p>
-
-<p>\[L(\mu, \sigma^2 | x) = \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x_i - \mu)^2}{2\sigma^2}\right)\]</p>
-
-<p>Taking the log:</p>
-
-<p>\[\ell(\mu, \sigma^2 | x) = -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i - \mu)^2\]
-
-<p>The MLEs are:</p>
-
-<p>\[\hat{\mu} = \frac{1}{n}\sum_{i=1}^{n}x_i\]</p>
-
-<p>\[\hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^{n}(x_i - \hat{\mu})^2\]</p>
-
-<h2>Likelihood Ratio Tests</h2>
-<p>The likelihood ratio test compares the maximum likelihood under a restricted model (null hypothesis \(H_0\)) to the maximum likelihood under an unrestricted model (alternative hypothesis \(H_1\)):</p>
-
-<p>\[\Lambda = \frac{\max_{\theta \in \Theta_0} L(\theta | x)}{\max_{\theta \in \Theta} L(\theta | x)}\]</p>
-
-<p>Under certain regularity conditions, \(-2\log\Lambda\) follows a chi-squared distribution asymptotically.</p>
-
-<h2>Visualization</h2>
-<p>Here's a visualization of a likelihood function for a simple parameter:</p>
-
-<figure class="figure">
-  <img src="likelihood_plot.png" alt="Likelihood function plot" style="width:70%; margin:auto; display:block;">
-  <figcaption>Likelihood function for a parameter θ. The maximum likelihood estimate is where the function peaks.</figcaption>
+<p>We take basic statistical estimators for granted. For
+            example, for a distribution with mean <span class="math inline">\(\mu\)</span>, we estimate it using
+            <span class="math inline">\(\overline{\mathbf{x}}:=\sum_i
+            x_i/n\)</span>. But why exactly <em>that</em> equation? This
+            is a small supplement if you’d like a really good answer to
+            that.
+<h1 id="probability-and-likelihood">Probability and
+            Likelihood</h1>
+<p>We tend to talk about probability, <span class="math inline">\(\mathbb{P}(\mathbf{X}|\boldsymbol{\theta})\)</span>,
+            for data <span class="math inline">\(\mathbf{X}\)</span> and
+            parameters <span class="math inline">\(\boldsymbol{\theta}\)</span><a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref"><sup>1</sup></a>. For example, <span class="math inline">\(\mathbf{X}\)</span> could be an array
+            of numbers and <span class="math inline">\(\boldsymbol{\theta}\)</span> might be
+            mean and standard deviation, <span class="math inline">\(\{\mu, \sigma\}\)</span>. The basic
+            way to estimate <span class="math inline">\(\boldsymbol{\theta}\)</span> would be
+            to look at a related function, the <em>likelihood</em>,
+            which is the probability of the parameters given the data:
+            <span class="math inline">\(\mathcal{L}(\boldsymbol{\theta}|\mathbf{X})
+            \propto \mathbb{P}(\boldsymbol{\theta}|\mathbf{X})\)</span>
+            (more on this in a bit). After all, this is the situation we
+            find ourselves in in real life: given that I have this data
+            <span class="math inline">\(\mathbf{X}\)</span>, what are
+            the most likely guesses of the statistics I’m interested in
+            <span class="math inline">\(\boldsymbol{\theta}\)</span>? We
+            will simply take the maximum of this function. This is
+            called...</p>
+<div class="center">
+<p><strong><em>Maximum Likelihood
+            Estimation</em></strong></p>
+</div>
+<p>If the likelihood is smooth and convex (like a dirt mound
+            or something), then the maximum corresponds to the unique
+            point where there is no slope. Furthermore, we can get a
+            sense of how "maximumy" that point is by looking at the
+            best-fitting parabola centered at the best guess for the
+            maximum. The technical terms for these is the <em>score</em>
+            and the <em>information</em>, respectively, and will be
+            calculated by taking the first and second derivatives of the
+            likelihood. Here’s a general picture of what we’re looking
+            to find, and the other things we’ll calculate for a single
+            parameter:</p>
+<figure id="fig:likelihood_plot">
+<p><img src="likelihood_plot.png" style="width:70%; margin:auto; display:block;"/>
+<span data-label="fig:likelihood_plot" id="fig:likelihood_plot"></span></p>
+<figcaption>Conceptual visualization of likelihood, score,
+            and information</figcaption>
 </figure>
-
-<h2>Conclusion</h2>
-<p>Likelihood theory provides a unified framework for statistical inference. It's the basis for many statistical methods, including maximum likelihood estimation, likelihood ratio tests, and Bayesian inference (where the likelihood is combined with a prior distribution).</p>
+<p>Keep in mind that while this function is smooth as we
+            vary <span class="math inline">\(\theta\)</span>, the data
+            it’s defined on is random, making our maximum point only an
+            estimate of the truth. Also, the curvature of the parabola
+            is directly related to the variance of the estimate itself:
+            in fact, it’s the inverse! Let me say that again: the
+            <em>variance</em> of our estimator is the inverse of the
+            <em>information</em> we have about it. This is a rare case
+            where statisticians have given crisp, meaningful names to
+            important concepts.</p>
+<h2 id="how-probability-and-likelihood-are-related">How
+            probability and likelihood are related</h2>
+<p>This subsection is designed to be crystal clear about
+            what likelihood is, and why it’s conceptually different from
+            probability. The subtle difference between them is the
+            reversal of what is conditional:</p>
+<ul>
+<li><p>Probability: <span class="math inline">\(\mathbb{P}(\mathbf{X}|\boldsymbol{\theta})\)</span>
+            - the probability of observing data <span class="math inline">\(\mathbf{X}\)</span> given parameters
+            <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p></li>
+<li><p>Likelihood: <span class="math inline">\(\mathbb{P}(\boldsymbol{\theta}|\mathbf{X})\)</span>
+            - how likely the parameters <span class="math inline">\(\boldsymbol{\theta}\)</span> are,
+            given the observed data <span class="math inline">\(\mathbf{X}\)</span>.</p></li>
+</ul>
+<p>I want to motivate this distinction more mathematically,
+            and let’s start from basic principles about what conditional
+            probability is. For any two things that might happen <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (and the event of both
+            happening is <span class="math inline">\(A\cap B\)</span>),
+            the definition of a conditional probability is<a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<p><span class="math display">\[\mathbb{P}(A|B) :=
+            \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}\]</span></p>
+<p>This means that assuming <span class="math inline">\(B\)</span> happens, what’s the
+            probability that <span class="math inline">\(A\)</span>
+            happens in addition to <span class="math inline">\(B\)</span>. We will certainly get more
+            intuition about conditional probability later in class.
+            Rearranging the above equation, <span class="math inline">\(\mathbb{P}(A|B)\cdot\mathbb{P}(B) =
+            \mathbb{P}(A \cap B)\)</span>. Also, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> could be anything, so you
+            could also write <span class="math inline">\(\mathbb{P}(B|A)\mathbb{P}(A) =
+            \mathbb{P}(B \cap A)\)</span>. Finally, because <span class="math inline">\(\mathbb{P}(A \cap B)=\mathbb{P}(B \cap
+            A)\)</span> (it’s symmetric), then it follows:</p>
+<p><span class="math display">\[\mathbb{P}(A|B)\mathbb{P}(B)
+            = \mathbb{P}(B|A)\mathbb{P}(A)\]</span></p>
+<p>Rearranging slightly, we get:</p>
+<p><span class="math display">\[\mathbb{P}(A|B) =
+            \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}\]</span></p>
+<p>This happens to be called <em>Bayes’ Theorem</em>, and
+            we’ll talk more about it later in class soon. For now, it’s
+            barely a profound theorem at all, just a straightforward
+            rewriting of some basic probability concepts. Getting back
+            to likelihood, let’s apply this to our context of data <span class="math inline">\(\textbf{X}\)</span> and parameters
+            <span class="math inline">\(\boldsymbol{\theta}\)</span>:</p>
+<p><span class="math display">\[\mathbb{P}(\boldsymbol{\theta}|\textbf{X})
+            =
+            \frac{\mathbb{P}(\textbf{X}|\boldsymbol{\theta})\mathbb{P}(\boldsymbol{\theta})}{\mathbb{P}(\textbf{X})}\]</span></p>
+<p>In traditional (<em>frequentist</em>) likelihood theory,
+            we often ignore <span class="math inline">\(\mathbb{P}(\boldsymbol{\theta})\)</span>,
+            as if to say as don’t have a guess about the parameters’
+            values absent any data.<a class="footnote-ref" href="#fn3" id="fnref3" role="doc-noteref"><sup>3</sup></a> Also, <span class="math inline">\(\mathbb{P}(\mathbf{X})\)</span> is
+            just a constant with respect to <span class="math inline">\(\boldsymbol{\theta}\)</span>, so
+            maximizing the likelihood doesn’t depend on that at all. So
+            as long as we’re happy ignoring <span class="math inline">\(\mathbb{P}(\boldsymbol{\theta})\)</span>
+            we have:</p>
+<p><span class="math display">\[\mathcal{L}(\boldsymbol{\theta}|\mathbf{X})
+            := \mathbb{P}(\boldsymbol{\theta}|\mathbf{X}) \propto
+            \mathbb{P}(\mathbf{X}|\boldsymbol{\theta})\]</span></p>
+<p>So importantly, when switching our thinking to
+            likelihood, we actually just use the equations associated
+            with the probability itself. Nothing about the forms of the
+            distributions involved change, we just shift our attention
+            to maximizing the parameters <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p>
+<p>Last comment, if the observations <span class="math inline">\(\mathbf{X} = \{X_1, X_2, ...,
+            X_n\}\)</span> are independent, the likelihood is
+            proportional to the <em>product</em> of individual
+            probabilities:</p>
+<p><span class="math display">\[\mathcal{L}(\boldsymbol{\theta}|X_1,
+            X_2, ..., X_n) \propto \mathbb{P}(X_1, X_2, ...,
+            X_n)|\boldsymbol{\theta}) = \prod_{i=1}^n
+            \mathbb{P}(X_i|\boldsymbol{\theta})\]</span></p>
+<h1 id="maximizing-likelihood">Maximizing Likelihood</h1>
+<p>Now that we’ve pinned down what likelihood is, let’s
+            maximize it with respect to our statistics of choice <span class="math inline">\(\boldsymbol{\theta}\)</span>. For a
+            smooth likelihood function, the maximum occurs where the
+            derivative is zero in all directions. Mathematically:</p>
+<p><span class="math display">\[\frac{\partial
+            \mathcal{L}(\boldsymbol{\theta}|\mathbf{X})}{\partial
+            \boldsymbol{\theta}} = \mathbf{0}\]</span></p>
+<p>Solving this equation to be equal to zero is where the
+            rubber meets the road. That is, it’s how we <em>derive</em>
+            the estimates we use. Consider that it’s easier to maximize
+            the log of the likelihood, which will also maximize the
+            actual likelihood, as it’s a monotone increasing function.
+            We do that because it’s more convenient, as it transforms
+            products into sums:</p>
+<p><span class="math display">\[\ell(\boldsymbol{\theta}|\mathbf{X})
+            := \log
+            \mathcal{L}(\boldsymbol{\theta}|\mathbf{X})\]</span></p>
+<p>The <em>score</em> is defined as the partial derivative
+            of the log-likelihood function with respect to its
+            parameters:</p>
+<p><span class="math display">\[\mathcal{S}(\boldsymbol{\theta}) :=
+            \frac{\partial
+            \ell(\boldsymbol{\theta}|\mathbf{X})}{\partial
+            \mathbf{\theta}}\]</span></p>
+<p>This is the thing we will solve to be zero, and doing so
+            will give us our maximum likelihood estimates <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>.</p>
+<h1 id="information-and-variance">Information and
+            Variance</h1>
+<p>The (Fisher)<a class="footnote-ref" href="#fn4" id="fnref4" role="doc-noteref"><sup>4</sup></a>
+<em>information</em> is a measure of the amount of
+            information that data <span class="math inline">\(\mathbf{X}\)</span> carries about an
+            unknown parameters <span class="math inline">\(\boldsymbol{\theta}\)</span>. It’s
+            defined as the negative expected value of the
+            <em>second</em> derivative of the log-likelihood
+            function:</p>
+<p><span class="math display">\[\mathcal{I}(\boldsymbol{\theta}) =
+            -\mathbb{E}\left[\frac{\partial^2
+            \ell(\boldsymbol{\theta}|\mathbf{X})}{\partial
+            \boldsymbol{\theta}^2}\right]\]</span></p>
+<p>(Don’t worry about the expected value part “<span class="math inline">\(\mathbb{E}\)</span>” if it’s not
+            familiar, the ideas and examples in this doc it won’t change
+            at all, I just want to be precise.) Conceptually, this
+            corresponds to the level of curvature in the parabola in
+            Figure 1. Information is the inverse of the variance of the
+            estimator:</p>
+<p><span class="math display">\[Var(\hat{\boldsymbol{\theta}}) =
+            \mathcal{I}(\boldsymbol{\theta})^{-1}\]</span></p>
+<p>The mathematical reasons are a bit too deep to go into
+            here, but it does make intuitive sense: the more information
+            about an estimator you have, the less variance it will
+            exhibit if you repeatedly got a fresh dataset and calculated
+            the maximum-likelihood estimate.</p>
+<h1 id="example-1-normal-distribution">Example 1: Normal
+            Distribution</h1>
+<p>Alright, let’s make these concepts thumpingly concrete by
+            demonstrating them. Let’s start with a univariate normal
+            distribution. Suppose we have a sample <span class="math inline">\(\mathbf{X}=\{X_1, ..., X_n\}\)</span>
+            drawn from a normal distribution with unknown mean <span class="math inline">\(\mu\)</span> and known variance <span class="math inline">\(\sigma^2\)</span>, and we want an
+            estimate of the mean <span class="math inline">\(\hat{\mu}\)</span>. We know this
+            should be the average <span class="math inline">\(\sum_i x_i
+            / n\)</span>, but we’ll derive it and watch it appear before
+            our very eyes!</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Normal_distribution">likelihood
+            function</a> is:</p>
+<p><span class="math display">\[\mathcal{L}(\mu|\mathbf{X})
+            = \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}}
+            \exp\left(-\frac{(X_i -
+            \mu)^2}{2\sigma^2}\right)\]</span></p>
+<p>The log-likelihood is:</p>
+<p><span class="math display">\[\ell(\mu|\mathbf{X}) =
+            -\frac{n}{2}\log(2\pi\sigma^2) -
+            \frac{1}{2\sigma^2}\sum_{i=1}^n (X_i - \mu)^2\]</span></p>
+<p>So the score is:</p>
+<p><span class="math display">\[\mathcal{S}(\mu) =
+            \frac{\partial \ell(\mu|\boldsymbol{X})}{\partial \mu} =
+            \frac{1}{\sigma^2}\sum_{i=1}^n (X_i - \mu)\]</span></p>
+<p>Setting this to zero and solving gives us the MLE for
+            <span class="math inline">\(\mu\)</span>:</p>
+<p><span class="math display">\[\hat{\mu} =
+            \frac{1}{n}\sum_{i=1}^n X_i\]</span></p>
+<p>To find the information, we take the negative expectation
+            of the second derivative of the log-likelihood:</p>
+<p><span class="math display">\[\mathcal{I}(\mu) =
+            -\mathbb{E}\left[\frac{\partial^2
+            \ell(\mu|\mathbf{X})}{\partial \mu^2}\right] =
+            \frac{n}{\sigma^2}\]</span></p>
+<p>So the variance of the estimator is <span class="math inline">\(\mathcal{I}(\mu)^{-1} =
+            \sigma^2/n\)</span>. It’s not a coincidence that this
+            matches the guarantees of the Central Limit Theorem! The
+            variance of an average is the variance of the original
+            population, divided by the sample size.</p>
+<h1 id="example-2-multivariate-linear-regression">Example 2:
+            Multivariate Linear Regression</h1>
+<p>We’re getting slightly ahead of ourselves, but let’s do a
+            more athletic example, multivariate linear regression. If
+            you don’t follow all of the derivation in this example it’s
+            not a problem at all, but if you did decide to brush up on
+            your linear algebra and calculus, you should be able to
+            follow it. Here’s the model in this case:</p>
+<p><span class="math display">\[\mathbf{y} =
+            \mathbf{X}{\beta} + {\epsilon}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><p><span class="math inline">\(\mathbf{y}\)</span> is
+            the outcome (an <span class="math inline">\(n \times
+            1\)</span> vector)</p></li>
+<li><p><span class="math inline">\(\mathbf{X}\)</span> is
+            our data (an <span class="math inline">\(n \times p\)</span>
+            matrix of predictors)</p></li>
+<li><p><span class="math inline">\({\beta}\)</span> is
+            our fitted coefficients (a <span class="math inline">\(p
+            \times 1\)</span> vector)</p></li>
+<li><p><span class="math inline">\({\epsilon}\)</span>
+            are the errors (an <span class="math inline">\(n \times
+            1\)</span> vector)</p></li>
+</ul>
+<p>If the errors are independent (the scope of this course)
+            and normally distributed (an assumption of linear regression
+            anyways), the likelihood function is:</p>
+<p><span class="math display">\[\mathcal{L}({\beta},
+            \sigma^2|\mathbf{y},\mathbf{X}) = (2\pi\sigma^2)^{-n/2}
+            \exp\left(-\frac{1}{2\sigma^2}(\mathbf{y} -
+            \mathbf{X}{\beta})^T(\mathbf{y} -
+            \mathbf{X}{\beta})\right)\]</span></p>
+<p>Maximizing this directly would be horrible, but as
+            typical it’s better after taking the log:</p>
+<p><span class="math display">\[\ell({\beta},
+            \sigma^2|\mathbf{y},\mathbf{X}) =
+            -\frac{n}{2}\log(2\pi\sigma^2) -
+            \frac{1}{2\sigma^2}(\mathbf{y} -
+            \mathbf{X}{\beta})^T(\mathbf{y} -
+            \mathbf{X}{\beta})\]</span></p>
+<p>To find the maximum likelihood estimate of <span class="math inline">\({\beta}\)</span>, we differentiate
+            the log-likelihood with respect to <span class="math inline">\({\beta}\)</span> (the score)<a class="footnote-ref" href="#fn5" id="fnref5" role="doc-noteref"><sup>5</sup></a>:</p>
+<p><span class="math display">\[\mathcal{S}(\boldsymbol{\beta}) =
+            \frac{\partial \ell}{\partial {\beta}} =
+            \frac{1}{\sigma^2}\mathbf{X}^T(\mathbf{y} -
+            \mathbf{X}{\beta})\]</span></p>
+<p>Setting this to zero and solving for <span class="math inline">\({\beta}\)</span>:</p>
+<p><span class="math display">\[\mathbf{X}^T\mathbf{X}{\beta} =
+            \mathbf{X}^T\mathbf{y}\]</span></p>
+<p><span class="math display">\[\Rightarrow
+            \boxed{\hat{{\beta}} =
+            (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}}\]</span></p>
+<p>This is the closed-form solution for the maximum
+            likelihood estimates in multivariate linear regression! You
+            can see that all it takes to compute them in practice is to
+            do a matrix multiplication, take an inverse, then two more
+            matrix multiplications. Deceptively simple at the end of it
+            all. Let’s go on and derive the information, taking the
+            negative expectated value of the second derivative of the
+            log-likelihood with respect to <span class="math inline">\({\beta}\)</span>:</p>
+<p><span class="math display">\[\mathcal{I}({\beta}) =
+            -\mathbb{E}\left[\frac{\partial^2 \ell}{\partial {\beta}
+            \ \partial{\beta}^T}\right] =
+            \frac{1}{\sigma^2}\mathbf{X}^T\mathbf{X}\]</span></p>
+<p>Taking the inverse, the covariance matrix is:</p>
+<p><span class="math display">\[Var(\hat{{\beta}}) =
+            \sigma^2(\mathbf{X}^T\mathbf{X})^{-1}\]</span></p>
+<p>You can then use these to form confidence intervals, do
+            hypothesis testing, whatever you’d like. That’s it! That’s
+            literally everything you need to know to do maximum
+            likelihood estimation yourself!</p>
+<section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+<hr/>
+<ol>
+<li id="fn1"><p>Going forward I’m going to bold things that
+            are either vectors or matrices, and otherwise everything
+            else is a single number.<a class="footnote-back" href="#fnref1" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Note that this only makes sense if <span class="math inline">\(\mathbb{P}(B)&gt;0\)</span>. The math
+            required to make sense of conditionals in the general case
+            is an eldritch horror which is best kept in its accursed
+            crypt.<a class="footnote-back" href="#fnref2" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>A <em>bayesian</em> (as they call
+            themselves) would definitely NOT ignore this, and criticize
+            this whole approach for doing so. This is a deep
+            philosophical tension tbh.<a class="footnote-back" href="#fnref3" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Named after R.A. Fisher, a foundationally
+            important statistical theorist. <a class="footnote-back" href="#fnref4" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>This differentiation might seem to come from
+            nowhere, but this is using the logic of <a href="https://www2.imm.dtu.dk/pubdb/pubs/3274-full.html">differentiation
+            for matrices</a>, and is good to keep fresh.<a class="footnote-back" href="#fnref5" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 </div>
 <div class="breadcrumbs">
-    <a href="../../../technical-writings.html">← Back to Technical Writings</a>
+<a href="../../../technical-writings.html">← Back to Technical Writings</a>
 </div>
 </main>
 </div>
