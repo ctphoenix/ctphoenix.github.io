@@ -4,9 +4,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Patrick Staples - A better confidence interval for
-proportions</title>
-<link href="styles/main.css" rel="stylesheet"/>
+<title>A Better Confidence Interval for Proportions - Patrick Staples</title>
+<link href="../../../styles/main.css" rel="stylesheet"/>
 <!-- MathJax for rendering LaTeX -->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -41,7 +40,7 @@ proportions</title>
         <a href="../../../technical-writings.html">← Back to Technical Writings</a>
       </div>
 
-<h1>A better confidence interval for proportions</h1>
+<h1>A Better Confidence Interval for Proportions</h1>
 <div class="math-content">
 <h1 class="unnumbered" id="the-problem-with-small-samples">The Problem with Small
             Samples</h1>
@@ -56,33 +55,33 @@ proportions</title>
             use this to give a confidence interval for p: <span class="math display">\[\widehat{\text{CI}(p)}=\hat{p} \pm
             q_\alpha\sqrt{\frac{p(1-p)}{n}}\]</span> where <span class="math inline">\(\alpha\)</span> is the false positive
             rate and <span class="math inline">\(q_\alpha:=\int_{x=1-\alpha/2}^\infty
-            \mathbb{P}(N(0, 1) = x)\)</span>. But for small <span class="math inline">\(n\)</span>, this won’t be exact
+            \mathbb{P}(N(0, 1) = x)\)</span>. But for small <span class="math inline">\(n\)</span>, this won't be exact
             because <span class="math inline">\(p\in [0, 1]\)</span>,
             but <span class="math inline">\(\widehat{\text{CI}(p)}\)</span> could
             be outside <span class="math inline">\([0, 1]\)</span>.
             Generally, for small <span class="math inline">\(n\)</span>,
-            we don’t have any guarantee that <span class="math inline">\(100\cdot(1-\alpha)\%\)</span> of the
+            we don't have any guarantee that <span class="math inline">\(100\cdot(1-\alpha)\%\)</span> of the
             confidence intervals will contain <span class="math inline">\(p\)</span>.</p>
 <h1 class="unnumbered" id="new-method">New Method</h1>
 <p>For <span class="math inline">\(x_1, ..., x_n \sim
             X\)</span> with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, the CLT says: <span class="math display">\[\sum x_i/n \sim N(\mu,
-            \sigma^2/n)\]</span> as <span class="math inline">\(n\rightarrow \infty\)</span>. Let’s
+            \sigma^2/n)\]</span> as <span class="math inline">\(n\rightarrow \infty\)</span>. Let's
             say we want to transform the sample average by appling a
             function <span class="math inline">\(f\)</span> to it. The
             CLT still applies! Specifically:</p>
 <p><span class="math display">\[f(\sum (x_i)/n) \sim
             N(f(\mu,\sigma^2/n\cdot
             \left[f'(\mu)\right]^2)\]</span></p>
-<p>This is called the Delta Method. So here’s an idea for
+<p>This is called the Delta Method. So here's an idea for
             how to make a better confidence interval for the proportion:
-            I’ll tranform <span class="math inline">\(\hat{p}\)</span>
+            I'll tranform <span class="math inline">\(\hat{p}\)</span>
             to range between <span class="math inline">\((-\infty,
             \infty)\)</span>, find a confidence interval for that, then
             undo the transformation to the resulting lower and upper
             bounds so that they are also inside <span class="math inline">\([0, 1]\)</span>. Any function <span class="math inline">\(f: [0, 1] \rightarrow (-\infty,
-            \infty)\)</span> will work, but I’ll pick one similar to
+            \infty)\)</span> will work, but I'll pick one similar to
             what we saw in class: <span class="math inline">\(f(p)=\text{log}(\frac{p}{1-p})\)</span>.</p>
-<p>If you do the math, you’ll see that <span class="math inline">\(f'(p) = \frac{1}{p(1-p)}\)</span>,
+<p>If you do the math, you'll see that <span class="math inline">\(f'(p) = \frac{1}{p(1-p)}\)</span>,
             and <span class="math inline">\(f^{-1}(z) =
             \frac{e^z}{1+e^z}\)</span>. So the Delta Method says the CLT
             on the transformed proportion is:</p>
@@ -92,7 +91,7 @@ proportions</title>
 <p><span class="math display">\[(\text{lower}, \text{upper})
             = f(\hat{p}) \pm
             q_\alpha\sqrt{\frac{1}{\hat{p}(1-\hat{p})n}}\]</span></p>
-<p>To put get back a new confidence interval for <span class="math inline">\(\hat{p}\)</span>, I’ll apply <span class="math inline">\(f^{-1}\)</span> to the confidence
+<p>To put get back a new confidence interval for <span class="math inline">\(\hat{p}\)</span>, I'll apply <span class="math inline">\(f^{-1}\)</span> to the confidence
             interval bounds. That is, my new confidence interval
             is:<span class="math display">\[\left(\frac{e^\text{lower}}{1+e^\text{lower}},\
             \frac{e^\text{upper}}{1+e^\text{upper}}\right)\]</span></p>
@@ -103,8 +102,8 @@ proportions</title>
             traditional use of the CLT is reliably off– specifically, it
             under-covers the true proportion in small sample sizes. The
             new method is pretty much spot on.</p>
-<p> <br/>
-            Finally, I’m adding the code I wrote to create these
+<p> <br/>
+            Finally, I'm adding the code I wrote to create these
             simulations and plots.</p>
 <h1 class="unnumbered" id="plots">Plots</h1>
 <p><img src="plot_0.png" style="width:70%; margin:auto; display:block;"/>
@@ -174,5 +173,17 @@ for example_p_ix in range(5):
 </main>
 </div>
 </div>
+
+<footer class="site-footer">
+  <span class="footer-item">
+    Patrick Staples
+  </span>
+  <span class="footer-item">
+    <a href="https://www.linkedin.com/in/patrick-staples/" target="_blank">LinkedIn</a>
+  </span>
+  <span class="footer-item">
+    <a href="https://scholar.google.com/citations?user=obAll0UAAAAJ" target="_blank">Google Scholar</a>
+  </span>
+</footer>
 </body>
 </html> 
