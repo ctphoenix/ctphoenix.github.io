@@ -1,0 +1,153 @@
+\documentclass[margin,line]{res}
+
+\usepackage{amsmath, amssymb,graphicx}
+\usepackage{xcolor}
+\definecolor{linkcolor}{HTML}{4287f5}
+\usepackage[colorlinks=true,urlcolor=linkcolor,linkcolor=linkcolor,citecolor=linkcolor]{hyperref}
+
+\newenvironment{bulletlist}{
+  \begin{list}{$\bullet$}{%
+      \setlength{\itemsep}{0cm}
+      \setlength{\parsep}{0cm}
+      \setlength{\parskip}{0cm}
+      \setlength{\topsep}{0cm}
+      \setlength{\partopsep}{0cm}
+      \setlength{\leftmargin}{0.15in}
+      \setlength{\labelwidth}{0.05in}
+      \setlength{\labelsep}{0.1in}
+      \setlength{\itemindent}{0in}
+      \setlength{\rightmargin}{0in}}}
+  {\end{list}}
+
+% Redefine the \href command to make links bold
+\let\oldhref\href
+\renewcommand{\href}[2]{\oldhref{#1}{\textbf{#2}}}
+
+\begin{document}
+
+\name{Patrick Staples \vspace*{.1in}}
+
+\begin{resume}
+\section{\sc Contact Information}
+\begin{tabular}{ll}
+{\bf Website} & \href{https://patrickstaples.com}{\tt patrickstaples.com} \\
+{\bf Linkedin} & \href{https://www.linkedin.com/in/patrick-staples}{\tt linkedin.com/in/patrick-staples} \\
+{\bf GitHub}  & \href{https://github.com/ctphoenix}{\tt github.com/ctphoenix} \\
+{\bf Email} & \href{mailto:patrickchristianstaples@gmail.com}{\tt patrickchristianstaples@gmail.com} \\
+{\bf Phone}  & {(801) 915-4243} \\
+\end{tabular}
+
+\ \\[-.75cm]
+\section{\sc Experience}
+{\bf Compass Pathways}, San Francisco, CA \hfill{2023 - present }\\
+\textit{Principal Data Scientist and Engineer} \\[-.35cm]
+\begin{bulletlist}
+\item Developing scalable AI agents with human-inspired psychological capacities
+\item Developing simulated patients and therapists in context of mental health
+\item Developing a general statistical method for aligning two set of timestamped intervals
+\item Designed a method for early detection of adverse outcomes given cost restraints
+\end{bulletlist}
+
+{\bf Alto Neuroscience}, Los Altos, CA \hfill{2021 - 2023 }\\
+\textit{VP, Data Science} \\[-.35cm]
+\begin{bulletlist}
+\item Liaised between data science, data quality, engineering, and product orgs
+\item Ran agile project management and led a team of $>10$ data scientists
+\item Established causal inference methods: propensity and counterfactual modeling
+\item Derived a method fitting unconfounded supervised model
+\end{bulletlist}
+\vspace{-0.1cm}
+
+{\bf Migo Money}, San Francisco, CA \hfill{2019 - 2021 }\\
+\textit{Senior Data Scientist} \\[-.35cm]
+\begin{bulletlist}
+\item Created a method producing unsecured loan sequences that maximize customer LTV
+\item Replaced previous creditworthiness products, resulting in a net profitable loanbook
+\item Expanded customer base, offering tailored loans to a deeper customer pool
+\end{bulletlist}
+\vspace{-0.1cm}
+
+{\bf Mindstrong Health}, Mountain View, CA \hfill {2018 - 2019}\\
+\textit{Data Scientist} \\[-.35cm]
+\begin{bulletlist}
+\item Productionized mental health biomarkers using smartphone keystroke data
+\item Derived a statistical technique for supervised and kernelized dimension reduction for longitudinal data; wrote a paper and open-source code for public use
+\item Led development of the company's core modeling and data science infrastructure
+\end{bulletlist}
+
+{\bf Harvard University}, Boston, MA  \hfill 2016 - 2018\\
+\textit{Postdoctoral Fellow} \\[-.35cm]
+\begin{bulletlist}
+\item Built boilerplate codebase for storing, cleaning, and preprocessing raw sensor data
+\item Defined merge protocols between sensor data and highly heterogeneous clinical data
+\item Created pipelines for creating features informed by known biological mechanisms
+\item Translated high-level grant aims into tractable analyses and published papers
+\item Orchestrated lab-affiliated research between PIs, engineers, students, and medical professionals
+\end{bulletlist}
+
+{\bf HarvardX}, Cambridge, MA  \hfill 2016 - 2018\\
+\textit{Course Content Creator: Using Python for Research}
+
+{\bf KLAS Research}, Provo, UT  \hfill 2009 - 2011\\
+\textit{Statistician} \\[.15cm]
+
+\pagebreak
+\section{\sc Education}
+{\bf Harvard University, Department of Biostatistics}, Boston, MA \\
+Ph.D., Biostatistics, 2013-2016. Advisor: Jukka-Pekka Onnela, D.Sc. \\
+\textit{Dissertation}: On the Statistical Properties of Epidemics on Networks.
+
+{\bf Harvard University, Department of Biostatistics}, Boston, MA \\
+M.A., Biostatistics, 2011-2013
+
+{\bf Brigham Young University}, Provo, UT \\
+B.A., Mathematics, 2010-2011, \textit{Summa cum laude} \\
+B.A., Statistics, 2008-2010, \textit{Summa cum laude}
+
+\ \\[-.75cm]
+\section{\sc Teaching and Consulting}
+{\bf Stanford University}, Stanford, CA  \hfill 2023 - Present\\[-.35cm]
+\begin{bulletlist}
+\item Teaching a course on statistical inference, machine learning, and AI
+\end{bulletlist}
+
+{\bf LAMP Labs}, Boston, MA  \hfill 2018 - 2019\\[-.35cm]
+\begin{bulletlist}
+\item Delivered an API for accessing digital phenotyping measurements of smartphone data, including mobility and social metrics
+\item Delivered a sleep estimation method using accelerometer data
+\end{bulletlist}
+
+{\bf UCSD}, San Diego, CA  \hfill 2013\\[-.35cm]
+\begin{bulletlist}
+\item Delivered a method implementation and GUI for estimating clinical trial power while accounting for cluster structure in the presence of across-cluster interference
+\end{bulletlist}
+
+\ \\[-.75cm]
+\section{\sc Selected Publications\quad\quad \& Code}
+{\it H-index}: 14 \\[-.1cm]
+
+\begin{bulletlist}
+\item {\bf Staples P.}, Dougherty R., {\it et al}. ``Building virtual patients for training mental health professionals." 2025. \href{https://osf.io/preprints/psyarxiv/epqtc_v2}{Preprint}; \href{https://github.com/compasspathways/ai-patient-demo/}{Code}.
+\item Senders J, \textbf{Staples P.}, {\it et al}. ``An online calculator for the prediction of survival in glioblastoma patients using classical statistics and machine learning." {\it Neurosurgery} 2020. \href{https://cnoc-bwh.shinyapps.io/gbmsurvivalpredictor/}{App}.
+\item \textbf{Staples P.}, Dagum P., {\it et al.} ``Supervised kernel PCA for longitudinal data." 2018. \href{https://arxiv.org/abs/1808.06638}{Preprint}; \href{https://pypi.org/project/sklPCA/}{Code}.
+\item {\bf Staples P},* Torous J,* Onnela JP., {\it et al}. ``A comparison of passive and active estimates of sleep in a cohort with schizophrenia." {\it NPJ Schizophrenia}. 2017.
+\item Balzer L., {\bf Staples P.}, {\it et al}. ``Using a network-based approach and targeted maximum likelihood estimation to evaluate the effect of adding pre-exposure prophylaxis to an ongoing test-and-treat trial." {\it Clinical Trials} 2017. \href{https://github.com/ctphoenix/HIV-PrEP-Simulation}{Code}.
+\item Bohren A, {\bf Staples P.}, {\it et al}. ``Power calculation software for randomized saturation experiments." {\it World Bank}, 2016. \href{https://blogs.worldbank.org/en/impactevaluations/power-calculation-software-randomized-saturation-experiments}{App}.
+\end{bulletlist}
+
+\ \\[-.75cm]
+\section{\sc Skills}
+\begin{tabular}{ll}
+{\bf AI} & AI agent development, prompt engineering, novel RAG variants \\
+{\bf Code} & Python (advanced), R, C/C++, C\#, \LaTeX \\
+{\bf Data Science} & ML ops, feature engineering, predictive modeling, anomaly detection\\
+{\bf Statistics} & Causal inference, high-dimensional and longitudinal methods,\\
+&epidemiology, network science \\
+\end{tabular}
+
+\end{resume}
+\end{document}
+
+
+
+

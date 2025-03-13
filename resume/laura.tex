@@ -1,0 +1,155 @@
+\documentclass[margin,line]{res}
+
+\usepackage{amsmath, amssymb,graphicx}
+\usepackage{hyperref}
+%\oddsidemargin -.5in
+%\evensidemargin -.5in
+%\textwidth=6.0in
+%\itemsep=0in
+%\parsep=0in
+
+\newenvironment{list1}{
+  \begin{list}{\ding{113}}{%
+      \setlength{\itemsep}{0in}
+      \setlength{\parsep}{0in} \setlength{\parskip}{0in}
+      \setlength{\topsep}{0in} \setlength{\partopsep}{0in} 
+      \setlength{\leftmargin}{0.17in}}}{\end{list}}
+\newenvironment{list2}{
+  \begin{list}{$\bullet$}{%
+      \setlength{\itemsep}{0in}
+      \setlength{\parsep}{0in} \setlength{\parskip}{0in}
+      \setlength{\topsep}{0in} \setlength{\partopsep}{0in} 
+      \setlength{\leftmargin}{0.2in}}}{\end{list}}
+
+
+\begin{document}
+
+\name{Laura Florescu \vspace*{.1in}}
+
+\begin{resume}
+\section{\sc Contact Information}
+\vspace{.05in}
+\begin{tabular}{@{}p{2in}p{4in}}
+801 Corbett Ave      & \url{http://cims.nyu.edu/~florescu} \\            
+San Francisco, CA 94131    & {\it E-mail:}  lara.florescu@gmail.com\\
+{\it Phone:}  (503) 470 0184 & {\it GitHub:}  \url{https://github.com/florescl} \\       
+\end{tabular}
+{\it Linkedin:} \url{https://www.linkedin.com/in/laura-florescu-48692b103}  
+
+
+\section{\sc Experience}
+{\bf MosaicML}, San Francisco, CA \hfill{2021 - present }\\ 
+AI Researcher. Projects include \\
+- algorithmic speedups of neural network training \\
+- segmentation, detection model implementation \\
+- investigation of alternative custom hardware
+
+{\bf Sambanova Systems}, Palo Alto, CA \hfill{2019 - 2021 }\\
+\vspace{0.cm}
+Principal Engineer in ML team. Responsibilities including \\
+- bring-up of various models in NLP, GAN, CNN \\
+- helping design future chips \\
+- benchmarking models 
+\vspace{-0.1cm}
+
+{\bf Groq}, Menlo Park, CA \hfill{2017 - 2019 }\\
+\vspace{0.cm}
+Software engineer in Compiler Team working on AI hardware accelerators. Projects include \\
+- efficiently compiling and benchmarking classical and custom DL models \\
+- graph rewrites and optimizations \\
+- IR primitives lowering \\
+- leading compiler testing
+\vspace{-0.1cm}
+
+{\bf Microsoft Research}, Redmond, WA \hfill {2013 - 2016}\\
+\vspace{-.1cm}
+Algorithms and stochastic models R\&D
+
+{\bf Los Alamos National Laboratory}, Los Alamos, NM  \hfill 2011 - 2012\\
+\vspace{-.1cm}
+Computational plasma physics R\&D
+
+{\bf Oracle}, Portland, OR \hfill 2008 - 2010\\
+\vspace{-.1cm}
+Oracle Database Design and Programming SQL design
+\vspace{-.2cm}
+
+
+\section{\sc Education}
+{\bf New York University, Courant Inst. of Mathematical Sciences}, New York
+\begin{list2}
+\item Ph.D., Computer Science, 2012-2017. Advisor: Joel Spencer
+\item Thesis: Random growth models, \textbf{Dean Dissertation Fellowship award}.
+
+\vspace*{-.1in}
+\end{list2}
+
+{\bf Reed College}, Portland, OR USA.
+\begin{list2}
+\item B.A., Mathematics  May, 2011, {\it Phi Beta Kappa}.
+\vspace*{-.05in}
+\end{list2} 
+
+\section{\sc Honors and Awards}
+UnifyID AI Fellowship, 2016-2017.\\
+Dean's Dissertation Fellowship, NYU, 2016-2017.\\
+Summer Research Fellowship, NYU CS Department, 2013, 2014, 2016.\\
+Henry MacCracken Fellowship, NYU, Courant Institute. 2012-2017.\\
+Phi Beta Kappa, 2011.\\
+Reed College Commendation for Excellence in Scholarship, 2007 - 2011. \\
+\emph{1st} prize, Database Design International Contest, Oracle Academy, 2007.
+
+\section{\sc Academic and Industry Visits}
+{Simons Institute for the Theory of Computing}, Berkeley, CA. Spring 2016. \\
+{Microsoft Research, Theory Group}, Redmond, WA. short visits, '12-'15, Spring 15. \\
+{Institute for Mathematics and Applications}, Minneapolis, MN, Fall 2014.
+\vspace*{-.2in}
+\\
+
+\section{\sc Book}
+Spencer, J. with Florescu, L. \emph{Asymptopia}, \url{http://www.ams.org/bookstore-getitem/item=stml-71}, Student Mathematical Library, New York, NY, 2014.
+
+\section{\sc Teaching experience}
+Fundamental algorithms, NYU-Courant \hfill {Fall 2015, Spring 2016}\\
+Asymptopia, NYU-Courant \hfill {Spring 2014}
+
+\section{\sc Papers}
+Florescu, L., et al. \emph{Accelerating Scientific Applications With SambaNova Reconfigurable Dataflow Architecture}, IEEE 2021. \\
+Florescu, L., et al. \emph{Optimal control for diffusions on graphs}, SIDMA, 2018. \\
+Florescu, L., et al. \emph{Spectral thresholds in the bipartite SBM}, COLT16.\\
+Florescu, L., et al. \emph{The range of rotor walk}, Amer. Math Monthly, 2016\\
+Florescu, L., et al. \emph{Escape rates for rotor walk in $\mathbb{Z}^d$}, SIDMA, 2014.\\ 
+Florescu, L., et al. \emph{Heat diffusion with frozen boundary}, J. Stat Phys, 2015. \\
+Florescu, L., et al. \emph{Dominos and Sandpiles}, EJC, 22(1), 2015.
+
+\section{\sc Selected Talks}
+
+\emph{Making neural networks train faster algorithmically}, GGX, 2022 \\
+\emph{Spectral Thresholds in the Bipartite Stochastic Block Model}, NYU, Paris, Berkeley, 2016\\
+\emph{Optimal control for diffusions on a graph}, Casa Oaxaca, Mexico, 2015\\
+\emph{The range of a deterministic random walk}, Reed College, Math Colloquium, 2015\\
+\emph{The range of rotor walk}, Rutgers, Georgia Tech, Eindhoven 20115\\
+\emph{Frozen random walk}, IMA, University of Minnesota, 2014\\
+
+\vspace*{-5.5mm}
+\section{\sc Professional Memberships and Service}
+Organizer for ValleyML AI Hardware conference \\
+Girls who code Facilitator \\
+Reviewer for Women in Machine Learning Workshop\\
+Referee for SODA, SIAM J of Discrete Math, Electronic Comm. in Probability, Journal of Inequalities and Applications \\
+Mathematical Reviewer, American Mathematical Society \\
+Oracle International Database Design Competition Judge, 2009 and 2010\\
+\vspace*{-5.5mm}
+
+\section{\sc Skills} 
+Programming:  Pytorch, Tensorflow, Haskell, Python, C, Unix, Mathematica. \\
+Languages: Fluent in Romanian; intermediate French, German.
+\vspace{-.2cm}
+
+
+\end{resume}
+\end{document}
+
+
+
+
