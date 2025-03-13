@@ -71,7 +71,7 @@
             <p>My key assumption is that the log <em>odds</em> of belonging to a class is linear in \(z\), rather than the log <em>probability</em>. This will result in a new activation function, <em>softmaxit</em>. My derivation will follow soon, but I want to list the benefits of this approach beforehand. In addition to Benefits 1 and 2 still holding:</p>
             
             <ul>
-              <li><p><strong>Benefit 3b</strong>: This choice also yields a multinomial distribution controlled by a (new) transformation of z.</p></li>
+              <li><p><strong>Benefit 3b</strong>: This choice also yields a multinomial distribution controlled by a (new) transformation of \(z\).</p></li>
               <li><p><strong>Benefit 4</strong>: Log odds may take on any real value, just as \(z\) does in general. This is contrast to log probabilities, which must be non-positive.</p></li>
               <li><p><strong>Benefit 5</strong>: It's directly analogous to logistic regression. Notice that it would be similarly inelegant to regress on log probabilities instead of log odds, for the same reason.</p></li>
               <li><p><strong>Benefit 6</strong>: (minor, stylistic point) the conventional use of calling \(z\) a "logit" would now be appropriate and exact.</p></li>
