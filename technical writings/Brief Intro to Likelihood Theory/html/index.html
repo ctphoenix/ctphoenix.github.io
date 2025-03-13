@@ -45,7 +45,7 @@
             example, for a distribution with mean <span class="math inline">\(\mu\)</span>, we estimate it using
             <span class="math inline">\(\overline{\mathbf{x}}:=\sum_i
             x_i/n\)</span>. But why exactly <em>that</em> equation? This
-            is a small supplement if you’d like a really good answer to
+            is a small supplement if you'd like a really good answer to
             that.
 <h1 id="probability-and-likelihood">Probability and
             Likelihood</h1>
@@ -62,7 +62,7 @@
             (more on this in a bit). After all, this is the situation we
             find ourselves in in real life: given that I have this data
             <span class="math inline">\(\mathbf{X}\)</span>, what are
-            the most likely guesses of the statistics I’m interested in
+            the most likely guesses of the statistics I'm interested in
             <span class="math inline">\(\boldsymbol{\theta}\)</span>? We
             will simply take the maximum of this function. This is
             called...</p>
@@ -78,8 +78,8 @@
             maximum. The technical terms for these is the <em>score</em>
             and the <em>information</em>, respectively, and will be
             calculated by taking the first and second derivatives of the
-            likelihood. Here’s a general picture of what we’re looking
-            to find, and the other things we’ll calculate for a single
+            likelihood. Here's a general picture of what we're looking
+            to find, and the other things we'll calculate for a single
             parameter:</p>
 <figure id="fig:likelihood_plot">
 <p><img src="likelihood_plot.png" style="width:70%; margin:auto; display:block;"/>
@@ -89,10 +89,10 @@
 </figure>
 <p>Keep in mind that while this function is smooth as we
             vary <span class="math inline">\(\theta\)</span>, the data
-            it’s defined on is random, making our maximum point only an
+            it's defined on is random, making our maximum point only an
             estimate of the truth. Also, the curvature of the parabola
             is directly related to the variance of the estimate itself:
-            in fact, it’s the inverse! Let me say that again: the
+            in fact, it's the inverse! Let me say that again: the
             <em>variance</em> of our estimator is the inverse of the
             <em>information</em> we have about it. This is a rare case
             where statisticians have given crisp, meaningful names to
@@ -100,7 +100,7 @@
 <h2 id="how-probability-and-likelihood-are-related">How
             probability and likelihood are related</h2>
 <p>This subsection is designed to be crystal clear about
-            what likelihood is, and why it’s conceptually different from
+            what likelihood is, and why it's conceptually different from
             probability. The subtle difference between them is the
             reversal of what is conditional:</p>
 <ul>
@@ -112,13 +112,13 @@
             given the observed data <span class="math inline">\(\mathbf{X}\)</span>.</p></li>
 </ul>
 <p>I want to motivate this distinction more mathematically,
-            and let’s start from basic principles about what conditional
+            and let's start from basic principles about what conditional
             probability is. For any two things that might happen <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (and the event of both
             happening is <span class="math inline">\(A\cap B\)</span>),
             the definition of a conditional probability is<a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <p><span class="math display">\[\mathbb{P}(A|B) :=
             \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}\]</span></p>
-<p>This means that assuming <span class="math inline">\(B\)</span> happens, what’s the
+<p>This means that assuming <span class="math inline">\(B\)</span> happens, what's the
             probability that <span class="math inline">\(A\)</span>
             happens in addition to <span class="math inline">\(B\)</span>. We will certainly get more
             intuition about conditional probability later in class.
@@ -126,28 +126,28 @@
             \mathbb{P}(A \cap B)\)</span>. Also, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> could be anything, so you
             could also write <span class="math inline">\(\mathbb{P}(B|A)\mathbb{P}(A) =
             \mathbb{P}(B \cap A)\)</span>. Finally, because <span class="math inline">\(\mathbb{P}(A \cap B)=\mathbb{P}(B \cap
-            A)\)</span> (it’s symmetric), then it follows:</p>
+            A)\)</span> (it's symmetric), then it follows:</p>
 <p><span class="math display">\[\mathbb{P}(A|B)\mathbb{P}(B)
             = \mathbb{P}(B|A)\mathbb{P}(A)\]</span></p>
 <p>Rearranging slightly, we get:</p>
 <p><span class="math display">\[\mathbb{P}(A|B) =
             \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}\]</span></p>
-<p>This happens to be called <em>Bayes’ Theorem</em>, and
-            we’ll talk more about it later in class soon. For now, it’s
+<p>This happens to be called <em>Bayes' Theorem</em>, and
+            we'll talk more about it later in class soon. For now, it's
             barely a profound theorem at all, just a straightforward
             rewriting of some basic probability concepts. Getting back
-            to likelihood, let’s apply this to our context of data <span class="math inline">\(\textbf{X}\)</span> and parameters
+            to likelihood, let's apply this to our context of data <span class="math inline">\(\textbf{X}\)</span> and parameters
             <span class="math inline">\(\boldsymbol{\theta}\)</span>:</p>
 <p><span class="math display">\[\mathbb{P}(\boldsymbol{\theta}|\textbf{X})
             =
             \frac{\mathbb{P}(\textbf{X}|\boldsymbol{\theta})\mathbb{P}(\boldsymbol{\theta})}{\mathbb{P}(\textbf{X})}\]</span></p>
 <p>In traditional (<em>frequentist</em>) likelihood theory,
             we often ignore <span class="math inline">\(\mathbb{P}(\boldsymbol{\theta})\)</span>,
-            as if to say as don’t have a guess about the parameters’
+            as if to say as don't have a guess about the parameters'
             values absent any data.<a class="footnote-ref" href="#fn3" id="fnref3" role="doc-noteref"><sup>3</sup></a> Also, <span class="math inline">\(\mathbb{P}(\mathbf{X})\)</span> is
             just a constant with respect to <span class="math inline">\(\boldsymbol{\theta}\)</span>, so
-            maximizing the likelihood doesn’t depend on that at all. So
-            as long as we’re happy ignoring <span class="math inline">\(\mathbb{P}(\boldsymbol{\theta})\)</span>
+            maximizing the likelihood doesn't depend on that at all. So
+            as long as we're happy ignoring <span class="math inline">\(\mathbb{P}(\boldsymbol{\theta})\)</span>
             we have:</p>
 <p><span class="math display">\[\mathcal{L}(\boldsymbol{\theta}|\mathbf{X})
             := \mathbb{P}(\boldsymbol{\theta}|\mathbf{X}) \propto
@@ -166,7 +166,7 @@
             X_n)|\boldsymbol{\theta}) = \prod_{i=1}^n
             \mathbb{P}(X_i|\boldsymbol{\theta})\]</span></p>
 <h1 id="maximizing-likelihood">Maximizing Likelihood</h1>
-<p>Now that we’ve pinned down what likelihood is, let’s
+<p>Now that we've pinned down what likelihood is, let's
             maximize it with respect to our statistics of choice <span class="math inline">\(\boldsymbol{\theta}\)</span>. For a
             smooth likelihood function, the maximum occurs where the
             derivative is zero in all directions. Mathematically:</p>
@@ -174,11 +174,11 @@
             \mathcal{L}(\boldsymbol{\theta}|\mathbf{X})}{\partial
             \boldsymbol{\theta}} = \mathbf{0}\]</span></p>
 <p>Solving this equation to be equal to zero is where the
-            rubber meets the road. That is, it’s how we <em>derive</em>
-            the estimates we use. Consider that it’s easier to maximize
+            rubber meets the road. That is, it's how we <em>derive</em>
+            the estimates we use. Consider that it's easier to maximize
             the log of the likelihood, which will also maximize the
-            actual likelihood, as it’s a monotone increasing function.
-            We do that because it’s more convenient, as it transforms
+            actual likelihood, as it's a monotone increasing function.
+            We do that because it's more convenient, as it transforms
             products into sums:</p>
 <p><span class="math display">\[\ell(\boldsymbol{\theta}|\mathbf{X})
             := \log
@@ -197,7 +197,7 @@
 <p>The (Fisher)<a class="footnote-ref" href="#fn4" id="fnref4" role="doc-noteref"><sup>4</sup></a>
 <em>information</em> is a measure of the amount of
             information that data <span class="math inline">\(\mathbf{X}\)</span> carries about an
-            unknown parameters <span class="math inline">\(\boldsymbol{\theta}\)</span>. It’s
+            unknown parameters <span class="math inline">\(\boldsymbol{\theta}\)</span>. It's
             defined as the negative expected value of the
             <em>second</em> derivative of the log-likelihood
             function:</p>
@@ -205,8 +205,8 @@
             -\mathbb{E}\left[\frac{\partial^2
             \ell(\boldsymbol{\theta}|\mathbf{X})}{\partial
             \boldsymbol{\theta}^2}\right]\]</span></p>
-<p>(Don’t worry about the expected value part “<span class="math inline">\(\mathbb{E}\)</span>” if it’s not
-            familiar, the ideas and examples in this doc it won’t change
+<p>(Don't worry about the expected value part "<span class="math inline">\(\mathbb{E}\)</span>" if it's not
+            familiar, the ideas and examples in this doc it won't change
             at all, I just want to be precise.) Conceptually, this
             corresponds to the level of curvature in the parabola in
             Figure 1. Information is the inverse of the variance of the
@@ -220,13 +220,13 @@
             the maximum-likelihood estimate.</p>
 <h1 id="example-1-normal-distribution">Example 1: Normal
             Distribution</h1>
-<p>Alright, let’s make these concepts thumpingly concrete by
-            demonstrating them. Let’s start with a univariate normal
+<p>Alright, let's make these concepts thumpingly concrete by
+            demonstrating them. Let's start with a univariate normal
             distribution. Suppose we have a sample <span class="math inline">\(\mathbf{X}=\{X_1, ..., X_n\}\)</span>
             drawn from a normal distribution with unknown mean <span class="math inline">\(\mu\)</span> and known variance <span class="math inline">\(\sigma^2\)</span>, and we want an
             estimate of the mean <span class="math inline">\(\hat{\mu}\)</span>. We know this
             should be the average <span class="math inline">\(\sum_i x_i
-            / n\)</span>, but we’ll derive it and watch it appear before
+            / n\)</span>, but we'll derive it and watch it appear before
             our very eyes!</p>
 <p>The <a href="https://en.wikipedia.org/wiki/Normal_distribution">likelihood
             function</a> is:</p>
@@ -253,18 +253,18 @@
             \ell(\mu|\mathbf{X})}{\partial \mu^2}\right] =
             \frac{n}{\sigma^2}\]</span></p>
 <p>So the variance of the estimator is <span class="math inline">\(\mathcal{I}(\mu)^{-1} =
-            \sigma^2/n\)</span>. It’s not a coincidence that this
+            \sigma^2/n\)</span>. It's not a coincidence that this
             matches the guarantees of the Central Limit Theorem! The
             variance of an average is the variance of the original
             population, divided by the sample size.</p>
 <h1 id="example-2-multivariate-linear-regression">Example 2:
             Multivariate Linear Regression</h1>
-<p>We’re getting slightly ahead of ourselves, but let’s do a
+<p>We're getting slightly ahead of ourselves, but let's do a
             more athletic example, multivariate linear regression. If
-            you don’t follow all of the derivation in this example it’s
+            you don't follow all of the derivation in this example it's
             not a problem at all, but if you did decide to brush up on
             your linear algebra and calculus, you should be able to
-            follow it. Here’s the model in this case:</p>
+            follow it. Here's the model in this case:</p>
 <p><span class="math display">\[\mathbf{y} =
             \mathbf{X}{\beta} + {\epsilon}\]</span></p>
 <p>Where:</p>
@@ -291,7 +291,7 @@
             \mathbf{X}{\beta})^T(\mathbf{y} -
             \mathbf{X}{\beta})\right)\]</span></p>
 <p>Maximizing this directly would be horrible, but as
-            typical it’s better after taking the log:</p>
+            typical it's better after taking the log:</p>
 <p><span class="math display">\[\ell({\beta},
             \sigma^2|\mathbf{y},\mathbf{X}) =
             -\frac{n}{2}\log(2\pi\sigma^2) -
@@ -315,7 +315,7 @@
             can see that all it takes to compute them in practice is to
             do a matrix multiplication, take an inverse, then two more
             matrix multiplications. Deceptively simple at the end of it
-            all. Let’s go on and derive the information, taking the
+            all. Let's go on and derive the information, taking the
             negative expectated value of the second derivative of the
             log-likelihood with respect to <span class="math inline">\({\beta}\)</span>:</p>
 <p><span class="math display">\[\mathcal{I}({\beta}) =
@@ -326,13 +326,13 @@
 <p><span class="math display">\[Var(\hat{{\beta}}) =
             \sigma^2(\mathbf{X}^T\mathbf{X})^{-1}\]</span></p>
 <p>You can then use these to form confidence intervals, do
-            hypothesis testing, whatever you’d like. That’s it! That’s
+            hypothesis testing, whatever you'd like. That's it! That's
             literally everything you need to know to do maximum
             likelihood estimation yourself!</p>
 <section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
 <hr/>
 <ol>
-<li id="fn1"><p>Going forward I’m going to bold things that
+<li id="fn1"><p>Going forward I'm going to bold things that
             are either vectors or matrices, and otherwise everything
             else is a single number.<a class="footnote-back" href="#fnref1" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Note that this only makes sense if <span class="math inline">\(\mathbb{P}(B)&gt;0\)</span>. The math
